@@ -2,6 +2,7 @@ package com.pedro.historia;
 
 import com.pedro.UtilForMe;
 import com.pedro.configuracoes.PlayerConfigurations;
+import com.pedro.eventos.Checkpoint;
 import com.pedro.referenteAosPersonagens.Player;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -33,39 +34,46 @@ public abstract class EventosSecundarios {
     public static void primeiraQuedaEventos(Player p) throws InterruptedException, IOException, SQLException {
         UtilForMe.fakeClear(50,false); //verificado
 
-        for (int evento = 1; evento < 4; evento++) {
+        for (int evento = 1; evento < 5; evento++) {
             if (evento == 1 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(1);
+                Notas.notasEventos(1,1);
                 UtilForMe.fakeClear(50,true); //verificado
-                EventosSecundarios.Descanso(p, 1);
                 break;
             } else if (evento == 2 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(2);
+                Notas.notasEventos(2,1);
                 UtilForMe.fakeClear(50,true); //verificado
-                EventosSecundarios.Descanso(p, 1);
                 break;
             } else if (evento == 3 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(3);
+                Notas.notasEventos(3,1);
                 UtilForMe.fakeClear(50,true); //verificado
-                EventosSecundarios.Descanso(p, 1);
                 break;
-            } else {
-                System.out.println("Parece que não há nada mais para ser visto, você segue em frente...");
+            }
+         else if (evento == 4 && !p.notasLidas.contains(Integer.toString(evento))) {
+            p.notasLidas.add(Integer.toString(evento));
+            Notas.notasEventos(5,1);
+            UtilForMe.fakeClear(50, true); //verificado
+            break;
             }
         }
+        EventosSecundarios.Descanso(p, 1);
 
     }
 
-    public static void Descanso(Player p, int Queda) throws InterruptedException, IOException, SQLException {
+    public static void Descanso(Player p, int queda) throws InterruptedException, IOException, SQLException {
 
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
         int escolha = -1;
 
         String txtDescanso = getTextoDescanso();
+
+        //checkPoint
+        if(queda == 1){
+            p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_DESCANSO);
+        }
 
         while (escolha != 5) {
             UtilForMe.fakeClear(50,false); //verificado
@@ -87,14 +95,15 @@ public abstract class EventosSecundarios {
                     break;
                 case 2:
                     UtilForMe.fakeClear(50,false); //verificado
-                    inimigosMortosTextos(Queda, p);
+                    inimigosMortosTextos(queda, p);
                     reader.getBuffer().clear();
-                    escolha = Integer.parseInt(reader.readLine());
+                     reader.readLine();
                     break;
                 case 3:
                     StringBuilder notaTexto = new StringBuilder();
                     var notasL = new java.util.ArrayList<>(p.notasLidas);
                     Collections.sort(notasL);
+                    int notaASerLida;
                     for (int i = 0; i < notasL.size(); i++) {
 
                         notaTexto.append("( ")
@@ -109,12 +118,12 @@ public abstract class EventosSecundarios {
                                     .append(notasL.size() + 1)
                                     .append(" ) Para sair");
                         }
+
                     }
 
                     while (true) {
 
                         System.out.println(notaTexto);
-
                         try {
                             reader.getBuffer().clear();
                             escolha = Integer.parseInt(reader.readLine());
@@ -123,11 +132,8 @@ public abstract class EventosSecundarios {
                                 break; // sair do while
                             }
 
-                            Notas.notasEventos(escolha);
-                            System.out.println("\n( ENTER ) Para voltar");
-
-                            reader.readLine();
-                            UtilForMe.fakeClear(50,false); //verificado
+                            Notas.notasEventos(escolha,queda); //fixme não é o escolha
+                            UtilForMe.fakeClear(50,true); //verificado
                         } catch (NumberFormatException e) {
                             System.out.println("Digite um número válido!");
                         }
@@ -142,6 +148,7 @@ public abstract class EventosSecundarios {
                     PlayerConfigurations.salvarPlayer(p);
                     break;
                 case 5:
+
                     break;
             }
 

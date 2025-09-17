@@ -77,52 +77,8 @@ public final class TelaInicial {
             escolha = reader.readLine().trim();
             switch (escolha) {
                 case "1":
-                    var sql = """
-                -- Tabela principal do jogador
-                  CREATE TABLE IF NOT EXISTS Player (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      nome  VARCHAR(100),
-                      level INTEGER,
-                      nomePassiva VARCHAR(100),
-                      pontosHabilidade INTEGER,
-                      tipoDano  VARCHAR(25),
-                      lore VARCHAR(25)
-                  );
-                """;
-
-                    var sql2 ="""
-                  -- Tabela com estatísticas e progresso
-                  CREATE TABLE IF NOT EXISTS PlayerStats (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      player_id   INTEGER NOT NULL,
-                      carnMortos  INTEGER,
-                      magoMortos  INTEGER,
-                      demonMortos INTEGER,
-                      xpAtual     DECIMAL,
-                      xpParaProximoLevel DECIMAL,
-                      notasLidas  VARCHAR(30),
-                      carnDeCadaLevelMorto  VARCHAR(30),
-                      magoDeCadaLevelMorto  VARCHAR(30),
-                      demonDeCadaLevelMorto VARCHAR(30),
-                      vida  DECIMAL,
-                      dano  DECIMAL,
-                      armaduraMagica DECIMAL,
-                      armaduraFisica DECIMAL,
-                      FOREIGN KEY (player_id) REFERENCES Player(id)
-                  );
-                """;
-
-                    try {
-                        Statement statement = conexao.createStatement();
-                        statement.execute(sql);
-                        statement.execute(sql2);
-
-
-                    } catch (SQLException e) {
-                        System.out.println("Erro: " + e.getMessage());
-                    }
-
-                     x = PlayerConfigurations.criarNovoPlayer();
+                    PlayerConfigurations.criarTabela();
+                    x = PlayerConfigurations.criarNovoPlayer();
 
                 break;
                 case "2":

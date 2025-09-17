@@ -23,24 +23,30 @@ public class Main{
  public static void main(String[] args) throws InterruptedException, IOException, SQLException {
   Logger.getLogger("org.jline").setLevel(Level.OFF);
   PlayerConfigurations.carregarConfiguracoes();
+
   //TODO: Boss figth
   //TODO: order - history - boss figth - banco de dados
   //Todo: locais
-  //Todo: morte do player
-  //todo: delete de player / save
+  //FIXME texto passivas
   //todo: intro opcional
   
 
   Terminal terminal = TerminalBuilder.builder().system(true).build();
   LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
-  Notas.notasIntro(1);
+//  Notas.notasIntro(1);
 
   Player player = TelaInicial.escolhasTelaInicial();
 
-  UtilForMe.tempoDeLeitura(Notas.notasPersonagens(player));
-  UtilForMe.fakeClear(50,true); //verificado
+  if(player.getCheckPoint().name().contains("NO_CHECK")){
+    UtilForMe.tempoDeLeitura(Notas.notasPersonagens(player));
+    UtilForMe.fakeClear(50,true); //verificado
+  }
 
-  PrimeiraQueda.Start(player);
+
+  if(player.getCheckPoint().name().contains("PRIMEIRA_QUEDA") || player.getCheckPoint().name().contains("NO_CHECK")){
+   PrimeiraQueda.Start(player);
+  }
+
 
 
 

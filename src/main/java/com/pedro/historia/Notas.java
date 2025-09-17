@@ -7,8 +7,8 @@ import jdk.jshell.execution.Util;
 import java.io.IOException;
 
 public class Notas {
-    public static void notasEventos(int nota) throws InterruptedException, IOException {
-        if (nota == 1) {
+    public static void notasEventos(int nota,int queda) throws InterruptedException, IOException {
+        if (nota == 1 && queda == 1) {
             UtilForMe.tempoDeLeitura("Após um tempo de caminhada, você vê ao longe, uma cadeia de montanhas, decide se aproximar e vê que não são apenas montanhas\n" +
                     "e sim ruínas, de algo que parecia ser uma vila........\n");
             UtilForMe.tempoDeLeitura("""
@@ -96,7 +96,7 @@ public class Notas {
                     
                     """);
 
-        } else if (nota == 3) {
+        } else if (nota == 3 && queda == 1) {
             UtilForMe.tempoDeLeitura("""
                     "Entre as ruínas, você encontra rastros estranhos no chão. Marcas de garras, sangue escurecido, pedaços de carne seca espalhados como 
                     restos de uma refeição apressada. O cheiro é insuportável — doce demais para ser apenas sangue, amargo demais para ser apenas podridão.
@@ -128,22 +128,36 @@ public class Notas {
                     Mas você já sabe: aqui, viver não é resistir — é alimentar o inimigo."
                     
                     """);
-        } else if (nota == 4){
+        } else if (nota == 4 && queda == 1) {
             UtilForMe.tempoDeLeitura("""
-                Após matar o inimigo, você percebe algo estranho...
-                A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
-                A magia não nasceu do carniceiro… mas de algo maior.
-                
-                Eis o enigma:
-                
-                - A carne é a chave, mas o portão exige ordem.
-                Alguns oferecem quantidade, outros oferecem variedade.
-                Um banquete de muitos, ou o gosto de cada sangue único.
-                Escolha sua oferenda… e o portão decidirá. -
-                
-                O que será que ele significa? Agora não importa, ainda existem inimigos por perto.
-                
-                """);
+                    Após matar o inimigo, você percebe algo estranho...
+                    A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
+                    A magia não nasceu do carniceiro… mas de algo maior.
+                    
+                    Eis o enigma:
+                    
+                    - A carne é a chave, mas o portão exige ordem.
+                    Alguns oferecem quantidade, outros oferecem variedade.
+                    Um banquete de muitos, ou o gosto de cada sangue único.
+                    Escolha sua oferenda… e o portão decidirá. -
+                    
+                    O que será que ele significa? Agora não importa, ainda existem inimigos por perto.
+                    
+                    """);
+
+        }else if(nota == 5 && queda == 1){
+           UtilForMe.tempoDeLeitura("""
+                   Para quem ousar enfrentar o Guardião da Primeira Queda
+                   Vi um aventureiro de alto escalão atravessar a câmara e encarar a massa viva que chamamos de O Amálgama.
+                   Nenhum golpe comum surtiu efeito; a própria carne rejeitava lâminas e feitiços.
+                   Então, algo curioso aconteceu: símbolos flutuaram no ar, como palavras feitas de luz.
+                   O aventureiro murmurava cada uma, com precisão e rapidez, e só então sua lâmina perfurava a criatura.
+                   Parece que a besta é selada por uma magia antiga.
+                   Somente quem repetir as palavras que ela projeta conseguirá romper a barreira por um instante.
+                   
+                   Se você ler isto, prepare seus reflexos e sua mente.
+                   — Relato de Iren, Observador da Fenda
+                   """);
         }
     }
 

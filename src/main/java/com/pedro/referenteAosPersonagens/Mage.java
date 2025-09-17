@@ -30,11 +30,11 @@ public class Mage extends Enemy {
 
     public void definirAtributos(double dificultModifyer,Player player){
         definirLevel(player);
-        this.life = r.nextInt(100,130) + (level*dificultModifyer+dificultModifyer+2)*20;
+        this.life = r.nextInt(100,130) + (level*dificultModifyer+dificultModifyer+2)*25;
         this.actLife = life;
         this.magicArmor = r.nextInt(5,10) + (level*dificultModifyer+dificultModifyer+1);
-        this.damage = r.nextInt(15,20) + (level*dificultModifyer+dificultModifyer+1.5)*26;
-        this.armor = r.nextInt(10,15) +(level*dificultModifyer+dificultModifyer+1)*1.5;
+        this.damage = r.nextInt(15,20) + (level*dificultModifyer+dificultModifyer+1.5)*24;
+        this.armor = r.nextInt(10,15) +(level*dificultModifyer+dificultModifyer+1)*1.3;
     };
 
 }

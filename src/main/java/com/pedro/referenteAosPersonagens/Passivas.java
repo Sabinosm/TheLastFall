@@ -11,46 +11,23 @@ public class Passivas {
 
     public static String qualPassiva(Mob m) {
         String[] passString = m.passiva.split("-");
-        String nomePassiva = "none";
-        switch (passString[0]) {
-            case "Corpo divino":
-                nomePassiva = "Corpo divino";
-                break;
-            case "Guardião da ruína":
-                nomePassiva = "Guardião da ruína";
-                break;
-            case "Predador da Carne":
-                nomePassiva = "Predador da Carne";
-                break;
-            case "Último suspiro":
-                nomePassiva = "Último suspiro";
-                break;
-            case "Caça Implacável":
-                nomePassiva = "Caça Implacável";
-                break;
-            case "Frenezi":
-                nomePassiva = "Frenezi";
-                break;
-            case "No resistence":
-                nomePassiva = "No resistence";
-                break;
-            case "Potion master":
-                nomePassiva = "Potion master";
-                break;
-            case "Magic upgrade":
-                nomePassiva = "Magic upgrade";
-                break;
-            case "Hellfire":
-                nomePassiva = "Hellfire";
-                break;
-            case "A bet with the devil":
-                nomePassiva = "A bet with the devil";
-                break;
-            case "Life steal":
-                nomePassiva = "Life steal";
-                break;
-        }
-        return nomePassiva;
+        return switch (passString[0]) {
+            case "Corpo divino" -> "Corpo divino";
+            case "Guardião da ruína" -> "Guardião da ruína";
+            case "Berserker" -> "Berserker";
+            case "Espelho arcano"->"Espelho arcano";
+            case "Um pouco de sorte"->"Um pouco de sorte";
+            case "Último suspiro" -> "Último suspiro";
+            case "Caça Implacável" -> "Caça Implacável";
+            case "Frenezi" -> "Frenezi";
+            case "No resistence" -> "No resistence";
+            case "Potion master" -> "Potion master";
+            case "Magic upgrade" -> "Magic upgrade";
+            case "Hellfire" -> "Hellfire";
+            case "A bet with the devil" -> "A bet with the devil";
+            case "Life steal" -> "Life steal";
+            default -> "none";
+        };
     }
 
     public static void atualizarAtributos(Mob x, int round, Mob atacante) {

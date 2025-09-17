@@ -1,6 +1,8 @@
 package com.pedro.referenteAosPersonagens;
 
 import com.pedro.UtilForMe;
+import com.pedro.configuracoes.PlayerConfigurations;
+import com.pedro.eventos.Checkpoint;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.reader.Parser;
@@ -8,14 +10,15 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Player extends Mob {
-    protected double pLife = 50;
+    public double pLife = 50;
     public int pontosHabilidade = 50;
-    protected double pDamage;
-    protected double pArmor;
-    protected double pMagicArmor;
+    public double pDamage;
+    public double pArmor;
+    public double pMagicArmor;
     public int inimigosMortos;
     public int carnMortos = 0;
     public int demoniosMortos = 0;
@@ -26,6 +29,7 @@ public class Player extends Mob {
     public Set<String> demonDeCadaLevelMorto = new HashSet<>();
     public Set<String> notasLidas = new LinkedHashSet<>();
     public Integer PlayerId;
+    private Checkpoint checkpoint = Checkpoint.NO_CHECK;
     String lore;
     public boolean umPoucoDeSorteAconteceu = false;
     double xpAtual =0;
@@ -43,15 +47,22 @@ public class Player extends Mob {
                     "Bloqueia 15% do dano e reflete 8% do dano ao adversário -10% de armadura e -10% de armadura mágica e - 5% do dano.",
             "Um pouco de sorte-\n"+
                     "Um cara atrevido, mas sortudo, seu poder é inconsistente, poderia ser muito destrutivo, mas so em momentos aleatórios, a sorte é sua maior amiga\n" +
-                    "E o azar seu maior inimigo. Perde 10% do dano em troca de 30% de chance de causar um ataque crítico, que dara 150% do dano atual."
+                    "E o azar seu maior inimigo. Perde 10% do dano em troca de 40% de chance de causar um ataque crítico, que dara 150% do dano atual."
 
     };
 
+    public Checkpoint getCheckPoint() {
+        return checkpoint;
+    }
+
+    public void setCheckPoint(Checkpoint checkPoint) {
+        this.checkpoint = checkPoint;
+    }
 
     public boolean umPoucoDeSorte(Player x){
         Random r = new Random();
         int sorte = r.nextInt(1,11);
-        if(x.passiva.equals("Um pouco de sorte") && sorte < 4){
+        if(x.passiva.contains("Um pouco de sorte") && sorte <= 4){
             resultadoSorte(1,x);
             return true;
         }
@@ -124,19 +135,21 @@ public class Player extends Mob {
 
                 if(level <= 10){
                     System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
+                    this.level+=1;
                     this.xpAtual -= this.xpParaProximoLevel;
-                    System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
-                    System.out.println("Parabéns, você upou de nível você ganhou 7 pontos de habilidade");
-                    ++this.level;
-                    this.pontosHabilidade += 7;
                     this.xpParaProximoLevel = (700 * (this.level));
+                    System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
+                    System.out.println("Parabéns, você upou de nível você ganhou 6 pontos de habilidade");
+
+                    this.pontosHabilidade += 7;
+
                 }
                 else if(level <=20){
                     System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
                     this.xpAtual -= this.xpParaProximoLevel;
                     System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
-                    System.out.println("Parabéns, você upou de nível você ganhou 7 pontos de habilidade");
-                    ++this.level;
+                    System.out.println("Parabéns, você upou de nível você ganhou 8 pontos de habilidade");
+                    this.level+=1;
                     this.pontosHabilidade += 8;
                     this.xpParaProximoLevel = (1200 * (this.level));
                 }
@@ -144,8 +157,8 @@ public class Player extends Mob {
                     System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
                     this.xpAtual -= this.xpParaProximoLevel;
                     System.out.println(this.xpAtual + " / " + this.xpParaProximoLevel);
-                    System.out.println("Parabéns, você upou de nível você ganhou 8 pontos de habilidade");
-                    ++this.level;
+                    System.out.println("Parabéns, você upou de nível você ganhou 9 pontos de habilidade");
+                    this.level+=1;
                     this.pontosHabilidade += 10;
                     this.xpParaProximoLevel = (2500 * (this.level));
                 }
@@ -163,7 +176,7 @@ public class Player extends Mob {
 
     }
 
-    public static void menuHabilidades(Player p) throws InterruptedException, IOException {
+    public static void menuHabilidades(Player p) throws InterruptedException, IOException, SQLException {
 
         Terminal terminal = TerminalBuilder.builder().system(true).build();
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
@@ -171,9 +184,10 @@ public class Player extends Mob {
 
         String choose = "-1";
         int pontosQ;
-        while(!choose.trim().equals("5") ) {
+        while(!choose.trim().equals("6") ) {
 
             Passivas.atualizarAtributosSemBatalha(p);
+
             System.out.println("\n=========== PONTOS DE HABILIDADE ===========\n" +
                     "Pontos restantes: " + p.pontosHabilidade + "\n" +
                     "--------------------------------------------\n" +
@@ -181,7 +195,8 @@ public class Player extends Mob {
                     "(2) Vida         [+12 Vida]         ➤ Atual: " + p.life + "\n" +
                     "(3) Armadura     [+2 Armadura]      ➤ Atual: " + p.armor + "\n" +
                     "(4) Arm. Mágica  [+1 Arm. Mágica]   ➤ Atual: " + p.magicArmor + "\n" +
-                    "(5) Sair\n" +
+                    "(5) Resetar pontos                  ➤ Total Gasto: " + p.calcularPontosGastos() + "\n" +
+                    "(6) Sair\n" +
                     "--------------------------------------------\n" +
                     "Passiva atual: " + p.passiva + "\n" +
                     "--------------------------------------------\n" +
@@ -191,7 +206,16 @@ public class Player extends Mob {
             System.out.print("Escolha a opção: ");
             reader.getBuffer().clear();
             choose = reader.readLine();
-            if (p.pontosHabilidade > 0 && !choose.equals("5") )
+
+            if(choose.equals("5")){
+                System.out.println("Seus pontos foram resetados com sucesso\n");
+                p.pontosHabilidade += p.calcularPontosGastos();
+                p.resetarStatus();
+                PlayerConfigurations.salvarPlayer(p);
+                UtilForMe.fakeClear(50,true);
+            }
+
+            if (p.pontosHabilidade > 0 && !choose.equals("6") &&  !choose.equals("5") )
             {
                 pontosQ = 0;
                 System.out.print("Escolha a quantidade de pontos: ");
@@ -199,7 +223,7 @@ public class Player extends Mob {
                     reader.getBuffer().clear();
                     pontosQ = Integer.parseInt(reader.readLine());
                 } catch (NumberFormatException e) {
-                    choose = "6";
+                    choose = "7";
                 }
 
                 UtilForMe.fakeClear(50,false); //verificado
@@ -223,7 +247,9 @@ public class Player extends Mob {
                     case "4":
                         System.out.println("Seus pontos foram adicionados com sucesso\n");
                         p.pMagicArmor += (pontosQ); p.pontosHabilidade -= pontosQ; break;
-                    case "5":   Passivas.atualizarAtributosSemBatalha(p); break;
+                    case "6":
+                        Passivas.atualizarAtributosSemBatalha(p);
+                        PlayerConfigurations.salvarPlayer(p);break;
                     default:
                         System.out.println("Seus pontos não foram adicionados. Insira um número válido\n");
                         UtilForMe.fakeClear(50,true); //verificado
@@ -231,9 +257,10 @@ public class Player extends Mob {
 
                 }
             }
-            else if(p.pontosHabilidade == 0)
+            else if(p.pontosHabilidade == 0 && !choose.equals("5"))
             {
-                if (choose.equals("5")) {
+                if (choose.equals("6")) {
+
                 }
                 else {
                     System.out.println("Insira um número válido, você não possui mais pontos, evolua de nivel para conseguir mais\n");
@@ -272,50 +299,54 @@ public class Player extends Mob {
 
 
             p.setXpAtual(0);
-            if(mortoPor instanceof Carniceiro && p.carnMortos >= 2 && p.inimigosMortos >= 2){
+            if(mortoPor != null){
+                if(mortoPor instanceof Carniceiro && p.carnMortos >= p.carnMortos -2 && p.inimigosMortos >= p.inimigosMortos-2 ){
 
-                p.setCarnMortos(p.carnMortos - 2);
-                p.setInimigosMortos(p.inimigosMortos-2);
+                    p.setCarnMortos(p.carnMortos - 2);
+                    p.setInimigosMortos(p.inimigosMortos-2);
 
-                String maiorStr = Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                    String maiorStr = Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                if (p.carnDeCadaLevelMorto.contains(maiorStr)) {
-                    p.carnDeCadaLevelMorto.remove(maiorStr);
-                    System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                } else {
-                    System.out.println("Não havia nenhuma alma.\n");
-                }
+                    if (p.carnDeCadaLevelMorto.contains(maiorStr)) {
+                        p.carnDeCadaLevelMorto.remove(maiorStr);
+                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
+                    } else {
+                        System.out.println("Não havia nenhuma alma.\n");
+                    }
 
 
 
-            } else if (mortoPor instanceof Mage && p.magoMortos >= 2 && p.inimigosMortos >= 2){
+                } else if (mortoPor instanceof Mage){
 
-                p.setCarnMortos(p.magoMortos - 2);
-                p.setInimigosMortos(p.inimigosMortos-2);
+                    if(p.magoMortos >= p.magoMortos - 2) p.setCarnMortos(p.magoMortos - 2);
+                    if( p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos-2);
 
-                String maiorStr = Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                    String maiorStr = Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                if (p.magoDeCadaLevelMorto.contains(maiorStr)) {
-                    p.magoDeCadaLevelMorto.remove(maiorStr);
-                    System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                } else {
-                    System.out.println("Não havia nenhuma alma.\n");
-                }
+                    if (p.magoDeCadaLevelMorto.contains(maiorStr)) {
+                        p.magoDeCadaLevelMorto.remove(maiorStr);
+                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
+                    } else {
+                        System.out.println("Não havia nenhuma alma.\n");
+                    }
 
-            } else if (mortoPor instanceof Demon && p.demoniosMortos >= 2 && p.inimigosMortos >= 2){
+                } else if (mortoPor instanceof Demon ){
 
-                p.setCarnMortos(p.demoniosMortos - 2);
-                p.setInimigosMortos(p.inimigosMortos-2);
+                    if(p.demoniosMortos >= p.demoniosMortos - 2) p.setCarnMortos(p.demoniosMortos - 2);
+                    if(p.inimigosMortos >=  p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos-2);
 
-                String maiorStr = Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                    String maiorStr = Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                if (p.demonDeCadaLevelMorto.contains(maiorStr)) {
-                    p.demonDeCadaLevelMorto.remove(maiorStr);
-                    System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                } else {
-                    System.out.println("Não havia nenhuma alma.\n");
+                    if (p.demonDeCadaLevelMorto.contains(maiorStr)) {
+                        p.demonDeCadaLevelMorto.remove(maiorStr);
+                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
+                    } else {
+                        System.out.println("Não havia nenhuma alma.\n");
+                    }
                 }
             }
+
+
             System.out.println("Assim, tendo pagado o preço, você retorna ao campo de batalha. Não existe descanso no vazio.");
 
 
@@ -394,6 +425,31 @@ public class Player extends Mob {
 
     public void setPlayerId(Integer playerId) {
         PlayerId = playerId;
+    }
+
+    private int calcularPontosGastos(){
+        int level = this.level;
+        int totalPontos = 50;
+
+        if(level <= 10){
+            totalPontos += level*7 - this.pontosHabilidade ;
+        }
+        else if(level <=20){
+            totalPontos += (10*7) + level * 8 - this.pontosHabilidade;
+        }
+        else{
+            totalPontos += (10*7) + (10*8) + level*10 - this.pontosHabilidade;
+        }
+
+        return totalPontos;
+    }
+    private void resetarStatus(){
+        this.pLife = 50;
+        this.magicArmor = 0;
+        this.pDamage = 0;
+        this.pArmor = 0;
+        Passivas.atualizarAtributosSemBatalha(this);
+
     }
 
 }

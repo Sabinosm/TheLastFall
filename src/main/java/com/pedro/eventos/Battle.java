@@ -57,7 +57,7 @@ public class Battle {
                     Passivas.atualizarAtributosBatalhaPlayerTexto(p, (Enemy)inimigo);
                 }
                 else{
-                    Passivas.atualizarAtributos(inimigo,contador,p);
+                        Passivas.atualizarAtributos(inimigo,contador,p);
                 }
             }
             if(segundo.actLife < 0 && !(segundo instanceof Player)){

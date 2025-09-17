@@ -1,0 +1,179 @@
+package com.pedro.eventos;
+import com.pedro.UtilForMe;
+import com.pedro.referenteAosPersonagens.Player;
+import org.jline.reader.LineReader;
+import org.jline.reader.LineReaderBuilder;
+import org.jline.reader.UserInterruptException;
+
+import java.io.IOException;
+import java.util.Random;
+
+public class BossAmalgama extends Boss{
+    String[] frasesAtaque = {"A massa disforme investe, esmagando tudo!",
+            "Fragmentos de ossos voam como lâminas etéreas!",
+            "Garras improvisadas rasgam o ar!",
+            "O Colosso ruge, o som é tão agudo que a sala toda se racha",
+            "Tentáculos de ossos estalam no ar, chicoteando com força brutal",
+            "O monstro joga diversos corpos em sua direção"};
+
+    public BossAmalgama(Player p) {
+
+            definirAtributosBoss(p);
+    }
+
+            //TODO: História, Obviamente, um jeito de mencionar as palavras que podem ser ditas dentro da própria história, terminar de ajustar os diálogos, danos
+            //TODO:
+
+
+
+    @Override
+    public String introducao() throws IOException, InterruptedException {
+        UtilForMe.tempoDeLeitura("A carne pulsa e a sala treme. Símbolos de luz aparecem no ar, " +
+                "um monstro enorme feito totalmente de corpos decompostos...alguns deles continuam na sala.\n" +
+                "Existe um portão atrás da criatura, para onde será que leva?");
+        return "";
+    }
+
+    @Override
+    public void definirAtributosBoss(Player player) {
+
+        //calculo da vida -> vida base mais ou menos como funciona um carniceiro, más com o level do player, ou seja ,constante + variável;
+        Random random = new Random();
+        double vidaBase = random.nextInt(100,130) + (player.level * 1.4 + 1.4 + 1) * 30;
+        double mediaPlayer = player.life + player.damage + player.armor + player.magicArmor;
+        double aumentoEscalar = mediaPlayer * 1.5;
+        this.life = vidaBase + aumentoEscalar;
+        this.actLife = this.life;
+
+        //calculo dano -> supondo que a vida do player deve ser perto la de 500
+        double danoBase = random.nextInt(60,110);
+        double danoEscalar = (mediaPlayer - 150) * 0.15;
+        this.damage = danoEscalar + danoBase;
+
+        //O calculo das armaduras vai ser mais simples pra não impactar tanto na dificuldade. Qualquer coisa so tirar se tiver muito broken.
+        this.magicArmor = player.magicArmor * 0.35;
+        this.armor = player.armor * 0.45;
+
+        //nome
+        this.name = "O Amálgama";
+
+        //passiva
+        this.nomePassiva = "Recomposição Profana";
+        this.passiva ="Recomposição Profana – a cada 3 turnos recupera 5% da vida perdida.";
+
+    }
+
+    @Override
+    public void morteBoss() {
+
+    }
+
+    @Override
+    public void atacarPlayer(Player player, Boss boss, int round) {
+        String palavraEscolhida = getPalavraEscolhida();
+        double danoFinal = getDanoFinal(player,boss);
+
+        LineReader reader = LineReaderBuilder.builder().build();
+
+        Thread mainThread = Thread.currentThread(); // thread do readLine
+
+        Thread timer = new Thread(() -> {
+            try {
+                Thread.sleep(5000); // 5 segundos
+                System.out.println("\nAs palavras rúnicas desaparecem, a brecha se fecha");
+                mainThread.interrupt(); // interrompe o readLine
+            } catch (InterruptedException e) {
+                // timer foi interrompido porque usuário digitou
+            }
+        });
+
+        timer.start();
+        try {
+            System.out.println("⚔ A barreira do Amálgama pulsa, uma brecha aparece!\n" +
+                    "Uma palavra aparece em meio à barreira - " + palavraEscolhida + " -\n");
+
+            String text = reader.readLine("Digite a palavra corretamente ( 3 segundos ) para abrir a brecha: ");  // bloqueia
+            timer.interrupt(); // usuário digitou antes do tempo acabar
+            if(text.equalsIgnoreCase(palavraEscolhida)){
+                System.out.println("✔ Brecha aberta! Você acerta um golpe\n");
+                boss.exibirRound(round,boss,player,"",danoFinal,false);
+
+            }
+
+
+        } catch (UserInterruptException e) {
+            System.out.println("Entrada cancelada pelo tempo!");
+        }
+
+        System.out.println("A batalha continua...");
+
+    }
+
+    private static String getPalavraEscolhida() {
+        Random random = new Random();
+        String[] listaPalavras = {
+                "Xalther", "Morveth", "Irrakai", "Thyss", "Vorun",
+                "Kreth", "Naaloth", "Syrkai", "Druveth", "Orris",
+                "Ajuda", "Socorro", "Mae", "Acabe", "Perdao",
+                "Libertem", "Piedade", "Nao", "Dor", "Chega",
+                "v0id", "bl00d", "s@nct", "cr1es", "d3ep",
+                "r!ft", "s0rr0w", "pa!n", "h@te", "f34r",
+        };
+        return listaPalavras[random.nextInt(0,listaPalavras.length)];
+    }
+
+    private double getDanoFinal(Player player, Boss boss){
+
+       String dmt = player.dmt;
+       double danoFinal;
+
+        if (dmt.equals( "fisico") || dmt.equals( "físico"))
+        {
+            danoFinal = damage - (boss.armor*1.15 + damage*0.04);
+            if(danoFinal <= 0){
+                danoFinal = 10;
+                System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
+            }
+
+        }
+        else if(dmt.equals("magico") || dmt.equals("mágico"))
+        {
+            danoFinal = damage - (boss.magicArmor*1.15 + damage*0.04);
+            if(danoFinal <= 0){
+                danoFinal = 10;
+                System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
+            }
+        }
+        else{
+            danoFinal = damage;
+        }
+        if (danoFinal < 0) danoFinal = 10;
+
+        if(player.espelhoArcano(player)){
+            danoFinal += boss.damage * 0.8;
+        }
+        if(player.umPoucoDeSorte(player)){
+            if(dmt.equals("true")){
+                danoFinal = player.damage * 1.5;
+            }
+            else{
+                danoFinal = (player.damage - boss.armor*1.2 + damage*0.07 ) * 1.5;
+            }
+
+        }
+        return danoFinal;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

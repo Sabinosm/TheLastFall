@@ -1,5 +1,6 @@
 package com.pedro.eventos;
 
+import com.pedro.configuracoes.PlayerConfigurations;
 import com.pedro.historia.EventosSecundarios;
 import com.pedro.historia.Notas;
 import com.pedro.referenteAosPersonagens.Mage;
@@ -28,38 +29,73 @@ public class PrimeiraQueda extends Battle {
     }
 
     public static void Start(Player p) throws InterruptedException, IOException, SQLException {
+        if(p.getCheckPoint() != Checkpoint.PRIMEIRA_QUEDA_BOSS && p.getCheckPoint() != Checkpoint.PRIMEIRA_QUEDA_DESCANSO ){
+            p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
+        }
+
         Terminal terminal = TerminalBuilder.builder().system(true).build();
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
-        Notas.notasIntro(2);
-        do{
-            UtilForMe.fakeClear(50,false); //verificado
-            Random r = new Random();
-            int rd = r.nextInt(1,4);
-            for(int i = 1; i <= rd; i++) {
-                Mob carn = new Carniceiro(p);
-                batalha(p, carn);
-                if(p.carnMortos == 1 && !p.notasLidas.contains("4")) {
-                    Notas.notaSegredo(p);
-                    UtilForMe.fakeClear(50, true); //verificado
+        if (p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA){
+            Notas.notasIntro(2);
+        }
+
+        while(p.carnDeCadaLevelMorto.containsAll(verificacao) || p.carnMortos <= 10  ){
+
+            if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO){
+                EventosSecundarios.Descanso(p,1); //descanso
+                p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
+            }
+            if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA) {
+
+
+                UtilForMe.fakeClear(50, false); //verificado
+                Random r = new Random();
+                int rd = r.nextInt(1, 4);
+                for (int i = 1; i <= rd; i++) {
+                    Mob carn = new Carniceiro(p);
+                    batalha(p, carn);
+                    if (p.carnMortos == 1 && !p.notasLidas.contains("4")) {
+                        Notas.notaSegredo(p);
+                        UtilForMe.fakeClear(50, true); //verificado
+                    }
+                    if (p.carnDeCadaLevelMorto.containsAll(verificacao) || (p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao))) {
+                        quebraPortao(p);
+                        p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
+                        PlayerConfigurations.salvarPlayer(p);
+                        break;
+                    }
+
                 }
-                if(p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao)) break;
-                if(p.carnDeCadaLevelMorto.containsAll(verificacao)) break;
             }
-            System.out.println("\n\n" + "Parece que não existem mais inimigos nesse local, o banho de sangue finalmente acaba,\n" +
-                    "e você caminha em meio a névoa. Que Deus lhe acompanhe\n");
+                if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA) {
+                    System.out.println("\n\n" + "Parece que não existem mais inimigos nesse local, o banho de sangue finalmente acaba,\n" +
+                            "e você caminha em meio a névoa. Que Deus lhe acompanhe\n");
 
-            System.out.println("( ENTER para continuar )\n\n");
-            reader.getBuffer().clear();
-            reader.readLine();
-            EventosSecundarios.primeiraQuedaEventos(p);
+                    System.out.println("( ENTER para continuar )\n\n");
+                    reader.getBuffer().clear();
+                    reader.readLine();
+                    EventosSecundarios.primeiraQuedaEventos(p);
+                    p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
+                }
 
-            if(p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao)){
-                System.out.println("\nVocê matou todos os monstros desta dungeon, encontrando a chave para uma sala diferente, o que será que lhe espera?"); //TODO mudar
-                break;
-            }
 
-        } while (!p.carnDeCadaLevelMorto.containsAll(verificacao));
+        }
+
+        if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO || p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
+            EventosSecundarios.Descanso(p,1); //descanso
+            p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
+        }
+
+        if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
+            System.out.println("Cheguei aqui");
+            BossBattle.bossBattlePrimeiraQueda(p);
+        }
+
+
+    }
+    public static void quebraPortao(Player player){
+        System.out.println("Quebrou portão");
     }
 
 

@@ -50,7 +50,7 @@ public abstract class Mob {
 
     }
 
-    private boolean isDead(Mob alvo){
+    public static boolean isDead(Mob alvo){
         return alvo.actLife <= 0;
     }
 
@@ -60,7 +60,7 @@ public abstract class Mob {
 
         if (dmt.equals( "fisico") || dmt.equals( "físico"))
         {
-            danoFinal = damage - (alvo.armor*1.15 + damage*0.04);
+            danoFinal = damage - (alvo.armor*1.3);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
@@ -69,7 +69,7 @@ public abstract class Mob {
         }
         else if(dmt.equals("magico") || dmt.equals("mágico"))
         {
-            danoFinal = damage - (alvo.magicArmor*1.15 + damage*0.04);
+            danoFinal = damage - (alvo.magicArmor*1.3);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
@@ -144,8 +144,9 @@ public abstract class Mob {
 
     };
 
-    public double xpDaMorte(Mob morto,double dificultModifyer){
-        return (morto.level)*(morto.life + morto.damage + morto.armor + morto.magicArmor+30)*dificultModifyer;
+    public static double xpDaMorte(Mob morto,double dificultModifyer){
+        return (morto.level)*(morto.life + morto.damage + morto.armor + morto.magicArmor)*dificultModifyer+2;
+
     }
 
 

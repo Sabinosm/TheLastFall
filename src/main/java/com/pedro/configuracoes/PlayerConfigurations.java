@@ -1,6 +1,8 @@
 package com.pedro.configuracoes;
 
 import com.pedro.UtilForMe;
+import com.pedro.eventos.Checkpoint;
+import com.pedro.referenteAosPersonagens.Passivas;
 import com.pedro.referenteAosPersonagens.Player;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
@@ -166,17 +168,17 @@ public class PlayerConfigurations {
     public static void criarNoBancoPlayer(Player p, String lore) throws SQLException {
         String sqlPlayer = """
         INSERT INTO Player
-            (nome, level, nomePassiva, pontosHabilidade, tipoDano, lore)
-        VALUES (?, ?, ?, ?, ?, ?);
+            (nome, level, nomePassiva, pontosHabilidade, tipoDano, lore, vida, dano, armaduraMagica, armaduraFisica)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     """;
 
         String sqlStats = """
-        INSERT INTO PlayerStats
+        INSERT INTO PlayerDados
             (player_id, carnMortos, magoMortos, demonMortos,
              xpAtual, xpParaProximoLevel,
              notasLidas, carnDeCadaLevelMorto, magoDeCadaLevelMorto, demonDeCadaLevelMorto,
-             vida, dano, armaduraMagica, armaduraFisica)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+             checkpoint)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     """;
 
         conexao.setAutoCommit(false); // inicia a transação
@@ -192,6 +194,10 @@ public class PlayerConfigurations {
             psPlayer.setInt(4, p.pontosHabilidade);
             psPlayer.setString(5, p.dmt); // tipoDano
             psPlayer.setString(6, lore);
+            psPlayer.setDouble(7, p.life);
+            psPlayer.setDouble(8, p.damage);
+            psPlayer.setDouble(9, p.armor);
+            psPlayer.setDouble(10, p.magicArmor);
             psPlayer.executeUpdate();
 
             // Pegar o id gerado
@@ -200,7 +206,8 @@ public class PlayerConfigurations {
                 int playerId = rs.getInt(1);
                 p.setPlayerId(playerId);
 
-                // -------- Inserir PlayerStats --------
+
+                // -------- Inserir PlayerDados --------
                 String notasL = String.join(",", p.notasLidas);
                 String carnLevelMorto  = String.join(",", p.carnDeCadaLevelMorto);
                 String magoLevelMorto  = String.join(",", p.magoDeCadaLevelMorto);
@@ -216,10 +223,8 @@ public class PlayerConfigurations {
                 psStats.setString(8, carnLevelMorto);
                 psStats.setString(9, magoLevelMorto);
                 psStats.setString(10, demonLevelMorto);
-                psStats.setDouble(11, p.life);
-                psStats.setDouble(12, p.damage);
-                psStats.setDouble(13, p.armor);
-                psStats.setDouble(14, p.magicArmor);
+                psStats.setString(11, p.getCheckPoint().name());
+
                 psStats.executeUpdate();
             }
 
@@ -242,12 +247,16 @@ public class PlayerConfigurations {
             nomePassiva = ?,
             pontosHabilidade = ?,
             tipoDano = ?,
-            lore = ?
+            lore = ?,
+            vida = ?,
+            dano = ?,
+            armaduraMagica = ?,
+            armaduraFisica = ?
         WHERE id = ?;
     """;
 
         String sqlUpdateStats = """
-        UPDATE PlayerStats
+        UPDATE PlayerDados
         SET carnMortos = ?,
             magoMortos = ?,
             demonMortos = ?,
@@ -257,10 +266,7 @@ public class PlayerConfigurations {
             carnDeCadaLevelMorto = ?,
             magoDeCadaLevelMorto = ?,
             demonDeCadaLevelMorto = ?,
-            vida = ?,
-            dano = ?,
-            armaduraMagica = ?,
-            armaduraFisica = ?
+            checkpoint = ?
         WHERE player_id = ?;
     """;
 
@@ -277,10 +283,14 @@ public class PlayerConfigurations {
             psPlayer.setInt(4, p.pontosHabilidade);
             psPlayer.setString(5, p.dmt);      // tipoDano
             psPlayer.setString(6, p.getLore());
-            psPlayer.setInt(7, p.getPlayerId());
+            psPlayer.setDouble(7, p.pLife);
+            psPlayer.setDouble(8, p.pDamage);
+            psPlayer.setDouble(9, p.pArmor);
+            psPlayer.setDouble(10, p.pMagicArmor);
+            psPlayer.setInt(11, p.getPlayerId());
             psPlayer.executeUpdate();
 
-            // -------- Atualiza PlayerStats --------
+            // -------- Atualiza PlayerDados --------
             String notasL         = String.join(",", p.notasLidas);
             String carnLevelMorto = String.join(",", p.carnDeCadaLevelMorto);
             String magoLevelMorto = String.join(",", p.magoDeCadaLevelMorto);
@@ -295,11 +305,8 @@ public class PlayerConfigurations {
             psStats.setString(7,  carnLevelMorto);
             psStats.setString(8,  magoLevelMorto);
             psStats.setString(9,  demonLevelMorto);
-            psStats.setDouble(10, p.life);
-            psStats.setDouble(11, p.damage);
-            psStats.setDouble(12, p.armor);
-            psStats.setDouble(13, p.magicArmor);
-            psStats.setInt(14,  p.getPlayerId());
+            psStats.setString(10,  p.getCheckPoint().name());
+            psStats.setInt(11,  p.getPlayerId());
             psStats.executeUpdate();
 
             conexao.commit();
@@ -312,57 +319,13 @@ public class PlayerConfigurations {
     }
 
     public static int mostrarPlayers() throws SQLException, IOException {
-        var sql = """
-                -- Tabela principal do jogador
-                  CREATE TABLE IF NOT EXISTS Player (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      nome  VARCHAR(100),
-                      level INTEGER,
-                      nomePassiva VARCHAR(100),
-                      pontosHabilidade INTEGER,
-                      tipoDano  VARCHAR(25),
-                      lore VARCHAR(25)
-                  );
-                """;
-
-        var sql2 ="""
-                  -- Tabela com estatísticas e progresso
-                  CREATE TABLE IF NOT EXISTS PlayerStats (
-                      id INTEGER PRIMARY KEY AUTOINCREMENT,
-                      player_id   INTEGER NOT NULL,
-                      carnMortos  INTEGER,
-                      magoMortos  INTEGER,
-                      demonMortos INTEGER,
-                      xpAtual     DECIMAL,
-                      xpParaProximoLevel DECIMAL,
-                      notasLidas  VARCHAR(30),
-                      carnDeCadaLevelMorto  VARCHAR(30),
-                      magoDeCadaLevelMorto  VARCHAR(30),
-                      demonDeCadaLevelMorto VARCHAR(30),
-                      vida  DECIMAL,
-                      dano  DECIMAL,
-                      armaduraMagica DECIMAL,
-                      armaduraFisica DECIMAL,
-                      FOREIGN KEY (player_id) REFERENCES Player(id)
-                  );
-                """;
-
-        try {
-            Statement statement = conexao.createStatement();
-            statement.execute(sql);
-            statement.execute(sql2);
-
-
-        } catch (SQLException e) {
-            System.out.println("Erro: " + e.getMessage());
-        }
-
+        criarTabela();
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
         String escolha = "";
         String sql3 = """
                 SELECT p.*, s.*
                 FROM Player p
-                INNER JOIN PlayerStats s
+                INNER JOIN PlayerDados s
                     ON p.id = s.player_id;
                 """;
         List<String> idsPossivel = new ArrayList<>();
@@ -378,12 +341,14 @@ public class PlayerConfigurations {
                 int level = rs.getInt("level");
                 double xpAtual = rs.getDouble("xpAtual");
                 double xpParaProximoLevel = rs.getDouble("xpParaProximoLevel");
+                String checkPoint = rs.getString("checkpoint");
 
                 System.out.println(
                         "ID: " + id +
                                 " | Nome: " + nome +
                                 " | Level: " + level +
-                                " | XP: " + xpAtual + "/" + xpParaProximoLevel
+                                " | XP: " + xpAtual + "/" + xpParaProximoLevel +
+                                " | Checkpoint: " + checkPoint +"\n"
                 );
                 idsPossivel.add(Integer.toString(id));
             }
@@ -421,7 +386,7 @@ public class PlayerConfigurations {
         String sql = """
                 SELECT p.*, s.*
                 FROM Player p
-                JOIN PlayerStats s
+                JOIN PlayerDados s
                      ON p.id = s.player_id
                 WHERE p.id = ?;
                 """;
@@ -462,11 +427,13 @@ public class PlayerConfigurations {
                 y.setXpAtual(rs.getDouble("xpAtual"));
                 y.setXpParaProximoLevel(rs.getDouble("xpParaProximoLevel"));
                 y.setInimigosMortos(inimigosMortos);
-                y.life = rs.getDouble("vida");
-                y.damage = rs.getDouble("dano");
-                y.armor = rs.getDouble("armaduraFisica");
-                y.magicArmor = rs.getDouble("armaduraMagica");
+                y.pLife = rs.getDouble("vida");
+                y.pDamage = rs.getDouble("dano");
+                y.pArmor = rs.getDouble("armaduraFisica");
+                y.pMagicArmor = rs.getDouble("armaduraMagica");
+                y.setCheckPoint(Checkpoint.valueOf(rs.getString("checkpoint")));
                 y.atualizarVidaAtual(y);
+                Passivas.atualizarAtributosSemBatalha(y);
 
             }
         } catch (SQLException e) {
@@ -509,6 +476,53 @@ public class PlayerConfigurations {
         }
         catch (SQLException e) {
             System.out.println("Erro no SELECT: " + e.getMessage());
+        }
+    }
+    public static void criarTabela(){
+        var sql = """
+                -- Tabela principal do jogador
+                  CREATE TABLE IF NOT EXISTS Player (
+                      id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      nome  VARCHAR(100),
+                      level INTEGER,
+                      nomePassiva VARCHAR(100),
+                      pontosHabilidade INTEGER,
+                      tipoDano  VARCHAR(25),
+                      lore VARCHAR(25),
+                      vida  DECIMAL,
+                      dano  DECIMAL,
+                      armaduraMagica DECIMAL,
+                      armaduraFisica DECIMAL
+                  );
+                """;
+
+        var sql2 ="""
+                  -- Tabela com estatísticas e progresso
+                  CREATE TABLE IF NOT EXISTS PlayerDados (
+                      id INTEGER PRIMARY KEY AUTOINCREMENT,
+                      player_id   INTEGER NOT NULL,
+                      carnMortos  INTEGER,
+                      magoMortos  INTEGER,
+                      demonMortos INTEGER,
+                      xpAtual     DECIMAL,
+                      xpParaProximoLevel DECIMAL,
+                      notasLidas  VARCHAR(30),
+                      carnDeCadaLevelMorto  VARCHAR(30),
+                      magoDeCadaLevelMorto  VARCHAR(30),
+                      demonDeCadaLevelMorto VARCHAR(30),
+                      checkpoint VARCHAR(100),
+                      FOREIGN KEY (player_id) REFERENCES Player(id)
+                  );
+                """;
+
+        try {
+            Statement statement = conexao.createStatement();
+            statement.execute(sql);
+            statement.execute(sql2);
+
+
+        } catch (SQLException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
