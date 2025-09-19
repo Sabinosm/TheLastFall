@@ -6,16 +6,16 @@ import java.io.IOException;
 import java.util.List;
 
 public interface BossInterface {
-    public String introducao() throws IOException, InterruptedException;
+    String introducao(Player player) throws IOException, InterruptedException;
 
 
-    public void atacarBoss(Boss bossAtacante, Player playerAlvo, List<String> frasesAtaque, int round) throws IOException, InterruptedException;
+    void atacarBoss(Boss bossAtacante, Player playerAlvo, List<String> frasesAtaque, int round) throws IOException, InterruptedException;
 
-    public void definirAtributosBoss(Player p);
+    void definirAtributosBoss(Player p);
 
-    public void morteBoss();
+    void morteBoss() throws IOException, InterruptedException;
 
-    public void atacarPlayer(Player player, Boss boss,int round);
+    void atacarPlayer(Player player, Boss boss,int round) throws IOException;
 
 
 }

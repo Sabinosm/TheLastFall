@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
+import static com.pedro.UtilForMe.readInt;
+
 public class PlayerConfigurations {
 
     static Terminal terminal;
@@ -26,7 +28,10 @@ public class PlayerConfigurations {
             throw new RuntimeException(e);
         }
         try {
-            terminal = TerminalBuilder.builder().system(true).build();
+              terminal = TerminalBuilder.builder()
+                .jna(false) // evita bug de raw mode em alguns terminais
+                .system(true)
+                .build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -42,8 +47,8 @@ public class PlayerConfigurations {
         UtilForMe.fakeClear(50,false); //verificado
         while (!escolha.equals("5")) {
             System.out.println(criarNovoPlayerTextos(1));
-            reader.getBuffer().clear();
-            escolha = reader.readLine();
+            
+            escolha = String.valueOf(readInt()).trim();
 
             switch (escolha) {
                 case "1" -> st.add("Destino");
@@ -61,8 +66,9 @@ public class PlayerConfigurations {
             while (!escolha.equals("5")) {
                 UtilForMe.fakeClear(50,false); //verificado
                 System.out.println(criarNovoPlayerTextos(2));
-                reader.getBuffer().clear();
-                escolha = reader.readLine();
+                
+                escolha = String.valueOf(readInt()).trim();
+
                 switch (escolha) {
                     case "1" -> z = novoPlayer(2, "físico", st.getFirst());
                     case "2" -> z = novoPlayer(3, "mágico", st.getFirst());
@@ -79,7 +85,7 @@ public class PlayerConfigurations {
 
                     UtilForMe.fakeClear(50,false); //verificado
                     System.out.println(criarNovoPlayerTextos(3));
-                    reader.getBuffer().clear();
+                    
                     nome = reader.readLine();
                     z.setNome(nome);
                     UtilForMe.fakeClear(50,false); //verificado
@@ -285,8 +291,8 @@ public class PlayerConfigurations {
             psPlayer.setString(6, p.getLore());
             psPlayer.setDouble(7, p.pLife);
             psPlayer.setDouble(8, p.pDamage);
-            psPlayer.setDouble(9, p.pArmor);
-            psPlayer.setDouble(10, p.pMagicArmor);
+            psPlayer.setDouble(9, p.pMagicArmor);
+            psPlayer.setDouble(10, p.pArmor);
             psPlayer.setInt(11, p.getPlayerId());
             psPlayer.executeUpdate();
 
@@ -320,7 +326,7 @@ public class PlayerConfigurations {
 
     public static int mostrarPlayers() throws SQLException, IOException {
         criarTabela();
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+
         String escolha = "";
         String sql3 = """
                 SELECT p.*, s.*
@@ -357,8 +363,8 @@ public class PlayerConfigurations {
                 System.out.println("----------------------------");
                 System.out.println("\nDigite o ID do save que deseja carregar (ou E para sair):");
 
-                reader.getBuffer().clear();
-                escolha = reader.readLine();
+                
+                escolha = String.valueOf(readInt()).trim();
 
                 if (escolha.equalsIgnoreCase("E")) break;
 

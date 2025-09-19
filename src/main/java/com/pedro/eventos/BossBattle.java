@@ -9,16 +9,25 @@ import java.util.List;
 public abstract class BossBattle extends Boss{
     public static void bossBattlePrimeiraQueda(Player player) throws IOException, InterruptedException {
 
+        UtilForMe.fakeClear(50,true); // verificado
         BossAmalgama boss = new BossAmalgama(player);
         int round = 0;
 
-        System.out.println("O monstro olha para você e logo percebe que o banquete está prestes a começar....a sua carne e sua mana\n" +
-                "o deixam salivando, é possível ver o quanto ele te quer morto, um belo corpo para gigantesca sua coleção...assim ele parte para cima\n\n");
+
+        UtilForMe.tempoDeLeitura(boss.introducao(player));
+
+        UtilForMe.fakeClear(50, true);
 
         System.out.println(Boss.exibirStatusBatalha(boss, player));
 
         UtilForMe.fakeClear(50, true);
 
+        UtilForMe.tempoDeLeitura("""
+        O chão estremece.
+        A massa de carne se ergue, exalando um fedor quente e metálico.
+        Olhos improvisados se abrem na superfície pulsante — dezenas, encarando você.
+        Um rugido úmido ecoa, e o Amálgama avança.
+        """);
         //Loop da batalha
         while (player.actLife > 0 && boss.actLife > 0) {
             round++;

@@ -5,13 +5,8 @@ import com.pedro.configuracoes.PlayerConfigurations;
 import com.pedro.eventos.PrimeiraQueda;
 import com.pedro.configuracoes.TelaInicial;
 
-import com.pedro.historia.EventosSecundarios;
 import com.pedro.historia.Notas;
 import com.pedro.referenteAosPersonagens.Player;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -31,9 +26,7 @@ public class Main{
   //todo: intro opcional
   
 
-  Terminal terminal = TerminalBuilder.builder().system(true).build();
-  LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
-//  Notas.notasIntro(1);
+  Notas.notasIntro(1);
 
   Player player = TelaInicial.escolhasTelaInicial();
 

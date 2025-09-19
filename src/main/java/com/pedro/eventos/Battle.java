@@ -5,8 +5,6 @@ import com.pedro.referenteAosPersonagens.Player;
 import com.pedro.UtilForMe;
 import com.pedro.referenteAosPersonagens.Enemy;
 import com.pedro.referenteAosPersonagens.Mob;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
@@ -22,7 +20,10 @@ public class Battle {
 
     static {
         try {
-            terminal = TerminalBuilder.builder().system(true).build();
+              terminal = TerminalBuilder.builder()
+                .jna(false) // evita bug de raw mode em alguns terminais
+                .system(true)
+                .build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -117,12 +118,12 @@ public class Battle {
     }
 
     public static void continuarFugir(Mob inimigo) throws IOException {
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+
 
 
         System.out.println("Deseja continuar a batalha ou tentar fugir?\n(1) Para continuar \n(2) Para tentar fugir");
-        reader.getBuffer().clear();
-        fugirContinuar = reader.readLine().trim();
+        
+        fugirContinuar = String.valueOf(UtilForMe.readInt());
 
         if (fugirContinuar.equals("2")) {
             int df = r.nextInt(1, 1 + inimigo.level);

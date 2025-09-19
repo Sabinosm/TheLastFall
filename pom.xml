@@ -7,8 +7,16 @@
     <groupId>com.pedro</groupId>
     <artifactId>RpgSimulator</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <plugins>
+            <!-- Shade gerando JAR separado com sufixo -shaded -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -20,22 +28,36 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
+                            <!-- anexa o shaded jar como artifact separado -->
+                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>shaded</shadedClassifierName>
+
+                            <!-- opcional: evita alterar o pom reduzido -->
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.pedro.Main</mainClass> <!-- Troque pelo caminho da sua classe com main -->
+                                    <!-- ajuste para sua classe com main -->
+                                    <mainClass>com.pedro.Main</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- (opcional) plugin do compilador caso precise -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -43,14 +65,10 @@
             <artifactId>jline</artifactId>
             <version>3.26.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.xerial</groupId>
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.42.0.0</version>
         </dependency>
-
     </dependencies>
-
 </project>
-

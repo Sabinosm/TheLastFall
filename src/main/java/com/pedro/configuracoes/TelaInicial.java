@@ -11,12 +11,13 @@ import java.sql.*;
 
 import java.io.IOException;
 
+import static com.pedro.UtilForMe.readInt;
 import static com.pedro.configuracoes.PlayerConfigurations.mostrarPlayers;
 
 public final class TelaInicial {
 
 
-    public TelaInicial() throws SQLException {
+    public TelaInicial() {
 
     }
 
@@ -30,7 +31,10 @@ public final class TelaInicial {
         Terminal terminal;
         Player x = null;
         try {
-            terminal = TerminalBuilder.builder().system(true).build();
+              terminal = TerminalBuilder.builder()
+                .jna(false) // evita bug de raw mode em alguns terminais
+                .system(true)
+                .build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -73,8 +77,9 @@ public final class TelaInicial {
                     """);
 
 
-            reader.getBuffer().clear();
-            escolha = reader.readLine().trim();
+            
+            escolha = String.valueOf(readInt());
+
             switch (escolha) {
                 case "1":
                     PlayerConfigurations.criarTabela();
@@ -97,7 +102,7 @@ public final class TelaInicial {
                                  
                                  """);
 
-                         reader.getBuffer().clear();
+                         
                          reader.readLine();
 
                          break;
@@ -122,8 +127,8 @@ public final class TelaInicial {
                         UtilForMe.fakeClear(50,false); //verificado
                         System.out.println(velText());
 
-                        reader.getBuffer().clear();
-                        escolha = reader.readLine().trim();
+                        
+                        escolha = String.valueOf(readInt()).trim();
 
                         switch (escolha){
                             case "1":

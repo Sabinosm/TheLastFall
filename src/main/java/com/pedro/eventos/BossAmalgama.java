@@ -7,6 +7,7 @@ import org.jline.reader.UserInterruptException;
 
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class BossAmalgama extends Boss{
     String[] frasesAtaque = {"A massa disforme investe, esmagando tudo!",
@@ -21,17 +22,37 @@ public class BossAmalgama extends Boss{
             definirAtributosBoss(p);
     }
 
-            //TODO: História, Obviamente, um jeito de mencionar as palavras que podem ser ditas dentro da própria história, terminar de ajustar os diálogos, danos
-            //TODO:
-
-
-
     @Override
-    public String introducao() throws IOException, InterruptedException {
-        UtilForMe.tempoDeLeitura("A carne pulsa e a sala treme. Símbolos de luz aparecem no ar, " +
-                "um monstro enorme feito totalmente de corpos decompostos...alguns deles continuam na sala.\n" +
-                "Existe um portão atrás da criatura, para onde será que leva?");
-        return "";
+    public String introducao(Player player){
+        String intro;
+        if(!player.notasLidas.contains("5")){
+            intro = """
+            Ao atravessar o último arco da ruína você observa a sala em que está.
+            A câmara é vasta, iluminada apenas por fendas de luz cinzenta que filtram do teto rachado.
+            No chão, vários corpos jogados, aventureiros, carniceiros, ou apenas pessoas sem magia.
+            Um som profundo — metade respiração, metade lamento — vibra pelas paredes.
+        
+            Das sombras, surgem os Observadores.
+            Eles não falam com a boca, mas uma voz sem eco invade sua mente, fria como o Vazio.
+        
+            "Você ousa enfrentar o Guardião da Primeira Queda..."
+        
+            Um segundo pensamento, mais agudo, corta sua consciência:
+            "A carne que guarda este portão não teme lâminas nem feitiços.
+            Somente as palavras que ele mesmo revela podem feri-lo.
+            Quando os símbolos surgirem no ar, repita-os com exatidão, ou sua força será em vão."
+        
+            A voz silencia, mas o aviso permanece gravado em seus ossos.
+            À sua frente, a massa colossal de carne pulsa lentamente, respirando como um coração gigante.
+            O Amálgama desperta.
+            """;
+        }
+        else{
+            intro = "A carne pulsa e a sala treme. Símbolos de luz aparecem no ar, " +
+                    "um monstro enorme feito totalmente de corpos decompostos...alguns deles continuam na sala.\n" +
+                    "Existe um portão atrás da criatura, para onde será que leva?";
+        }
+        return intro;
     }
 
     @Override
@@ -41,50 +62,74 @@ public class BossAmalgama extends Boss{
         Random random = new Random();
         double vidaBase = random.nextInt(100,130) + (player.level * 1.4 + 1.4 + 1) * 30;
         double mediaPlayer = player.life + player.damage + player.armor + player.magicArmor;
-        double aumentoEscalar = mediaPlayer * 1.5;
+        double aumentoEscalar = mediaPlayer * 1.2;
         this.life = vidaBase + aumentoEscalar;
         this.actLife = this.life;
 
         //calculo dano -> supondo que a vida do player deve ser perto la de 500
         double danoBase = random.nextInt(60,110);
-        double danoEscalar = (mediaPlayer - 150) * 0.15;
+        double danoEscalar = (mediaPlayer - 150) * 0.05;
         this.damage = danoEscalar + danoBase;
 
         //O calculo das armaduras vai ser mais simples pra não impactar tanto na dificuldade. Qualquer coisa so tirar se tiver muito broken.
-        this.magicArmor = player.magicArmor * 0.35;
-        this.armor = player.armor * 0.45;
+        this.magicArmor = player.magicArmor * 0.15;
+        this.armor = player.armor * 0.25;
 
         //nome
         this.name = "O Amálgama";
 
         //passiva
         this.nomePassiva = "Recomposição Profana";
-        this.passiva ="Recomposição Profana – a cada 3 turnos recupera 5% da vida perdida.";
+        this.passiva ="Recomposição Profana – os corpos que estão ao lado são alimentos para a criatura\na cada 3 turnos recupera 5% da vida perdida por consumir um corpo.";
 
     }
 
     @Override
-    public void morteBoss() {
-
+    public void morteBoss() throws IOException, InterruptedException {
+        UtilForMe.tempoDeLeitura("""
+                O último rugido do Amálgama ecoa como um trovão sufocado. \s
+                A massa de carne treme, racha e desaba em um mar de sangue e vapor quente. \s
+                Enquanto o silêncio se impõe, você percebe um brilho atrás dos restos: \s
+                um portão colossal, feito de pedra negra e runas ardentes, pulsa com luz própria. \s
+                
+                Não há caminho de volta. \s
+                As ruínas atrás de você já se fecharam, como se o mundo negasse a fuga. \s
+                Os Observadores, silenciosos, apenas observam. \s
+                
+                Com um último olhar para a sala profanada, você caminha em direção ao portão. \s
+                A luz das runas se intensifica — e a Segunda Queda o chama.""");
     }
 
     @Override
-    public void atacarPlayer(Player player, Boss boss, int round) {
+    public void atacarPlayer(Player player, Boss boss, int round) throws IOException {
         String palavraEscolhida = getPalavraEscolhida();
         double danoFinal = getDanoFinal(player,boss);
 
         LineReader reader = LineReaderBuilder.builder().build();
 
         Thread mainThread = Thread.currentThread(); // thread do readLine
+        AtomicLong tempoGasto = new AtomicLong();
+        AtomicLong tempoInicio = new AtomicLong();
+
 
         Thread timer = new Thread(() -> {
+
             try {
+                tempoInicio.set(System.currentTimeMillis()); //calcular o bonus de ataque
                 Thread.sleep(5000); // 5 segundos
                 System.out.println("\nAs palavras rúnicas desaparecem, a brecha se fecha");
+                long tempoFinal = System.currentTimeMillis(); //calcular o bonus de ataque
+
+                tempoGasto.set(tempoFinal - tempoInicio.get());
+
                 mainThread.interrupt(); // interrompe o readLine
             } catch (InterruptedException e) {
+                long tempoFinal = System.currentTimeMillis();
+                tempoGasto.set(tempoFinal - tempoInicio.get());
+
                 // timer foi interrompido porque usuário digitou
             }
+
         });
 
         timer.start();
@@ -96,17 +141,29 @@ public class BossAmalgama extends Boss{
             timer.interrupt(); // usuário digitou antes do tempo acabar
             if(text.equalsIgnoreCase(palavraEscolhida)){
                 System.out.println("✔ Brecha aberta! Você acerta um golpe\n");
-                boss.exibirRound(round,boss,player,"",danoFinal,false);
+                if(tempoGasto.get() <= 1500){
+                    System.out.println("✔ Um golpe rápido e poderoso! Você acerta um golpe crítico\n");
+                    boss.actLife -= danoFinal*1.50;
+                    boss.exibirRound(round,boss,player,"",danoFinal*1.50,false);
+
+                }
+                else{
+                    boss.actLife -=danoFinal;
+                    boss.exibirRound(round,boss,player,"",danoFinal,false);
+                }
+
+
 
             }
 
 
+
         } catch (UserInterruptException e) {
-            System.out.println("Entrada cancelada pelo tempo!");
+            System.out.println("Você não conseguiu digitar a tempo, a brecha se fecha");
         }
 
         System.out.println("A batalha continua...");
-
+        UtilForMe.fakeClear(50,true);
     }
 
     private static String getPalavraEscolhida() {
@@ -122,14 +179,14 @@ public class BossAmalgama extends Boss{
         return listaPalavras[random.nextInt(0,listaPalavras.length)];
     }
 
-    private double getDanoFinal(Player player, Boss boss){
+    public static double getDanoFinal(Player player, Boss boss){
 
-       String dmt = player.dmt;
-       double danoFinal;
+        String dmt = player.dmt;
+        double danoFinal;
 
         if (dmt.equals( "fisico") || dmt.equals( "físico"))
         {
-            danoFinal = damage - (boss.armor*1.15 + damage*0.04);
+            danoFinal = player.damage - (boss.armor*1.15 + player.damage*0.04);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
@@ -138,32 +195,35 @@ public class BossAmalgama extends Boss{
         }
         else if(dmt.equals("magico") || dmt.equals("mágico"))
         {
-            danoFinal = damage - (boss.magicArmor*1.15 + damage*0.04);
+            danoFinal = player.damage - (boss.magicArmor*1.15 + player.damage*0.04);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
             }
         }
         else{
-            danoFinal = damage;
+            danoFinal = player.damage;
         }
         if (danoFinal < 0) danoFinal = 10;
 
         if(player.espelhoArcano(player)){
-            danoFinal += boss.damage * 0.8;
+            danoFinal += boss.damage * 0.08;
         }
         if(player.umPoucoDeSorte(player)){
             if(dmt.equals("true")){
-                danoFinal = player.damage * 1.5;
+                danoFinal = player.damage * 2;
             }
-            else{
-                danoFinal = (player.damage - boss.armor*1.2 + damage*0.07 ) * 1.5;
+            else if (dmt.equalsIgnoreCase("físico")){
+                danoFinal = (player.damage - boss.armor*1.15 + player.damage*0.04 ) * 2;
+            }else{
+                danoFinal = (player.damage - boss.magicArmor*1.15 + player.damage*0.04 ) * 2;
             }
 
         }
         return danoFinal;
     }
 }
+
 
 
 

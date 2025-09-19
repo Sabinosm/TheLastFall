@@ -85,6 +85,7 @@ public abstract class Boss  implements BossInterface {
         return boss.actLife <= 0;
     }
 
+
     public void atacarBoss(Boss bossAtacante, Player playerAlvo, List<String> frasesAtaque, int round) throws IOException, InterruptedException {
 
             double danoFinal;
@@ -125,7 +126,7 @@ public abstract class Boss  implements BossInterface {
             else{
                     Random r = new Random();
                     String[] ataqueFrases = frasesAtaque.toArray(new String[0]);
-                    exibirRound(round,bossAtacante,playerAlvo,ataqueFrases[r.nextInt(0,ataqueFrases.length+1)],danoFinal,true);
+                    exibirRound(round,bossAtacante,playerAlvo,ataqueFrases[r.nextInt(0,ataqueFrases.length)],danoFinal,true);
                     passivaAtributos(bossAtacante,round,playerAlvo);
                     UtilForMe.fakeClear(50,true); //verificado
 
@@ -135,7 +136,7 @@ public abstract class Boss  implements BossInterface {
     }
 
     private static double xpDaMorteBoss(Boss boss){
-        return (boss.life + boss.damage + boss.armor + boss.magicArmor + 100) * 4.5;
+        return (boss.life + boss.damage + boss.armor + boss.magicArmor + 100) * 3.5;
 
     }
 
@@ -143,46 +144,53 @@ public abstract class Boss  implements BossInterface {
 
         // ----- Boss -----
         double porcentagemBoss = boss.actLife / boss.life;
+        double porcentagemB = Math.round((boss.actLife*100)/boss.life);
         String barraBoss = buildHealthBar(porcentagemBoss);
 
         // ----- Player -----
         double porcentagemJogador = player.actLife / player.life;
+        double porcentagemP = Math.round((player.actLife*100)/player.life);
         String barraJogador = buildHealthBar(porcentagemJogador);
 
 if(eBoss){
     System.out.printf("""
-    ╔══════════ Round %d ══════════╗
+    ╔═════════════ Round %d ═════════════╗
+    
         Boss: %s
         Vida Boss: %s
-    ───────────────────────────────
+        
+    ──────────────────────────────────────
      %s
      
         Dano recebido: %f
         Vida Player: %s
-    ╚══════════════════════════════╝
+    ╚════════════════════════════════════╝
     """,
             round,
             boss.name,
-            barraBoss,
+            barraBoss+"---"+porcentagemB+"%",
             acaoBoss,
             dano,
-            barraJogador);
+            barraJogador+"---"+porcentagemP+"%");
 }
 else{
     System.out.printf("""
-    ╔══════════ Round %d ══════════╗
+    ╔═════════════ Round %d  ═════════════╗
+    
         Player: %s
         Vida Player: %s
-    ───────────────────────────────
+        
+    ──────────────────────────────────────
+    
         Dano causado: %f
         Vida Boss: %s
-    ╚══════════════════════════════╝
+   ╚══════════════════════════════════════╝
     """,
             round,
             player.nome,
-            barraJogador,
+            barraJogador+"---"+porcentagemP+"%",
             dano,
-            barraBoss);
+            barraBoss+"---"+porcentagemB+"%");
 }
 
     }

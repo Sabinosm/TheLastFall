@@ -21,13 +21,16 @@ public abstract class EventosSecundarios {
 
     static {
         try {
-            terminal = TerminalBuilder.builder().system(true).build();
+              terminal = TerminalBuilder.builder()
+                .jna(false) // evita bug de raw mode em alguns terminais
+                .system(true)
+                .build();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public EventosSecundarios(Player p) {
+    public EventosSecundarios() {
 
     }
 
@@ -86,7 +89,7 @@ public abstract class EventosSecundarios {
                     
                     (5) Seguir adiante – deixar a o local e prosseguir pela fenda.
                     """);
-            reader.getBuffer().clear();
+            
             escolha = Integer.parseInt(reader.readLine());
 
             switch (escolha) {
@@ -96,7 +99,7 @@ public abstract class EventosSecundarios {
                 case 2:
                     UtilForMe.fakeClear(50,false); //verificado
                     inimigosMortosTextos(queda, p);
-                    reader.getBuffer().clear();
+                    
                      reader.readLine();
                     break;
                 case 3:
@@ -125,7 +128,7 @@ public abstract class EventosSecundarios {
 
                         System.out.println(notaTexto);
                         try {
-                            reader.getBuffer().clear();
+                            
                             escolha = Integer.parseInt(reader.readLine());
 
                             if (escolha == notasL.size() + 1) {

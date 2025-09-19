@@ -5,13 +5,14 @@ import com.pedro.configuracoes.PlayerConfigurations;
 import com.pedro.eventos.Checkpoint;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
-import org.jline.reader.Parser;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+
+import static com.pedro.UtilForMe.readInt;
 
 public class Player extends Mob {
     public double pLife = 50;
@@ -47,7 +48,7 @@ public class Player extends Mob {
                     "Bloqueia 15% do dano e reflete 8% do dano ao adversário -10% de armadura e -10% de armadura mágica e - 5% do dano.",
             "Um pouco de sorte-\n"+
                     "Um cara atrevido, mas sortudo, seu poder é inconsistente, poderia ser muito destrutivo, mas so em momentos aleatórios, a sorte é sua maior amiga\n" +
-                    "E o azar seu maior inimigo. Perde 10% do dano em troca de 40% de chance de causar um ataque crítico, que dara 150% do dano atual."
+                    "E o azar seu maior inimigo. Perde 10% do dano em troca de 40% de chance de causar um ataque crítico, que dara 200% do dano atual."
 
     };
 
@@ -178,7 +179,10 @@ public class Player extends Mob {
 
     public static void menuHabilidades(Player p) throws InterruptedException, IOException, SQLException {
 
-        Terminal terminal = TerminalBuilder.builder().system(true).build();
+          Terminal terminal = TerminalBuilder.builder()
+                .jna(false) // evita bug de raw mode em alguns terminais
+                .system(true)
+                .build();
         LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
 
@@ -204,14 +208,13 @@ public class Player extends Mob {
                     "============================================\n");
 
             System.out.print("Escolha a opção: ");
-            reader.getBuffer().clear();
-            choose = reader.readLine();
+            
+            choose = String.valueOf(readInt()).trim();
 
             if(choose.equals("5")){
                 System.out.println("Seus pontos foram resetados com sucesso\n");
                 p.pontosHabilidade += p.calcularPontosGastos();
                 p.resetarStatus();
-                PlayerConfigurations.salvarPlayer(p);
                 UtilForMe.fakeClear(50,true);
             }
 
@@ -220,7 +223,7 @@ public class Player extends Mob {
                 pontosQ = 0;
                 System.out.print("Escolha a quantidade de pontos: ");
                 try{
-                    reader.getBuffer().clear();
+                    
                     pontosQ = Integer.parseInt(reader.readLine());
                 } catch (NumberFormatException e) {
                     choose = "7";
@@ -432,7 +435,10 @@ public class Player extends Mob {
         int totalPontos = 50;
 
         if(level <= 10){
-            totalPontos += level*7 - this.pontosHabilidade ;
+            if(level == 1){
+                totalPontos -= 7;
+            }
+            totalPontos += level*7 - this.pontosHabilidade;
         }
         else if(level <=20){
             totalPontos += (10*7) + level * 8 - this.pontosHabilidade;
@@ -445,7 +451,7 @@ public class Player extends Mob {
     }
     private void resetarStatus(){
         this.pLife = 50;
-        this.magicArmor = 0;
+        this.pMagicArmor = 0;
         this.pDamage = 0;
         this.pArmor = 0;
         Passivas.atualizarAtributosSemBatalha(this);

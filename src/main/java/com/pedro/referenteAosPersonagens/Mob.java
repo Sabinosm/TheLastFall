@@ -60,7 +60,7 @@ public abstract class Mob {
 
         if (dmt.equals( "fisico") || dmt.equals( "físico"))
         {
-            danoFinal = damage - (alvo.armor*1.3);
+            danoFinal = damage - (alvo.armor*1.15 + damage*0.04);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
@@ -69,7 +69,7 @@ public abstract class Mob {
         }
         else if(dmt.equals("magico") || dmt.equals("mágico"))
         {
-            danoFinal = damage - (alvo.magicArmor*1.3);
+            danoFinal = damage - (alvo.magicArmor*1.15 + damage*0.04);
             if(danoFinal <= 0){
                 danoFinal = 10;
                 System.out.println("\nSeu dano é muito baixo perante a incrivel armadura do adversário.\n");
@@ -83,14 +83,14 @@ public abstract class Mob {
                 danoFinal *= 0.85;
         }
         if(atacante instanceof Player && ((Player)atacante).espelhoArcano(((Player) atacante))){
-            danoFinal += alvo.damage * 0.8;
+            danoFinal += alvo.damage * 0.08;
         }
         if(atacante instanceof Player && ((Player)atacante).umPoucoDeSorte(((Player) atacante))){
             if(atacante.dmt.equals("true")){
-                danoFinal = atacante.damage * 1.5;
+                danoFinal = atacante.damage * 2;
             }
             else{
-                danoFinal = (atacante.damage - alvo.armor*1.2 + damage*0.07 ) * 1.5;
+                danoFinal = (atacante.damage - alvo.armor*1.15 + atacante.damage*0.04 ) * 2;
             }
 
         }
@@ -142,7 +142,7 @@ public abstract class Mob {
                     "A vida atual de "+ alvo.nome +" é "+ alvo.actLife+"\nRound"+round+"=================================\n");
         }
 
-    };
+    }
 
     public static double xpDaMorte(Mob morto,double dificultModifyer){
         return (morto.level)*(morto.life + morto.damage + morto.armor + morto.magicArmor)*dificultModifyer+2;
