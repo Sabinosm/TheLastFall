@@ -2,28 +2,27 @@ package com.pedro.historia;
 
 import com.pedro.UtilForMe;
 import com.pedro.referenteAosPersonagens.Player;
-import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 
 public class Notas {
     public static void notasEventos(int nota,int queda) throws InterruptedException, IOException {
         if (nota == 1 && queda == 1) {
-            UtilForMe.tempoDeLeitura("Após um tempo de caminhada, você vê ao longe, uma cadeia de montanhas, decide se aproximar e vê que não são apenas montanhas\n" +
+            UtilForMe.TempoDeLeitura("Após um tempo de caminhada, você vê ao longe, uma cadeia de montanhas, decide se aproximar e vê que não são apenas montanhas\n" +
                     "e sim ruínas, de algo que parecia ser uma vila........\n");
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Ao se aproximar das ruínas, você vê alguns vultos, pessoas? Monstros? Aventureiros? Um resgate?
                     Será que, neste mundo, neste lugar, existe realmente algo diferente de monstros? Existe mesmo salvação?
                     Não, não existe fim para esse sofrimento....
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Os vultos, eram pessoas, talvez aventureiros, ou prisioneiros, até ,mesmo sacrifícios, o que aconteceu neste lugar?
                     Os corpos deles, parecem....queimados...como se tivessem sido tirados de um fogo que nunca se queimava...como se deles
                     tudo tivesse sido tirado...menos a vida...e o que há de bom em viver assim?
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Ali, caído contra uma pedra, há um corpo encapuzado.
                     Os lábios ressecados ainda se movem, repetindo palavras sem fim, como uma oração esquecida.
                     Você se aproxima… e percebe que não é uma oração, mas um lamento sobre alguém que nunca veio.
@@ -31,7 +30,7 @@ public class Notas {
                     conseguirá alguma resposta...
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Aventureiro --- 
                     
                     "Ele virá… ele prometeu… o Herói, o Salvador, jamais abandona seu povo!
@@ -41,7 +40,7 @@ public class Notas {
                     Era tudo o que ele falava, até que, seus olhos se voltaram para quem estava a sua frente.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Aventureiro --- 
                     
                     Olha só o que eu vejo, mais um herege, mais um que tenta imitar o herói,
@@ -52,7 +51,7 @@ public class Notas {
                     -Então ele volta para sua oração e seus lamentos
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Ele não fala mais nada. O silêncio que segue é quase mais pesado que suas palavras.
                      Você sente o peso da solidão e do sofrimento daquele lugar, como se as ruínas observassem cada movimento seu. 
                     Lentamente, se afasta, cada passo carregando o medo do desconhecido, consciente de que cada ruído  pode revelar algo horrível escondido nas sombras.
@@ -60,7 +59,7 @@ public class Notas {
                     """);
 
         } else if (nota == 2) {
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Você segue pela névoa vermelha, que rasteja pelo chão como se tivesse vida própria.
                     O ar aqui é pesado, tem gosto de ferrugem e cinzas. Cada respiração parece arranhar sua garganta.
                     
@@ -68,14 +67,14 @@ public class Notas {
                     Não são marcas de guerra, mas sim desenhos — flores, rios, estrelas, pessoas de mãos dadas. Um fragmento de vida congelado no tempo.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Como um lugar tão lindo pode ter se transformado nisso?
                     
                     Você imagina as ruas que agora jazem cobertas por poeira e ossos. Crianças correndo, festas à luz da lua,
                     o cheiro de pão saindo de fornos de pedra… tudo isso perdido, devorado pelo Vazio.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Os ventos frios que sopram entre as casas destruídas carregam sussurros. Talvez sejam apenas ecos da sua mente, mas parecem vozes distantes, 
                     como se as pedras ainda recordassem.
                     Entre os escombros, você encontra uma pedra maior, partida ao meio. Gravado às pressas, com traços irregulares, está um último pedido:
@@ -83,12 +82,12 @@ public class Notas {
                     'Perdoe-nos, Criador… nós o decepcionamos.'
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     A mensagem termina abruptamente, como se o autor tivesse sido interrompido antes do último traço.
                     Você se ajoelha para observar melhor e percebe manchas escuras próximas às palavras, já secas, talvez sangue.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     O silêncio que se segue não é comum. É como se as próprias ruínas o observassem, como se esperassem uma resposta sua.
                     Mas aqui, ninguém responde. Nem o Criador, nem heróis, nem vivos.
                     
@@ -97,17 +96,17 @@ public class Notas {
                     """);
 
         } else if (nota == 3 && queda == 1) {
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     "Entre as ruínas, você encontra rastros estranhos no chão. Marcas de garras, sangue escurecido, pedaços de carne seca espalhados como 
                     restos de uma refeição apressada. O cheiro é insuportável — doce demais para ser apenas sangue, amargo demais para ser apenas podridão.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     E então, entre pedras partidas, uma inscrição chama sua atenção. Diferente das outras, não parece ter sido escrita para 
                     pedir ajuda ou perdão. É um aviso.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     'Eles nos caçam, mas não como lobos caçam carne.
                     Eles caçam lágrimas.
                     Eles bebem do medo, da raiva, da culpa.
@@ -116,12 +115,12 @@ public class Notas {
                     Ou eles não o deixarão morrer.'
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Você imagina quem deixou aquelas palavras, e em que estado estava ao escrevê-las. 
                     Talvez um sobrevivente, talvez um louco que já não distinguia sua dor da realidade.
                     
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Enquanto lê, sente um arrepio atravessar sua espinha. Não é apenas o vento frio.
                     É como se algo, em algum lugar, estivesse rindo de você.
                     Os gritos distantes se intensificam. Alguns parecem vir de monstros, outros de pessoas. Difícil dizer.
@@ -129,7 +128,7 @@ public class Notas {
                     
                     """);
         } else if (nota == 4 && queda == 1) {
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Após matar o inimigo, você percebe algo estranho...
                     A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
                     A magia não nasceu do carniceiro… mas de algo maior.
@@ -146,7 +145,7 @@ public class Notas {
                     """);
 
         }else if(nota == 5 && queda == 1){
-           UtilForMe.tempoDeLeitura("""
+           UtilForMe.TempoDeLeitura("""
                    Para quem ousar enfrentar o Guardião da Primeira Queda
                    Vi um aventureiro de alto escalão atravessar a câmara e encarar a massa viva que chamamos de O Amálgama.
                    Nenhum golpe comum surtiu efeito; a própria carne rejeitava lâminas e feitiços.
@@ -162,33 +161,33 @@ public class Notas {
     }
 
     public static void notasIntro(int ordem) throws IOException, InterruptedException {
-        UtilForMe.fakeClear(50,false); //verificado
+        UtilForMe.FakeClear(50,false); //verificado
         if(ordem == 1){
             //Introdução do mundo
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                        Morte. Pecado. Ódio. Preconceito. Tortura. Repressão.
                     A humanidade se afogava em sua própria maldade.
                     E até o Criador, cansado de sua obra, desviou os olhos da Terra.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Como último julgamento, rasgou-se o mundo:
                     uma fenda colossal, aberta sobre a linha do equador.
                     Chamaram-na de "O Vazio".
                     Não era apenas uma fenda… mas uma entidade viva, que devorava tudo o que possuía humanidade.
                     Animais e natureza permaneceram intocados — e assim, tornaram-se os novos predadores do homem.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Do Vazio emergiram horrores.
                     Os Carniceiros, amontoados de carne humana e animal, moldados apenas para destruir.
                     Atrás deles vieram os Arcanistas do Vazio, restos de uma civilização perdida, guiados por feitiçaria grotesca e primitiva.
                     E mais fundo ainda, ocultos sob camadas de trevas, rumores falavam dos verdadeiros senhores: os Demônios.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     No entanto, antes de abandonar por completo sua criação, o Criador concedeu um último presente:
                     uma chama adormecida de magia no sangue humano.
                     Rara. Poderosa. Uma fagulha de esperança.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Mas a esperança não bastou.
                     E os homens… tornaram-se presas.
                     """);
@@ -196,20 +195,20 @@ public class Notas {
         }
         else{
             //Introdução à primeira queda
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Seu corpo atinge o chão com força.
                     A dor o desperta.
                     O ar que entra nos seus pulmões não é ar… é fumaça vermelha, densa, que arde como ferro em brasa.
                     Você tosse, mas cada respiração o prende mais a este lugar.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Ao se erguer, a visão se abre:
                     a Primeira Queda.
                     Um deserto de pedras quebradas e raízes mortas.
                     Aqui não há vento, não há céu — apenas um teto distante de trevas,
                     onde lampejos vermelhos piscam como cicatrizes no vazio.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Gritos ressoam por todo lado.
                     Não são de homens, nem de animais. São ecos de dor que parecem vir das próprias paredes da fenda.
                     Entre ruínas e colunas despedaçadas, você enxerga corpos vagando…
@@ -218,7 +217,7 @@ public class Notas {
                     Esses são os Carniceiros.
                     E eles já sentiram o cheiro da sua chegada.
                     """);
-            UtilForMe.tempoDeLeitura("""
+            UtilForMe.TempoDeLeitura("""
                     Você caiu.
                     E assim, o vazio da as boas-vindas ao seu novo filho.
                     """);
@@ -226,12 +225,12 @@ public class Notas {
 
 
         }
-        UtilForMe.fakeClear(50,true); //verificado
+        UtilForMe.FakeClear(50,true); //verificado
 
     }
 
     public static String notasPersonagens(Player p) throws IOException {
-        UtilForMe.fakeClear(50,false); //Verificado
+        UtilForMe.FakeClear(50,false); //Verificado
         String texto;
         if(p.getLore().equals("Destino")){
             texto = """
@@ -292,7 +291,7 @@ public class Notas {
     }
 
     public static void notaSegredo(Player p) throws InterruptedException, IOException {
-        UtilForMe.tempoDeLeitura("""
+        UtilForMe.TempoDeLeitura("""
                 Após matar o inimigo, você percebe algo estranho...
                 A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
                 A magia não nasceu do carniceiro… mas de algo maior.

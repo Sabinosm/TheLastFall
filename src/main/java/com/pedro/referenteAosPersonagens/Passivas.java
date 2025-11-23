@@ -164,6 +164,7 @@ public class Passivas {
 
         // Reset da vida atual ao máximo
     }
+
     public static void atualizarAtributosSemBatalha(Player player) {
         switch (Passivas.qualPassiva(player)) {
             case "Corpo divino":
@@ -211,6 +212,7 @@ public class Passivas {
 
         player.actLife = player.life;
     }
+
     public static void atualizarAtributosBatalhaPlayerTexto(Player x,Enemy adversario) {
         switch (Passivas.qualPassiva(x)) {
             case "Espelho arcano":

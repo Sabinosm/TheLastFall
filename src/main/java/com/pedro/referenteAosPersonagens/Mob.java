@@ -125,7 +125,7 @@ public abstract class Mob {
 
 
             System.out.println("Round"+round+"=================================\n");
-            UtilForMe.fakeClear(50,true); //verificado
+            UtilForMe.FakeClear(50,true); //verificado
         }
         else if(isDead(alvo) && alvo instanceof Player){
 

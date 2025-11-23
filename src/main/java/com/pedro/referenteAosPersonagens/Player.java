@@ -1,18 +1,14 @@
 package com.pedro.referenteAosPersonagens;
 
 import com.pedro.UtilForMe;
+import com.pedro.configuracoes.Checkpoint;
 import com.pedro.configuracoes.PlayerConfigurations;
-import com.pedro.eventos.Checkpoint;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 
-import static com.pedro.UtilForMe.readInt;
+import static com.pedro.UtilForMe.ReadInt;
 
 public class Player extends Mob {
     public double pLife = 50;
@@ -29,26 +25,37 @@ public class Player extends Mob {
     public Set<String> magoDeCadaLevelMorto = new HashSet<>();
     public Set<String> demonDeCadaLevelMorto = new HashSet<>();
     public Set<String> notasLidas = new LinkedHashSet<>();
+    public Set<String> chavesAdquiridas = new LinkedHashSet<>();
     public Integer PlayerId;
     private Checkpoint checkpoint = Checkpoint.NO_CHECK;
     String lore;
     public boolean umPoucoDeSorteAconteceu = false;
     double xpAtual =0;
-    String[] possiblePassive ={"Corpo divino-\n" +
-            "Abençoado pelo criador, herança do mártir , este que o possui, ganha 30% a mais de vida, e seus ataques tiram mais\n10% a mais de dano, porem têm 12% a menos " +
-            "de armadura e armadura mágica",
-            "Guardião da ruína-\n" +
-                    "Um sobrevivente que transformou sua carne em couraça. \nEste possui um aumento extremo de armadura, " +
-                    "ganhando 30% a mais de armadura\ne 25% de armadura mágica, porém -8% de dano",
-            "Berserker-\n" +
-                    "Você se alimenta daquilo que todos temem. O sangue dos Carniceiros é veneno para uns, mas para você… é sustento.\n" +
-                    "Com um estilo de luta extremamente poderoso e violento, à custo de sua vida \nele ganha 40% de dano, -8% da vida e -10% de armadura mágica",
-            "Espelho arcano-\n" +
-                    "Seu poder é puro, limpo, sua mana é invejável, a pureza dela é tanta que assim como frequências, apenas ataques na sintonia correta poderão te acertar\n" +
-                    "Bloqueia 15% do dano e reflete 8% do dano ao adversário -10% de armadura e -10% de armadura mágica e - 5% do dano.",
-            "Um pouco de sorte-\n"+
-                    "Um cara atrevido, mas sortudo, seu poder é inconsistente, poderia ser muito destrutivo, mas so em momentos aleatórios, a sorte é sua maior amiga\n" +
-                    "E o azar seu maior inimigo. Perde 10% do dano em troca de 40% de chance de causar um ataque crítico, que dara 200% do dano atual."
+    String[] possiblePassive ={
+                """
+                Corpo divino-
+                Abençoado pelo criador, herança do mártir , este que o possui, ganha 30% a mais de vida, e seus ataques tiram mais
+                10% a mais de dano, porem têm 12% a menos
+                de armadura e armadura mágica""",
+                            """
+                Guardião da ruína-
+                Um sobrevivente que transformou sua carne em couraça.
+                Este possui um aumento extremo de armadura,
+                ganhando 30% a mais de armadura
+                e 25% de armadura mágica, porém -8% de dano""",
+                            """
+                Berserker-
+                Você se alimenta daquilo que todos temem. O sangue dos Carniceiros é veneno para uns, mas para você… é sustento.
+                Com um estilo de luta extremamente poderoso e violento, à custo de sua vida
+                ele ganha 40% de dano, -8% da vida e -10% de armadura mágica""",
+                            """
+                Espelho arcano-
+                Seu poder é puro, limpo, sua mana é invejável, a pureza dela é tanta que assim como frequências, apenas ataques na sintonia correta poderão te acertar
+                Bloqueia 15% do dano e reflete 8% do dano ao adversário -10% de armadura e -10% de armadura mágica e - 5% do dano.""",
+                            """
+                Um pouco de sorte-
+                Um cara atrevido, mas sortudo, seu poder é inconsistente, poderia ser muito destrutivo, mas so em momentos aleatórios, a sorte é sua maior amiga
+                E o azar seu maior inimigo. Perde 10% do dano em troca de 40% de chance de causar um ataque crítico, que dara 200% do dano atual."""
 
     };
 
@@ -179,11 +186,6 @@ public class Player extends Mob {
 
     public static void menuHabilidades(Player p) throws InterruptedException, IOException, SQLException {
 
-          Terminal terminal = TerminalBuilder.builder()
-                .jna(false) // evita bug de raw mode em alguns terminais
-                .system(true)
-                .build();
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
 
 
         String choose = "-1";
@@ -209,13 +211,13 @@ public class Player extends Mob {
 
             System.out.print("Escolha a opção: ");
             
-            choose = String.valueOf(readInt()).trim();
+            choose = String.valueOf(ReadInt()).trim();
 
             if(choose.equals("5")){
                 System.out.println("Seus pontos foram resetados com sucesso\n");
                 p.pontosHabilidade += p.calcularPontosGastos();
                 p.resetarStatus();
-                UtilForMe.fakeClear(50,true);
+                UtilForMe.FakeClear(50,true);
             }
 
             if (p.pontosHabilidade > 0 && !choose.equals("6") &&  !choose.equals("5") )
@@ -224,15 +226,15 @@ public class Player extends Mob {
                 System.out.print("Escolha a quantidade de pontos: ");
                 try{
                     
-                    pontosQ = Integer.parseInt(reader.readLine());
+                    pontosQ = ReadInt();
                 } catch (NumberFormatException e) {
                     choose = "7";
                 }
 
-                UtilForMe.fakeClear(50,false); //verificado
+                UtilForMe.FakeClear(50,false); //verificado
                 if(pontosQ > p.pontosHabilidade){
                     System.out.println("Você não possui essa quantidade de pontos, nova quantidade selecionada é: "+ 0);
-                    UtilForMe.fakeClear(50,true); //verificado
+                    UtilForMe.FakeClear(50,true); //verificado
                     pontosQ = 0;
                 }
 
@@ -250,12 +252,9 @@ public class Player extends Mob {
                     case "4":
                         System.out.println("Seus pontos foram adicionados com sucesso\n");
                         p.pMagicArmor += (pontosQ); p.pontosHabilidade -= pontosQ; break;
-                    case "6":
-                        Passivas.atualizarAtributosSemBatalha(p);
-                        PlayerConfigurations.salvarPlayer(p);break;
                     default:
                         System.out.println("Seus pontos não foram adicionados. Insira um número válido\n");
-                        UtilForMe.fakeClear(50,true); //verificado
+                        UtilForMe.FakeClear(50,true); //verificado
                         break;
 
                 }
@@ -263,88 +262,97 @@ public class Player extends Mob {
             else if(p.pontosHabilidade == 0 && !choose.equals("5"))
             {
                 if (choose.equals("6")) {
+                    Passivas.atualizarAtributosSemBatalha(p);
+                    if(p.getPlayerId() != null) PlayerConfigurations.SalvarPlayer(p);
 
                 }
                 else {
                     System.out.println("Insira um número válido, você não possui mais pontos, evolua de nivel para conseguir mais\n");
-                    UtilForMe.fakeClear(50, true); //verificado
+                    UtilForMe.FakeClear(50, true); //verificado
                 }
             }
 
         }
-        UtilForMe.tempoDeLeitura("\n\n------Você escolheu sair-----");
+        UtilForMe.TempoDeLeitura("\n\n------Você escolheu sair-----");
 
     }
 
     public static void morteJogador(Player p,Enemy mortoPor) throws IOException, InterruptedException {
         if(p.actLife <= 0){
-            UtilForMe.fakeClear(50,true); //verificado
-            UtilForMe.tempoDeLeitura("Seu corpo cai.  \n" +
-                    "O som da carne se desfazendo ecoa pelo Vazio.  \n" +
-                    "Mas a morte não é o fim.  \n" +
-                    "Aqui, ela é apenas mais uma corrente.  \n" +
-                    "\n" +
-                    "Você sente sua alma se desprender, tentando fugir, tentando alcançar algo além…  \n" +
-                    "Mas o Vazio não permite.  \n" +
-                    "Ele a arrasta de volta, com garras invisíveis, jogando-a novamente contra o chão da Primeira Queda.  \n" +
-                    "\n" +
-                    "No processo, parte do que você conquistou se desfaz.  \n" +
-                    "As almas que havia consumido se dispersam, duas fogem pelas fendas,  \n" +
-                    "e a mais forte delas — aquela que o definia — se parte em fragmentos, deixando-o vazio.  \n" +
-                    "\n" +
-                    "Você se ergue novamente.  \n" +
-                    "Mais fraco.  \n" +
-                    "Mais vazio.  \n" +
-                    "Mas condenado a continuar.\n\n" +
-                    "XP atual -> 0\n" +
-                    "Alma mais forte se foi\n" +
-                    "-2 almas na contagem total de mortos e nas dos monstros específicos\n" );
+            UtilForMe.FakeClear(50,true); //verificado
+            UtilForMe.TempoDeLeitura("""
+                    Seu corpo cai.
+                    O som da carne se desfazendo ecoa pelo Vazio.
+                    Mas a morte não é o fim.
+                    Aqui, ela é apenas mais uma corrente.
+                    
+                    Você sente sua alma se desprender, tentando fugir, tentando alcançar algo além…
+                    Mas o Vazio não permite.
+                    Ele a arrasta de volta, com garras invisíveis, jogando-a novamente contra o chão da Primeira Queda.
+                    
+                    No processo, parte do que você conquistou se desfaz.
+                    As almas que havia consumido se dispersam, duas fogem pelas fendas,
+                    e a mais forte delas — aquela que o definia — se parte em fragmentos, deixando-o vazio.
+                    
+                    Você se ergue novamente.
+                    Mais fraco.
+                    Mais vazio.
+                    Mas condenado a continuar.
+                    
+                    XP atual -> 0
+                    Alma mais forte se foi
+                    -2 almas na contagem total de mortos e nas dos monstros específicos
+                    """);
 
 
             p.setXpAtual(0);
             if(mortoPor != null){
-                if(mortoPor instanceof Carniceiro && p.carnMortos >= p.carnMortos -2 && p.inimigosMortos >= p.inimigosMortos-2 ){
+                switch (mortoPor) {
+                    case Carniceiro carniceiro ->{
 
-                    p.setCarnMortos(p.carnMortos - 2);
-                    p.setInimigosMortos(p.inimigosMortos-2);
+                        if(p.carnMortos >= p.carnMortos - 2) p.setCarnMortos(p.carnMortos - 2);
+                        if(p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
-                    String maiorStr = Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                        String maiorStr = Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                    if (p.carnDeCadaLevelMorto.contains(maiorStr)) {
-                        p.carnDeCadaLevelMorto.remove(maiorStr);
-                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                    } else {
-                        System.out.println("Não havia nenhuma alma.\n");
+                        if (p.carnDeCadaLevelMorto.contains(maiorStr)) {
+                            p.carnDeCadaLevelMorto.remove(maiorStr);
+                            System.out.println("Uma alma de nível " + maiorStr + " fugiu...\n");
+                        } else {
+                            System.out.println("Não havia nenhuma alma.\n");
+                        }
+
                     }
+                    case Mage mage -> {
 
+                        if (p.magoMortos >= p.magoMortos - 2) p.setMagoMortos(p.magoMortos - 2);
+                        if (p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
+                        String maiorStr = Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                } else if (mortoPor instanceof Mage){
+                        if (p.magoDeCadaLevelMorto.contains(maiorStr)) {
+                            p.magoDeCadaLevelMorto.remove(maiorStr);
+                            System.out.println("Uma alma de nível " + maiorStr + " fugiu...\n");
+                        } else {
+                            System.out.println("Não havia nenhuma alma.\n");
+                        }
 
-                    if(p.magoMortos >= p.magoMortos - 2) p.setCarnMortos(p.magoMortos - 2);
-                    if( p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos-2);
-
-                    String maiorStr = Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
-
-                    if (p.magoDeCadaLevelMorto.contains(maiorStr)) {
-                        p.magoDeCadaLevelMorto.remove(maiorStr);
-                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                    } else {
-                        System.out.println("Não havia nenhuma alma.\n");
                     }
+                    case Demon demon -> {
 
-                } else if (mortoPor instanceof Demon ){
+                        if (p.demoniosMortos >= p.demoniosMortos - 2) p.setCarnMortos(p.demoniosMortos - 2);
+                        if (p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
-                    if(p.demoniosMortos >= p.demoniosMortos - 2) p.setCarnMortos(p.demoniosMortos - 2);
-                    if(p.inimigosMortos >=  p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos-2);
+                        String maiorStr = Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
 
-                    String maiorStr = Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
-
-                    if (p.demonDeCadaLevelMorto.contains(maiorStr)) {
-                        p.demonDeCadaLevelMorto.remove(maiorStr);
-                        System.out.println("Uma alma de nível "+ maiorStr +" fugiu...\n");
-                    } else {
-                        System.out.println("Não havia nenhuma alma.\n");
+                        if (p.demonDeCadaLevelMorto.contains(maiorStr)) {
+                            p.demonDeCadaLevelMorto.remove(maiorStr);
+                            System.out.println("Uma alma de nível " + maiorStr + " fugiu...\n");
+                        } else {
+                            System.out.println("Não havia nenhuma alma.\n");
+                        }
+                    }
+                    default -> {
                     }
                 }
             }
@@ -358,9 +366,6 @@ public class Player extends Mob {
             System.out.println("Erro");
         }
     }
-
-
-
 
     public void setCarnMortos(int carnMortos) {
         this.carnMortos = carnMortos;
@@ -449,6 +454,7 @@ public class Player extends Mob {
 
         return totalPontos;
     }
+
     private void resetarStatus(){
         this.pLife = 50;
         this.pMagicArmor = 0;

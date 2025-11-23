@@ -32,21 +32,21 @@ public abstract class UtilForMe {
         }
     }
 
-    public static void setVelocidadeTexto(String velocidadeTexto) {
+    public static void SetVelocidadeTexto(String velocidadeTexto) {
         UtilForMe.velocidadeTexto = velocidadeTexto;
     }
 
-    public static String getVelocidadeTexto() {
+    public static String GetVelocidadeTexto() {
         return velocidadeTexto;
     }
 
-    public static void fakeClear(int clearNum, boolean enterParaSeguir) throws IOException {
+    public static void FakeClear(int clearNum, boolean enterParaSeguir) throws IOException {
         if (enterParaSeguir) {
+
             System.out.println("\n\n( ENTER ) Para seguir");
 
             // 🔹 espera só o ENTER
             while (System.in.read() != '\n') {
-                // ignora qualquer coisa até o Enter
             }
         }
 
@@ -57,7 +57,7 @@ public abstract class UtilForMe {
 
 
     // Método para ler inteiro
-    public static int readInt() throws IOException {
+    public static int ReadInt() throws IOException {
         int numero = -1;
         boolean valido = false;
 
@@ -71,6 +71,7 @@ public abstract class UtilForMe {
                 String entrada = reader.readLine();
                 numero = Integer.parseInt(entrada.trim());
                 valido = true;
+
             } catch (NumberFormatException e) {
                 System.out.println("⚠ Digite apenas números.");
 
@@ -78,16 +79,48 @@ public abstract class UtilForMe {
                 System.out.println("Erro de leitura: " + e.getMessage());
             }
         }
-        fakeClear(50,true);
+        while (terminal.reader().ready()) {
+            terminal.reader().read();
+        }
         return numero;
     }
 
-    public static String arr(double d) {
+    //Método para ler string
+    public static String ReadStr() throws IOException {
+        String texto = "";
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                // 🔹 limpa resíduos
+                while (terminal.reader().ready()) {
+                    terminal.reader().read();
+                }
+
+                String entrada = reader.readLine();
+                texto = entrada.trim();
+                valido = true;
+
+            } catch (NumberFormatException e) {
+                System.out.println("Digite a palavra correta");
+
+            } catch (IOException e) {
+                System.out.println("Erro de leitura: " + e.getMessage());
+            }
+        }
+        while (terminal.reader().ready()) {
+            terminal.reader().read();
+        }
+        return texto;
+    }
+
+
+    public static String Arr(double d) {
         DecimalFormat dc = new DecimalFormat("#.##");
         return dc.format(d);
     }
 
-    public static void tempoDeLeitura(String texto) throws InterruptedException, IOException {
+    public static void TempoDeLeitura(String texto) throws InterruptedException, IOException {
         int vel ;
 
         if(UtilForMe.velocidadeTexto.equals("I"))

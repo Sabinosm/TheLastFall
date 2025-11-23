@@ -1,18 +1,11 @@
 package com.pedro.configuracoes;
+
 import com.pedro.UtilForMe;
 import com.pedro.referenteAosPersonagens.Player;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
 import java.sql.*;
-
-
 import java.io.IOException;
-
-import static com.pedro.UtilForMe.readInt;
-import static com.pedro.configuracoes.PlayerConfigurations.mostrarPlayers;
+import static com.pedro.UtilForMe.ReadInt;
+import static com.pedro.configuracoes.PlayerConfigurations.MostrarPlayers;
 
 public final class TelaInicial {
 
@@ -24,27 +17,19 @@ public final class TelaInicial {
 
 
 
-    public static Player escolhasTelaInicial() throws SQLException, IOException, InterruptedException {
+    public static Player EscolhasTelaInicial() throws SQLException, IOException, InterruptedException {
 
-        PlayerConfigurations.carregarConfiguracoes();
+        PlayerConfigurations.CarregarConfiguracoes();
 
-        Terminal terminal;
+
         Player x = null;
-        try {
-              terminal = TerminalBuilder.builder()
-                .jna(false) // evita bug de raw mode em alguns terminais
-                .system(true)
-                .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+
         String escolha;
         String url = "jdbc:sqlite:dataSave.db";
         Connection conexao = DriverManager.getConnection(url);
 
         while (x == null) {
-            UtilForMe.fakeClear(50,false); //verificado
+            UtilForMe.FakeClear(50,false); //verificado
 
 
 
@@ -78,16 +63,16 @@ public final class TelaInicial {
 
 
             
-            escolha = String.valueOf(readInt());
+            escolha = String.valueOf(ReadInt());
 
             switch (escolha) {
                 case "1":
-                    PlayerConfigurations.criarTabela();
-                    x = PlayerConfigurations.criarNovoPlayer();
+                    PlayerConfigurations.CriarTabela();
+                    x = PlayerConfigurations.CriarNovoPlayer();
 
                 break;
                 case "2":
-                   x =  PlayerConfigurations.carregarPlayer(mostrarPlayers());
+                   x =  PlayerConfigurations.CarregarPlayer(MostrarPlayers());
                     break;
                 case "3":
                          System.out.println("""
@@ -97,13 +82,12 @@ public final class TelaInicial {
                                  ===Não digite entre os textos, letras, números, enter, espaço etc. Pode acabar causando erro na leitura de dados
                                  e acabando por estragar o seu salvamento.
                                  
-                                 
-                                 ( ENTER ) para sair
+                                
                                  
                                  """);
 
-                         
-                         reader.readLine();
+                         UtilForMe.FakeClear(0,true);
+
 
                          break;
 
@@ -124,31 +108,31 @@ public final class TelaInicial {
 
                     while (!escolha.equals("5")){
 
-                        UtilForMe.fakeClear(50,false); //verificado
-                        System.out.println(velText());
+                        UtilForMe.FakeClear(50,false); //verificado
+                        System.out.println(VelText());
 
                         
-                        escolha = String.valueOf(readInt()).trim();
+                        escolha = String.valueOf(ReadInt()).trim();
 
                         switch (escolha){
                             case "1":
-                                UtilForMe.setVelocidadeTexto("I");
-                                atualizarVelocidade(conexao,"I");
+                                UtilForMe.SetVelocidadeTexto("I");
+                                AtualizarVelocidade(conexao,"I");
                                 break;
                             case "2":
-                                UtilForMe.setVelocidadeTexto("R");
-                                atualizarVelocidade(conexao,"R");
+                                UtilForMe.SetVelocidadeTexto("R");
+                                AtualizarVelocidade(conexao,"R");
                                 break;
                             case "3":
-                                UtilForMe.setVelocidadeTexto("L");
-                                atualizarVelocidade(conexao,"L");
+                                UtilForMe.SetVelocidadeTexto("L");
+                                AtualizarVelocidade(conexao,"L");
                                 break;
                             case "4":
-                                UtilForMe.setVelocidadeTexto("D");
-                                atualizarVelocidade(conexao,"D");
+                                UtilForMe.SetVelocidadeTexto("D");
+                                AtualizarVelocidade(conexao,"D");
 
                                 break;
-                            case "5": UtilForMe.fakeClear(50,false); //verificado
+                            case "5": UtilForMe.FakeClear(50,false); //verificado
                                 break;
                             default:
                                 System.out.println("Digite um número válido.");
@@ -167,8 +151,8 @@ public final class TelaInicial {
         return x;
     }
 
-    private static String velText(){
-        String velText = UtilForMe.getVelocidadeTexto();
+    private static String VelText(){
+        String velText = UtilForMe.GetVelocidadeTexto();
         String texto = switch (velText) {
             case "I" -> ("""
                     Configurações - Velocidade do texto
@@ -219,7 +203,7 @@ public final class TelaInicial {
         return texto +"\n";
     }
 
-    private static void atualizarVelocidade(Connection conexao, String valor) throws SQLException {
+    private static void AtualizarVelocidade(Connection conexao, String valor) throws SQLException {
         String sql = """
         UPDATE Configuracoes
         SET velocidadeTexto = ?
@@ -230,5 +214,6 @@ public final class TelaInicial {
             pstmt.executeUpdate();
         }
     }
+
 
 }

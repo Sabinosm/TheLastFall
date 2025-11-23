@@ -1,23 +1,17 @@
 package com.pedro.configuracoes;
 
 import com.pedro.UtilForMe;
-import com.pedro.eventos.Checkpoint;
 import com.pedro.referenteAosPersonagens.Passivas;
 import com.pedro.referenteAosPersonagens.Player;
-import org.jline.reader.LineReader;
-import org.jline.reader.LineReaderBuilder;
-import org.jline.terminal.Terminal;
-import org.jline.terminal.TerminalBuilder;
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-import static com.pedro.UtilForMe.readInt;
+import static com.pedro.UtilForMe.ReadInt;
+import static com.pedro.UtilForMe.ReadStr;
 
 public class PlayerConfigurations {
 
-    static Terminal terminal;
     static String url = "jdbc:sqlite:dataSave.db";
     static Connection conexao;
 
@@ -27,28 +21,20 @@ public class PlayerConfigurations {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        try {
-              terminal = TerminalBuilder.builder()
-                .jna(false) // evita bug de raw mode em alguns terminais
-                .system(true)
-                .build();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
-    public static Player criarNovoPlayer() throws IOException, InterruptedException, SQLException {
-        LineReader reader = LineReaderBuilder.builder().terminal(terminal).build();
+    public static Player CriarNovoPlayer() throws IOException, InterruptedException, SQLException {
+
         String escolha = "-1";
         List<String> st = new ArrayList<>();
         String nome;
         Player z = null;
 
-        UtilForMe.fakeClear(50,false); //verificado
+        UtilForMe.FakeClear(50,false); //verificado
         while (!escolha.equals("5")) {
-            System.out.println(criarNovoPlayerTextos(1));
+            System.out.println(CriarNovoPlayerTextos(1));
             
-            escolha = String.valueOf(readInt()).trim();
+            escolha = String.valueOf(ReadInt()).trim();
 
             switch (escolha) {
                 case "1" -> st.add("Destino");
@@ -58,38 +44,38 @@ public class PlayerConfigurations {
                 case "5" -> { /* Voltar */ }
                 default -> {
                     System.out.println("Insira um número válido");
-                    UtilForMe.fakeClear(50,true); //verificado
+                    UtilForMe.FakeClear(50,true); //verificado
 
                 }
             }
 
             while (!escolha.equals("5")) {
-                UtilForMe.fakeClear(50,false); //verificado
-                System.out.println(criarNovoPlayerTextos(2));
+                UtilForMe.FakeClear(50,false); //verificado
+                System.out.println(CriarNovoPlayerTextos(2));
                 
-                escolha = String.valueOf(readInt()).trim();
+                escolha = String.valueOf(ReadInt()).trim();
 
                 switch (escolha) {
-                    case "1" -> z = novoPlayer(2, "físico", st.getFirst());
-                    case "2" -> z = novoPlayer(3, "mágico", st.getFirst());
-                    case "3" -> z = novoPlayer(-1, "r", st.getFirst());
+                    case "1" -> z = NovoPlayer(2, "físico", st.getFirst());
+                    case "2" -> z = NovoPlayer(3, "mágico", st.getFirst());
+                    case "3" -> z = NovoPlayer(-1, "r", st.getFirst());
                     case "5" -> st.removeFirst();
                     default -> {
                         System.out.println("Insira um número válido");
-                        UtilForMe.fakeClear(50,true); //verificado
+                        UtilForMe.FakeClear(50,true); //verificado
                     }
 
 
                 }
             if(!escolha.equals("5") && z != null){
 
-                    UtilForMe.fakeClear(50,false); //verificado
-                    System.out.println(criarNovoPlayerTextos(3));
+                    UtilForMe.FakeClear(50,false); //verificado
+                    System.out.println(CriarNovoPlayerTextos(3));
                     
-                    nome = reader.readLine();
+                    nome = ReadStr();
                     z.setNome(nome);
-                    UtilForMe.fakeClear(50,false); //verificado
-                    UtilForMe.tempoDeLeitura("""
+                    UtilForMe.FakeClear(50,false); //verificado
+                    UtilForMe.TempoDeLeitura("""
                     O Criador deixou uma centelha em cada ser humano: rara, instável, mas capaz de moldar destinos.
                     Essa chama não é infinita. Você deve decidir onde acendê-la,
                     pois o Vazio cobra caro de quem desperdiça poder.
@@ -98,7 +84,7 @@ public class PlayerConfigurations {
                     mas também o preço que está disposto a pagar.\n\n
                     """);
                     Player.menuHabilidades(z);
-                    criarNoBancoPlayer(z, st.getFirst());
+                    CriarNoBancoPlayer(z, st.getFirst());
                     escolha = ("5");
                     break;
             }
@@ -108,7 +94,7 @@ public class PlayerConfigurations {
         return z;
     }
 
-    private static String criarNovoPlayerTextos(int qualText) {
+    private static String CriarNovoPlayerTextos(int qualText) {
         return switch (qualText) {
             case 1 -> """
                     ---Escolha do Destino---
@@ -165,13 +151,13 @@ public class PlayerConfigurations {
         };
     }
 
-    public static Player novoPlayer(int passiva, String tipoDano, String lore) {
+    public static Player NovoPlayer(int passiva, String tipoDano, String lore) {
         Player p = new Player(passiva, tipoDano,1);
         p.setLore(lore);
         return p;
     }
 
-    public static void criarNoBancoPlayer(Player p, String lore) throws SQLException {
+    public static void CriarNoBancoPlayer(Player p, String lore) throws SQLException {
         String sqlPlayer = """
         INSERT INTO Player
             (nome, level, nomePassiva, pontosHabilidade, tipoDano, lore, vida, dano, armaduraMagica, armaduraFisica)
@@ -244,7 +230,7 @@ public class PlayerConfigurations {
     }
 
 
-    public static void salvarPlayer(Player p) throws SQLException {
+    public static void SalvarPlayer(Player p) throws SQLException {
 
         String sqlUpdatePlayer = """
         UPDATE Player
@@ -324,8 +310,8 @@ public class PlayerConfigurations {
         }
     }
 
-    public static int mostrarPlayers() throws SQLException, IOException {
-        criarTabela();
+    public static int MostrarPlayers() throws SQLException, IOException {
+        CriarTabela();
 
         String escolha = "";
         String sql3 = """
@@ -359,14 +345,14 @@ public class PlayerConfigurations {
                 idsPossivel.add(Integer.toString(id));
             }
 
-            while (!escolha.equalsIgnoreCase("E")) {
+            while (!escolha.equalsIgnoreCase("0")) {
                 System.out.println("----------------------------");
-                System.out.println("\nDigite o ID do save que deseja carregar (ou E para sair):");
+                System.out.println("\nDigite o ID do save que deseja carregar (ou 0 para sair):");
 
                 
-                escolha = String.valueOf(readInt()).trim();
+                escolha = String.valueOf(ReadInt()).trim();
 
-                if (escolha.equalsIgnoreCase("E")) break;
+                if (escolha.equalsIgnoreCase("0")) break;
 
                 try {
                     idEscolhido = Integer.parseInt(escolha.trim());
@@ -377,7 +363,7 @@ public class PlayerConfigurations {
                         System.out.println("ID não encontrado, tente novamente.");
                     }
                 } catch (NumberFormatException e) {
-                    UtilForMe.fakeClear(50,false); //verificado
+                    UtilForMe.FakeClear(50,false); //verificado
                     System.out.println("Digite um número válido");
                 }
             }
@@ -385,7 +371,7 @@ public class PlayerConfigurations {
         return x;
     }
 
-    public static Player carregarPlayer(int id) {
+    public static Player CarregarPlayer(int id) {
         if(id==0){
             return null;
         }
@@ -449,7 +435,7 @@ public class PlayerConfigurations {
         return y;
     }
 
-    public static void carregarConfiguracoes() throws SQLException {
+    public static void CarregarConfiguracoes() throws SQLException {
         String url = "jdbc:sqlite:dataSave.db";
         Connection conexao = DriverManager.getConnection(url);
 
@@ -476,7 +462,7 @@ public class PlayerConfigurations {
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()){
-                UtilForMe.setVelocidadeTexto(rs.getString("velocidadeTexto"));
+                UtilForMe.SetVelocidadeTexto(rs.getString("velocidadeTexto"));
             }
 
         }
@@ -484,7 +470,8 @@ public class PlayerConfigurations {
             System.out.println("Erro no SELECT: " + e.getMessage());
         }
     }
-    public static void criarTabela(){
+
+    public static void CriarTabela(){
         var sql = """
                 -- Tabela principal do jogador
                   CREATE TABLE IF NOT EXISTS Player (
