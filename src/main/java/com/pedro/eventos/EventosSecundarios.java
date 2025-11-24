@@ -289,7 +289,7 @@ public abstract class EventosSecundarios {
         }
     }
 
-    public static void segundaQuedaEventos(Player p){
+    public static void SegundaQuedaEventos(Player p){
 
     }
 }

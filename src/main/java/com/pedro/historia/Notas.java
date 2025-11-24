@@ -160,7 +160,7 @@ public class Notas {
         }
     }
 
-    public static void notasIntro(int ordem) throws IOException, InterruptedException {
+    public static void notasIntroPrimeiraTorre(int ordem) throws IOException, InterruptedException {
         UtilForMe.FakeClear(50,false); //verificado
         if(ordem == 1){
             //Introdução do mundo
@@ -307,5 +307,33 @@ public class Notas {
                 
                 """);
         p.notasLidas.add("4");
+    }
+
+    public static void notasIntroSegundaTorre() throws IOException, InterruptedException {
+        UtilForMe.FakeClear(50,false);
+        UtilForMe.TempoDeLeitura("""
+        A luz das runas o arranca da Primeira Queda.
+        O chão desaparece, o ar prende no peito, e o frio o recebe sem piedade.
+        """);
+
+                UtilForMe.TempoDeLeitura("""
+        A areia azulada brilha sob a névoa gélida.
+        Cada grão pulsa com mana fraca, espalhada por séculos de morte.
+        Acima, não há céu: apenas um vazio amplo e imóvel.
+        """);
+
+                UtilForMe.TempoDeLeitura("""
+        O silêncio domina.
+        A areia vibra com murmúrios de almas despejadas aqui pelo Amálgama.
+        Poucos chegaram tão longe — e nenhum permaneceu inteiro.
+        """);
+
+                UtilForMe.TempoDeLeitura("""
+        À distância, torres e templos surgem através da névoa.
+        Alguns quebrados, outros ainda protegidos por runas intocáveis.
+        Cada estrutura guarda um desafio.
+        Cada resposta errada cobra um preço real.
+        """);
+        UtilForMe.FakeClear(50,true);
     }
 }

@@ -133,7 +133,7 @@ public abstract class Mob {
             System.out.println(alvo.nome + " died");
 
             assert atacante instanceof Enemy;
-            Player.morteJogador((Player)alvo, (Enemy)atacante);
+            Player.MorteJogador((Player)alvo, (Enemy)atacante);
 
             System.out.println("\n===============================================\n");
         }
@@ -150,6 +150,8 @@ public abstract class Mob {
     }
 
 
-
+    public void setActLife(double actLife) {
+        this.actLife = actLife;
+    }
 }
 

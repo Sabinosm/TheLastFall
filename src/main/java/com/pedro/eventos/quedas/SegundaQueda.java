@@ -2,12 +2,18 @@ package com.pedro.eventos.quedas;
 
 import com.pedro.UtilForMe;
 import com.pedro.configuracoes.Checkpoint;
+import com.pedro.eventos.boss.BossBattle;
+import com.pedro.historia.Notas;
+import com.pedro.referenteAosPersonagens.Mage;
 import com.pedro.referenteAosPersonagens.Player;
+import jdk.jshell.execution.Util;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import static com.pedro.eventos.Battle.Batalha;
 
 public class SegundaQueda {
 
@@ -15,11 +21,16 @@ public class SegundaQueda {
     }
     static List<String> chavesTotais = Arrays.asList("1","2","3");
     public static int correctAnswer;
+    static int wrongAnswers;
 
 
     public static void Start(Player p) throws IOException, InterruptedException {
         if(p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_BOSS && !p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE")){
             p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA);
+
+        }
+        if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA){
+            Notas.notasIntroSegundaTorre();
         }
         //Base segunda queda 3 torres 3 inimigos em cada, 3 desafios em cada, Chance de aparecer um boss secundário. Para sair, tem que entrar nas torres e pegar 3 chaves.
         //Ativação mini boss -> fugiu mais de 2 vezes na mesma torre, errou um desafio ( pode aparecer um mago de level 5 ou o mini boss),
@@ -28,8 +39,9 @@ public class SegundaQueda {
         //Diferentemente da primeira queda, que é um loop, essa é linear
 
         //TODO -> Notas
-        //TODO -> Desafios
-        //Todo ->
+        //Todo -> Batalhas
+        //Todo -> diálogo de obtensão das chaves e atualizar database
+        //TODO -> Navegação
 
 
 
@@ -37,17 +49,7 @@ public class SegundaQueda {
 
             if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE1 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
             {
-                UtilForMe.TempoDeLeitura(GetIntroTorre(1));
-                //desafio
-                //Morte do player
-                //Como acabar a dungeon -> sistema de navegação
-                if(Desafio(1)){
-                    UtilForMe.TempoDeLeitura(GetRespostaDesafio(10 + correctAnswer));
-                    UtilForMe.FakeClear(50,true);
-                    //analise interior da torre
-                    //começo das batalhas
-                    //descanso
-                }
+                EntradaTorre(1,p);
 
             }
             else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE1_D){
@@ -59,18 +61,7 @@ public class SegundaQueda {
 
             if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE2 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
             {
-                UtilForMe.TempoDeLeitura(GetIntroTorre(2));
-                //desafio
-                if(Desafio(2)){
-                    UtilForMe.TempoDeLeitura(GetRespostaDesafio(20 + correctAnswer));
-                    UtilForMe.FakeClear(50,true);
-                    //analise interior da torre
-                    //começo das batalhas
-                    //descanso
-                }
-                else{
-
-                }
+                EntradaTorre(2,p);
             }
             else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE2_D){
 
@@ -81,15 +72,7 @@ public class SegundaQueda {
 
             if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE3 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
             {
-                UtilForMe.TempoDeLeitura(GetIntroTorre(3));
-                //desafio
-                if(Desafio(3)){
-                    UtilForMe.TempoDeLeitura(GetRespostaDesafio(30 + correctAnswer));
-                    UtilForMe.FakeClear(50,true);
-                    //analise interior da torre
-                    //começo das batalhas
-                    //descanso
-                }
+                EntradaTorre(3,p);
             }
             else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE3_D){
 
@@ -98,6 +81,7 @@ public class SegundaQueda {
         }
 
     }
+
     private static boolean Desafio(int torre) throws IOException, InterruptedException {
 
            UtilForMe.FakeClear(50,true);
@@ -377,6 +361,110 @@ public class SegundaQueda {
         }
 
         return t;
+    }
+
+    private static String GetIntroTorreInside(int torre){
+        String t;
+        if(torre == 1){
+            t = """
+                    - Torre do Oeste -
+                    O interior é estreito e irregular, com paredes rachadas que ainda sussurram resquícios de mana perdida.
+                    Runas apagadas oscilam fracamente, lutando para não desaparecer.
+                    O ar cheira a pó antigo e magia mal preservada, frágil como o Arcanista que a guarda.
+                    
+                    """;
+        } else if (torre == 2) {
+            t= """
+                    - Torre do Leste -
+                    Corredores simétricos e frios se estendem, repletos de runas vivas que vigiam cada passo.
+                    A arquitetura é precisa, rígida, com a torre exigindo disciplina.
+                    O silêncio é tão absoluto que mais parece uma ordem do próprio Arcanista.
+                    
+                    """;
+        }
+        else {
+            t = """
+                    - Torre do Norte -
+                    O interior pulsa com mana densa, formando padrões que se movem nas paredes como seres vivos.
+                    A luz não tem cor definida, muda conforme você respira, julgando sua presença.
+                    Cada passo ecoa pesado, e a própria torre parece consciente, orgulhosa do Arcanista que protege.
+                    
+                    """;
+        }
+
+        return t;
+    }
+
+    private static void MiniBoss(Player p,int torre) throws IOException, InterruptedException {
+        if(wrongAnswers >= 3){
+            if(!BossBattle.SecundaryBossBattleSQ(p)){
+                UtilForMe.FakeClear(50,false);
+                UtilForMe.TempoDeLeitura("""
+                        A palavra sai da sua boca… e o deserto não responde.
+                        Silêncio.
+                        Depois, um rugido que rasga o mundo.
+                        
+                        O Falso Deus inclina a cabeça, como se compreendesse a sua falha antes mesmo de você.
+                        A areia abre caminho. A escuridão engole tudo.
+                        
+                        O grito que segue não é seu —
+                        é o do próprio deserto, devorando mais uma alma para alimentar o vazio.
+                        
+                        Você não acorda.
+                        Ninguém acorda.
+                        
+                        O Falso Deus se alimenta.
+                        """);
+                p.setActLife(0);
+                UtilForMe.FakeClear(50,true);
+                Player.MorteJogador(p,null);
+            }
+            else{
+
+                UtilForMe.FakeClear(50,true);
+                UtilForMe.TempoDeLeitura("""
+                        O colosso de carne e mana curva o corpo, fazendo a própria ordem do mundo
+                        lembrar-lhe de quem o criou, e de quem ele mesmo matou.
+                        Gritando sem voz, ele se retorce, afundando na areia que se abre como um túmulo antigo.
+                        
+                        O vento corta, os gritos do devorador fazem a mana ao redor se tornar instável.
+                        A luz se torce e de pouco em pouco o monstro afunda na areia junto de suas correntes.
+                        A fenda se fecha sobre ele com violência divina.
+                        
+                        Por um instante, tudo silencia… exceto o som da besta batendo contra as paredes do seu novo cárcere, 
+                        cada impacto mais distante que o anterior.
+                        
+                        E então, apenas o vazio.
+                        
+                        Você não o derrotou.
+                        Ninguém jamais o fará.
+                        
+                        Mas hoje — ele voltou a dormir.
+                        """);
+            }
+        }
+        else{
+            Mage m = new Mage(p,torre);
+            UtilForMe.TempoDeLeitura("""
+                    Ao errar o desafio, você sente uma presença diferente, um arcanista detecta um invasor...
+                    """);
+            UtilForMe.FakeClear(40,true);
+            Batalha(p,m,false,2);
+        }
+    }
+
+    private static void EntradaTorre(int torre,Player p) throws IOException, InterruptedException {
+        UtilForMe.TempoDeLeitura(GetIntroTorre(torre));
+        while (!Desafio(torre)){
+            wrongAnswers++;
+            MiniBoss(p,torre);
+
+        }
+        if(wrongAnswers > 0) wrongAnswers--;
+        UtilForMe.TempoDeLeitura(GetRespostaDesafio(30 + correctAnswer));
+        UtilForMe.FakeClear(50,true);
+        UtilForMe.TempoDeLeitura(GetIntroTorreInside(torre));
+        UtilForMe.FakeClear(50,true );
     }
 
 }

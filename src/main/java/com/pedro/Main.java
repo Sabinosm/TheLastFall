@@ -24,7 +24,7 @@ public class Main{
   //Todo: locais
   
 
-  Notas.notasIntro(1);
+  Notas.notasIntroPrimeiraTorre(1);
 
   Player player = TelaInicial.EscolhasTelaInicial();
 

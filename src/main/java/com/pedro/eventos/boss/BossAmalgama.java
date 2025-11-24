@@ -1,5 +1,6 @@
 package com.pedro.eventos.boss;
 import com.pedro.UtilForMe;
+import com.pedro.configuracoes.Checkpoint;
 import com.pedro.referenteAosPersonagens.Player;
 import org.jline.reader.UserInterruptException;
 
@@ -95,7 +96,7 @@ public class BossAmalgama extends Boss{
                 Os Observadores, silenciosos, apenas observam. \s
                 
                 Com um último olhar para a sala profanada, você caminha em direção ao portão. \s
-                A luz das runas se intensifica — e a Segunda Queda o chama.""");
+                A luz das runas se intensifica e a Segunda Queda o chama.""");
     }
 
     @Override
@@ -169,7 +170,6 @@ public class BossAmalgama extends Boss{
                 boss.actLife = 0;
                 System.out.println("\n"+player.nome +" ganhou "+ Boss.XpDaMorteBoss(boss) +" de xp");
                 player.upLevel(Boss.XpDaMorteBoss(boss));
-
                 System.out.println("-------------------------------------------------\n");
                  //verificado
             }

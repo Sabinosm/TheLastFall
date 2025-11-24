@@ -32,7 +32,7 @@ public class PrimeiraQueda extends Battle {
 
 
         if (p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA){
-            Notas.notasIntro(2);
+            Notas.notasIntroPrimeiraTorre(2);
         }
 
         while(p.carnDeCadaLevelMorto.containsAll(verificacao) || p.carnMortos <= 10  ){
@@ -49,7 +49,7 @@ public class PrimeiraQueda extends Battle {
                 int rd = r.nextInt(1, 4);
                 for (int i = 1; i <= rd; i++) {
                     Mob carn = new Carniceiro(p);
-                    batalha(p, carn);
+                    Batalha(p, carn,true,1);
                     if (p.carnMortos == 1 && !p.notasLidas.contains("4")) {
                         Notas.notaSegredo(p);
                         UtilForMe.FakeClear(50, true); //verificado
@@ -84,6 +84,7 @@ public class PrimeiraQueda extends Battle {
         if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
 
             BossBattle.bossBattlePrimeiraQueda(p);
+
         }
 
     }

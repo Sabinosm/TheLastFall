@@ -20,11 +20,11 @@ public class Battle {
     public Battle()  {
     }
 
-    public static void batalha(Player p, Mob inimigo) throws InterruptedException, IOException {
+    public static void Batalha(Player p, Mob inimigo, boolean canRun, int queda) throws InterruptedException, IOException {
 
-        randomIntro();
-        descricaoBatalhaDupla(p,inimigo);
-        continuarFugir(inimigo);
+        RandomIntro(queda);
+        DescricaoBatalhaDupla(p,inimigo);
+        ContinuarFugir(inimigo,canRun);
         UtilForMe.FakeClear(3,false); //verificado
 
         double mediaPlayer = (p.life + p.damage + p.armor + p.magicArmor) / 4;
@@ -75,7 +75,7 @@ public class Battle {
                 }
 
                 if (segundo.actLife > 0 && primeiro.actLife > 0){
-                    continuarFugir(inimigo);
+                    ContinuarFugir(inimigo,canRun);
 
                 }
 
@@ -86,7 +86,7 @@ public class Battle {
 
     }
 
-    public static void descricaoBatalhaDupla(Mob p, Mob i) throws InterruptedException {
+    public static void DescricaoBatalhaDupla(Mob p, Mob i) throws InterruptedException {
         System.out.printf("\n%-30s%-30s\n", p.nome.toUpperCase(), i.nome.toUpperCase());
         System.out.printf("%-30s%-30s\n", "------------------------------", "------------------------------");
         System.out.printf("%-15s %-14s%-15s %-14s\n", "Level:", "[" + p.level + "]", "Level:", "[" + i.level + "]");
@@ -105,7 +105,7 @@ public class Battle {
         System.out.println("==========================================================================");
     }
 
-    public static void continuarFugir(Mob inimigo) throws IOException {
+    public static void ContinuarFugir(Mob inimigo,boolean canRun) throws IOException {
 
 
 
@@ -115,7 +115,7 @@ public class Battle {
 
         if (fugirContinuar.equals("2")) {
             int df = r.nextInt(1, inimigo.level + 1);
-            if (df == 1) {
+            if (df == 1 && canRun) {
                 System.out.println("\nVocê conseguiu sair parabéns");
                 UtilForMe.FakeClear(50,true); //verificado
                 batalha = false;
@@ -139,29 +139,68 @@ public class Battle {
 
     }
 
-    private static void randomIntro() throws IOException, InterruptedException {
+    private static void RandomIntro(int queda) throws IOException, InterruptedException {
         Random random = new Random();
         int x = random.nextInt(1,4);
 
-        if(x == 1){
-            UtilForMe.TempoDeLeitura("Do meio da névoa, surge uma forma distorcida.  \n" +
-                    "Um Carniceiro se ergue, costurado de carne e ossos, olhos sem vida fixos em você.  \n" +
-                    "A batalha começa.");
-        } else if (x==2) {
-            UtilForMe.TempoDeLeitura("""
+        if(queda == 1){
+            if(x == 1){
+                UtilForMe.TempoDeLeitura("Do meio da névoa, surge uma forma distorcida.  \n" +
+                        "Um Carniceiro se ergue, costurado de carne e ossos, olhos sem vida fixos em você.  \n" +
+                        "A batalha começa.");
+            } else if (x==2) {
+                UtilForMe.TempoDeLeitura("""
                     Um estalo úmido corta a quietude, como se o próprio chão gemesse.
                     Uma figura grotesca se ergue da névoa, sua presença trazendo o frio do desespero.
                     O medo é imediato, e o combate se inicia, inevitável e brutal.
                     """);
-        }
-        else{
-            UtilForMe.TempoDeLeitura("""
+            }
+            else{
+                UtilForMe.TempoDeLeitura("""
                     Um som úmido corta o ar — carne se retorce, grita sem voz.
                     Da escuridão, a Primeira Queda emerge, encarnando o medo que você sempre tentou ignorar.
                     Sua presença é um aviso: não há escapatória.
                     A batalha se anuncia, brutal e inevitável.
                     """);
+            }
         }
+        else if(queda == 2){
+            if(x == 1){
+                UtilForMe.TempoDeLeitura("""
+                        As runas na parede tremem, elas conhecem sua presença.
+                        Da penumbra, um vulto encapuzado se separa da própria torre, mana vazando como fumaça ao redor.
+                        Os olhos dele brilham com uma fé quebrada e determinação feroz.
+                        Um Arcanista desperta para impedir seu avanço.
+                        A batalha começa.
+                        """);
+            } else if (x==2) {
+                UtilForMe.TempoDeLeitura("""
+                    A luz da torre muda de cor, concentrando-se em um único ponto.
+                    Um círculo de símbolos acende sob seus pés, como um alerta tardio.
+                    Uma figura surge no centro do salão, vestes impecáveis, postura ereta, mana fluindo com precisão cruel.
+                    Nada nele se move sem propósito.
+                    O julgamento do Arcanista começa e você é o réu.
+                    """);
+            }
+            else{
+                UtilForMe.TempoDeLeitura("""
+                    O ar pesa. Cada respiração se torna difícil.
+                    As paredes da torre se fecham.
+                    
+                    Então, ele aparece.
+                    Um Arcanista envolto em camadas de mana negra, tão densa que distorce a própria luz.
+                    Sua presença não se anuncia, ela domina.
+                    Não há luz em seus olhos, apenas a convicção de quem carrega um fardo antigo demais.
+                
+                    O confronto é inevitável.
+                    A batalha começa agora e a torre aguarda o resultado.
+                    """);
+            }
+        }
+        else {
+
+        }
+
 
     }
 

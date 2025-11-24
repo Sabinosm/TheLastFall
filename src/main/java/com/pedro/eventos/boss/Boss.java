@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Boss  implements BossInterface {
+public abstract class Boss implements BossInterface {
     public double life;
     public double actLife;
     public double damage;
@@ -86,7 +86,6 @@ public abstract class Boss  implements BossInterface {
         return boss.actLife <= 0;
     }
 
-
     public void AtacarBoss(Boss bossAtacante, Player playerAlvo, List<String> frasesAtaque, int round) throws IOException, InterruptedException {
 
             double danoFinal;
@@ -108,7 +107,7 @@ public abstract class Boss  implements BossInterface {
                 System.out.println(playerAlvo.nome + " died");
 
 
-                Player.morteJogador(playerAlvo,null);
+                Player.MorteJogador(playerAlvo,null);
 
                 System.out.println("\n-------------------------------------------------\n");
             }

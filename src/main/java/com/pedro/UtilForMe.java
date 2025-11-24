@@ -115,6 +115,8 @@ public abstract class UtilForMe {
     }
 
 
+
+
     public static String Arr(double d) {
         DecimalFormat dc = new DecimalFormat("#.##");
         return dc.format(d);

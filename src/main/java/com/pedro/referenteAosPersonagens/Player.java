@@ -277,7 +277,7 @@ public class Player extends Mob {
 
     }
 
-    public static void morteJogador(Player p,Enemy mortoPor) throws IOException, InterruptedException {
+    public static void MorteJogador(Player p, Enemy mortoPor) throws IOException, InterruptedException {
         if(p.actLife <= 0){
             UtilForMe.FakeClear(50,true); //verificado
             UtilForMe.TempoDeLeitura("""
