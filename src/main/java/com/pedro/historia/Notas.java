@@ -168,7 +168,7 @@ public class Notas {
                 UtilForMe.TempoDeLeitura("""
                         No meio do caminho, você escuta vozes, sussurros baixos, apesar de não haver ninguém por perto.
                         Então, um fragmento de alma aparece, parece ter sido um grande arcanista, ou um guerreiro. Mas 
-                        essa estrutura de mana, essa cor, vibrante e também um pouco diferente da que se viam na superficíe.
+                        essa estrutura de mana, essa cor, vibrante e também um pouco diferente da que se viam na superfície.
                         Ela murmurava:
                         
                         """);
@@ -190,7 +190,7 @@ public class Notas {
                         """);
             } else if (nota == 7) {
                     UtilForMe.TempoDeLeitura("""
-                        Você encontra esta gravada em uma rocha, as letras desgastadas pelo vento.
+                        Você encontra esta nota gravada em uma rocha, as letras desgastadas pelo vento.
                         A escrita é irregular, talvez o autor tivesse pouco tempo ou pouca sanidade.
                         
                         """);
@@ -198,7 +198,7 @@ public class Notas {
                         A mana é uma dádiva para os vivos, mas uma maldição para os mortos.
              
                         Quando a Primeira Queda devastou nossas fronteiras, muitos Arcanistas foram sacrificados
-                        em batalha para manter nosso mundo de pé, eles achavam que consiguiriam para o vazio.
+                        em batalha para manter nosso mundo de pé, eles achavam que conseguiriam parar o vazio.
                         Porém seus esforços foram falhos. Seus corpos morreram… mas sua mana não teve para onde ir.
                         
                         Eles não descansaram. Não podiam.
@@ -234,7 +234,7 @@ public class Notas {
                         """);
             }  else if (nota == 9) {
                 UtilForMe.TempoDeLeitura("""
-                        Você encontra esta dentro de uma fenda estreita, presa sob ossos antigos.
+                        Você encontra um pergaminho dentro de uma fenda estreita, presa sob ossos antigos.
                         O pergaminho vibra levemente, com algo reagindo à mana ao redor.
                         
                         """);
@@ -263,7 +263,8 @@ public class Notas {
                         """);
             } else if (nota == 10) {
                 UtilForMe.TempoDeLeitura("""
-                        Encontrada enterrada na areia, dentro de um pequeno cofre deformado pelo calor. Há sangue seco nas bordas.
+                        Encontrada enterrada na areia, dentro de um pequeno cofre deformado pelo calor, uma página rasgada de um caderno.
+                        Há sangue seco nas bordas.
                         
                         """);
                 UtilForMe.TempoDeLeitura("""
