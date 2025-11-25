@@ -147,4 +147,6 @@ public abstract class UtilForMe {
         Thread.sleep(tempoLeitura);
 
     }
+
+
 }

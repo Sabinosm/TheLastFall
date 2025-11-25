@@ -229,7 +229,6 @@ public class PlayerConfigurations {
         }
     }
 
-
     public static void SalvarPlayer(Player p) throws SQLException {
 
         String sqlUpdatePlayer = """

@@ -38,7 +38,7 @@ public class PrimeiraQueda extends Battle {
         while(p.carnDeCadaLevelMorto.containsAll(verificacao) || p.carnMortos <= 10  ){
 
             if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO){
-                EventosSecundarios.Descanso(p,1); //descanso
+                EventosSecundarios.Descanso(p,1,null); //descanso
                 p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
             }
             if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA) {
@@ -77,7 +77,7 @@ public class PrimeiraQueda extends Battle {
         }
 
         if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO || p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
-            EventosSecundarios.Descanso(p,1); //descanso
+            EventosSecundarios.Descanso(p,1,null); //descanso
             p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
         }
 

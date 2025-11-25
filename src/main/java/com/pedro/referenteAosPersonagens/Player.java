@@ -25,7 +25,7 @@ public class Player extends Mob {
     public Set<String> magoDeCadaLevelMorto = new HashSet<>();
     public Set<String> demonDeCadaLevelMorto = new HashSet<>();
     public Set<String> notasLidas = new LinkedHashSet<>();
-    public Set<String> chavesAdquiridas = new LinkedHashSet<>();
+    public Set<Integer> chavesAdquiridas = new LinkedHashSet<>();
     public Integer PlayerId;
     private Checkpoint checkpoint = Checkpoint.NO_CHECK;
     String lore;

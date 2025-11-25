@@ -46,13 +46,11 @@ public abstract class EventosSecundarios {
             break;
             }
         }
-        EventosSecundarios.Descanso(p, 1);
+        EventosSecundarios.Descanso(p, 1,null);
 
     }
 
-    public static void Descanso(Player p, int queda) throws InterruptedException, IOException, SQLException {
-
-
+    public static void Descanso(Player p, int queda, Integer torre) throws InterruptedException, IOException, SQLException {
 
         int escolha = -1;
 
@@ -61,6 +59,15 @@ public abstract class EventosSecundarios {
         //checkPoint
         if(queda == 1){
             p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_DESCANSO);
+        }
+        else if(queda == 2){
+            switch (torre){
+                case 1 -> p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE1_D);
+                case 2 -> p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE2_D);
+                case 3 -> p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE3_D);
+                case 4 -> p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE4_D);
+                default -> p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA);
+            }
         }
 
         while (escolha != 5) {
@@ -289,7 +296,34 @@ public abstract class EventosSecundarios {
         }
     }
 
-    public static void SegundaQuedaEventos(Player p){
+    public static void SegundaQuedaEventos(Player p) throws IOException, InterruptedException, SQLException {
+        UtilForMe.FakeClear(50,false); //verificado
+
+        for (int evento = 1; evento < 5; evento++) {
+            if (evento == 1 && !p.notasLidas.contains(Integer.toString(evento))) {
+                p.notasLidas.add(Integer.toString(evento));
+                Notas.notasEventos(1,2);
+                UtilForMe.FakeClear(50,true); //verificado
+                break;
+            } else if (evento == 2 && !p.notasLidas.contains(Integer.toString(evento))) {
+                p.notasLidas.add(Integer.toString(evento));
+                Notas.notasEventos(2,2);
+                UtilForMe.FakeClear(50,true); //verificado
+                break;
+            } else if (evento == 3 && !p.notasLidas.contains(Integer.toString(evento))) {
+                p.notasLidas.add(Integer.toString(evento));
+                Notas.notasEventos(3,2);
+                UtilForMe.FakeClear(50,true); //verificado
+                break;
+            }
+            else if (evento == 4 && !p.notasLidas.contains(Integer.toString(evento))) {
+                p.notasLidas.add(Integer.toString(evento));
+                Notas.notasEventos(5,2);
+                UtilForMe.FakeClear(50, true); //verificado
+                break;
+            }
+        }
 
     }
+
 }
