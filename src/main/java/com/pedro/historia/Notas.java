@@ -334,6 +334,10 @@ public class Notas {
         Cada estrutura guarda um desafio.
         Cada resposta errada cobra um preço real.
         """);
+        UtilForMe.TempoDeLeitura("""
+        Pelo deserto da 2° queda, existem caminhos, caminhos de mana que levam as torres,
+        escolha com cuidado para que não se depare com seu fim, antes mesmo do começo.
+        """);
         UtilForMe.FakeClear(50,true);
     }
 }

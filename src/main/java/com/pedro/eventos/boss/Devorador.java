@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 
+import static com.pedro.UtilForMe.ReadInt;
 import static com.pedro.UtilForMe.ReadStr;
 
 public class Devorador {
@@ -156,7 +157,7 @@ public class Devorador {
 
             System.out.println(MontagemBatalha());
 
-            String resposta = ReadStr();
+            String resposta = Integer.toString(ReadInt());
 
             if (tempoEsgotado) {
                 return false;

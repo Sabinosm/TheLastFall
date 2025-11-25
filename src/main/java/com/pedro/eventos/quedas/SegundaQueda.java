@@ -8,11 +8,14 @@ import com.pedro.referenteAosPersonagens.Mage;
 import com.pedro.referenteAosPersonagens.Player;
 import jdk.jshell.execution.Util;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import static com.pedro.UtilForMe.ReadInt;
 import static com.pedro.eventos.Battle.Batalha;
 
 public class SegundaQueda {
@@ -23,70 +26,72 @@ public class SegundaQueda {
     public static int correctAnswer;
     static int wrongAnswers;
 
+    //Base segunda queda 3 torres 3 inimigos em cada, 3 desafios em cada, Chance de aparecer um boss secundário. Para sair, tem que entrar nas torres e pegar 3 chaves.
+    //Ativação mini boss -> fugiu mais de 2 vezes na mesma torre, errou um desafio ( pode aparecer um mago de level 5 ou o mini boss),
+    //talvez leveis diferentes para cada torre
+    //sendo a 3° torre muito dificil ou sei la
+    //Diferentemente da primeira queda, que é um loop, essa é linear
 
-    public static void Start(Player p) throws IOException, InterruptedException {
-        if(p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_BOSS && !p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE")){
-            p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA);
-
-        }
-        if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA){
-            Notas.notasIntroSegundaTorre();
-        }
-        //Base segunda queda 3 torres 3 inimigos em cada, 3 desafios em cada, Chance de aparecer um boss secundário. Para sair, tem que entrar nas torres e pegar 3 chaves.
-        //Ativação mini boss -> fugiu mais de 2 vezes na mesma torre, errou um desafio ( pode aparecer um mago de level 5 ou o mini boss),
-        //talvez leveis diferentes para cada torre
-        //sendo a 3° torre muito dificil ou sei la
-        //Diferentemente da primeira queda, que é um loop, essa é linear
-
-        //TODO -> Notas
-        //Todo -> Batalhas
-        //Todo -> diálogo de obtensão das chaves e atualizar database
-        //TODO -> Navegação
+    //TODO -> Notas
+    //Todo -> Batalhas
+    //Todo -> diálogo de obtensão das chaves e atualizar database
+    //TODO -> Torre 4 intro, spawn do boss se a entrada for forçada, pensar no 2° boss
+    //TODO -> Não deixar o jogador entrar em um lugar no qual ele ja tenha a chave, aviso " nao há mais inimigos nem chaves "
+    //TODO -> descanso + navegação
 
 
+    public static void Start(Player p) throws IOException, InterruptedException, SQLException {
+        while (p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_BOSS || p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_TORRE4_D){
 
-        if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA || p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE1")){
-
-            if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE1 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
-            {
-                EntradaTorre(1,p);
-
+            if(!p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE")){
+                p.setCheckPoint(Checkpoint.SEGUNDA_QUEDA);
             }
-            else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE1_D){
-
+            if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA){
+                Notas.notasIntroSegundaTorre();
+                Viagem(p,0);
             }
-
-        }
-        if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA || p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE2")){
-
-            if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE2 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
-            {
-                EntradaTorre(2,p);
+            if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE1")){
+                DentroTorre(p,1);
             }
-            else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE2_D){
-
+            else if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE2")){
+                DentroTorre(p,2);
             }
-
-        }
-        if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA || p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE3")){
-
-            if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE3 || p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA )
-            {
-                EntradaTorre(3,p);
+            else if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE3")){
+                DentroTorre(p,3);
             }
-            else if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE3_D){
-
+            else if(p.getCheckPoint().name().equals("SEGUNDA_QUEDA_TORRE4")){
+                if(p.getCheckPoint() == Checkpoint.SEGUNDA_QUEDA_TORRE4)
+                {
+                    EntradaTorre(4,p);
+                }
             }
-
+            else{
+                break;
+            }
         }
 
+
+    }
+
+    private static void DentroTorre(Player p, int torre) throws SQLException, IOException, InterruptedException {
+        if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE"+torre))
+        {
+            if(EntradaTorre(torre,p)){
+
+            }else{
+
+            }
+        }
+        else if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE"+torre+"_D")){
+
+        }
     }
 
     private static boolean Desafio(int torre) throws IOException, InterruptedException {
 
            UtilForMe.FakeClear(50,true);
            UtilForMe.TempoDeLeitura(GetDesafio(torre));
-           int answer = UtilForMe.ReadInt();
+           int answer = ReadInt();
            UtilForMe.FakeClear(50,false);
 
            return answer == correctAnswer;
@@ -453,18 +458,170 @@ public class SegundaQueda {
         }
     }
 
-    private static void EntradaTorre(int torre,Player p) throws IOException, InterruptedException {
+    private static boolean EntradaTorre(int torre,Player p) throws IOException, InterruptedException, SQLException {
         UtilForMe.TempoDeLeitura(GetIntroTorre(torre));
-        while (!Desafio(torre)){
-            wrongAnswers++;
-            MiniBoss(p,torre);
+        int escolha = 0;
+        System.out.println("\nDESEJA continuar? Ou ir para outra torre?\n" +
+                "[ 1 ] Continuar\n" +
+                "[ 2 ] Ir para outra torre");
 
+        escolha = ReadInt();
+
+        while (escolha != 2 || escolha != 1){
+            System.out.println("Digite um número válido");
+            escolha = ReadInt();
         }
-        if(wrongAnswers > 0) wrongAnswers--;
-        UtilForMe.TempoDeLeitura(GetRespostaDesafio(30 + correctAnswer));
-        UtilForMe.FakeClear(50,true);
-        UtilForMe.TempoDeLeitura(GetIntroTorreInside(torre));
-        UtilForMe.FakeClear(50,true );
+
+        if(escolha == 1){
+            while (!Desafio(torre)){
+                wrongAnswers++;
+                MiniBoss(p,torre);
+
+            }
+            if(wrongAnswers > 0) wrongAnswers--;
+            UtilForMe.TempoDeLeitura(GetRespostaDesafio(30 + correctAnswer));
+            UtilForMe.FakeClear(50,true);
+            UtilForMe.TempoDeLeitura(GetIntroTorreInside(torre));
+            UtilForMe.FakeClear(50,true );
+            return true;
+        }
+        else{
+            Viagem(p,torre);
+            return false;
+        }
+
+
     }
 
+    public static void Viagem(Player player, int torre) throws IOException, InterruptedException, SQLException {
+        int quantTorre = !(torre == 0) ? 3 : 4;
+        String onde;
+        UtilForMe.FakeClear(50,false);
+        UtilForMe.TempoDeLeitura( String.format("""
+                Por alguns instantes, tudo é silêncio, um silêncio pesado, quase vivo.
+                Então você nota: trilhas etéreas serpenteiam pelo chão, como fios luminosos que se afastam em direções distintas.
+                
+                Cada rastro vibra num tom diferente, pulsando com ecos da magia que sustenta este mundo partido.
+                É impossível ignorá-los; São %s caminhos, levando a diferentes torres ancestrais. Dentro de cada uma é revelado uma parte da história,
+                tanto do presente como do passado e pistas para que possa haver um futuro.
+                
+                """, quantTorre));
+
+        if(torre == 0){
+            UtilForMe.TempoDeLeitura("""
+                Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                [ 1 ] Torre do Norte
+                [ 2 ] Torre do Oeste
+                [ 3 ] Torre do Sul
+                [ 4 ] Torre do Leste
+                
+                """);
+
+            do{
+                onde = switch (ReadInt()){
+                    case 1 -> "Norte";
+                    case 2 -> "Oeste";
+                    case 3 -> "Sul";
+                    case 4 -> "Leste";
+                    default -> "none";
+                };
+                if(onde.equals("none")){
+                    System.out.println("Digite uma opção válida!");
+                }
+            }while(onde.equals("none"));
+
+        } else if (torre == 1) {
+            UtilForMe.TempoDeLeitura("""
+                Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                [ 1 ] Torre do Norte
+                [ 2 ] Torre do Leste
+                [ 3 ] Torre do Sul
+                
+                """);
+
+            do{
+                onde = switch (ReadInt()){
+                    case 1 -> "Norte";
+                    case 2 -> "Leste";
+                    case 3 -> "Sul";
+                    default -> "none";
+                };
+                if(onde.equals("none")){
+                    System.out.println("Digite uma opção válida!");
+                }
+            }while(onde.equals("none"));
+
+        } else if (torre == 2) {
+            UtilForMe.TempoDeLeitura("""
+                Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                [ 1 ] Torre do Norte
+                [ 2 ] Torre do Oeste
+                [ 3 ] Torre do Sul
+                
+                """);
+            do{
+                onde = switch (ReadInt()){
+                    case 1 -> "Norte";
+                    case 2 -> "Oeste";
+                    case 3 -> "Sul";
+                    default -> "none";
+                };
+                if(onde.equals("none")){
+                    System.out.println("Digite uma opção válida!");
+                }
+            }while(onde.equals("none"));
+        } else if (torre == 3) {
+            UtilForMe.TempoDeLeitura("""
+                Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                [ 1 ] Torre do Leste
+                [ 2 ] Torre do Oeste
+                [ 3 ] Torre do Sul
+                
+                """);
+
+            do{
+                onde = switch (ReadInt()){
+                    case 1 -> "Leste";
+                    case 2 -> "Oeste";
+                    case 3 -> "Sul";
+                    default -> "none";
+                };
+                if(onde.equals("none")){
+                    System.out.println("Digite uma opção válida!");
+                }
+            }while(onde.equals("none"));
+        }else {
+            UtilForMe.TempoDeLeitura("""
+                Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                [ 1 ] Torre do Norte
+                [ 2 ] Torre do Oeste
+                [ 3 ] Torre do Leste
+                
+                """);
+
+           do{
+               onde = switch (ReadInt()){
+                   case 1 -> "Norte";
+                   case 2 -> "Oeste";
+                   case 3 -> "Leste";
+                   default -> "none";
+               };
+               if(onde.equals("none")){
+                   System.out.println("Digite uma opção válida!");
+               }
+           }while(onde.equals("none"));
+
+        }
+
+        switch (onde) {
+            case "Oeste" -> player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE1);
+            case "Leste" -> player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE2);
+            case "Norte" -> player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE3);
+            case "Sul"   -> player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_TORRE4);
+        }
+        UtilForMe.FakeClear(50,false);
+        UtilForMe.TempoDeLeitura("VIAJANDO..............");
+        Thread.sleep(2000);
+        UtilForMe.FakeClear(50,false);
+    }
 }

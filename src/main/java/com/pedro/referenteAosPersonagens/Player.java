@@ -63,8 +63,9 @@ public class Player extends Mob {
         return checkpoint;
     }
 
-    public void setCheckPoint(Checkpoint checkPoint) {
+    public void setCheckPoint(Checkpoint checkPoint) throws SQLException {
         this.checkpoint = checkPoint;
+        PlayerConfigurations.SalvarPlayer(this);
     }
 
     public boolean umPoucoDeSorte(Player x){
