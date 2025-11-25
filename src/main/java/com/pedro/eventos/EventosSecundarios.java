@@ -8,13 +8,13 @@ import com.pedro.referenteAosPersonagens.Player;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Random;
+import java.util.*;
 
 
 public abstract class EventosSecundarios {
     public static Random r = new Random();
-
+    static List<Integer> notas = Arrays.asList(1,2,3,4,5);
+    static boolean emb = false;
     public EventosSecundarios() {
 
     }
@@ -298,27 +298,38 @@ public abstract class EventosSecundarios {
 
     public static void SegundaQuedaEventos(Player p) throws IOException, InterruptedException, SQLException {
         UtilForMe.FakeClear(50,false); //verificado
+        if(!emb){
+            Collections.shuffle(notas);
+            emb=true;
+        }
 
-        for (int evento = 1; evento < 5; evento++) {
+        for (int evento = 1; evento < 6; evento++) {
             if (evento == 1 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(1,2);
+                Notas.notasEventos(notas.getFirst(),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
             } else if (evento == 2 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(2,2);
+                Notas.notasEventos(notas.get(1),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
             } else if (evento == 3 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(3,2);
+                Notas.notasEventos(notas.get(2),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
             }
             else if (evento == 4 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(5,2);
+                Notas.notasEventos(notas.get(3),2);
+                UtilForMe.FakeClear(50, true); //verificado
+                break;
+            }
+
+            else if (evento == 5 && !p.notasLidas.contains(Integer.toString(evento))) {
+                p.notasLidas.add(Integer.toString(evento));
+                Notas.notasEventos(notas.get(4),2);
                 UtilForMe.FakeClear(50, true); //verificado
                 break;
             }

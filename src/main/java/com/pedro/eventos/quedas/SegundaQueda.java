@@ -85,12 +85,11 @@ public class SegundaQueda {
                     Battle.Batalha(p,new Mage(p,torre),false,2);
                 }
                 System.out.println("\n\nNão há mais inimigos restantes!\n\n");
-                EventosSecundarios.Descanso(p, 2,torre);
-                return;
+                SaidaTorre(torre,p);
             }
         }
         else if(p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE"+torre+"_D")){
-            EventosSecundarios.Descanso(p, 2,torre);
+                SaidaTorre(torre,p);
         }
     }
 
@@ -333,11 +332,18 @@ public class SegundaQueda {
         UtilForMe.FakeClear(50,false);
         UtilForMe.TempoDeLeitura("VIAJANDO..............");
         Thread.sleep(2000);
+
         UtilForMe.FakeClear(50,false);
+        EventosSecundarios.SegundaQuedaEventos(player);
+
+        UtilForMe.TempoDeLeitura("VIAJANDO..............");
+        Thread.sleep(2000);
+        UtilForMe.FakeClear(50,false);
+
     }
 
-    public static void SaidaTorre(int torre){
-        //Descanso
-        //Viagem
+    public static void SaidaTorre(int torre,Player player) throws SQLException, IOException, InterruptedException {
+        EventosSecundarios.Descanso(player, 2,torre);
+        Viagem(player,torre);
     }
 }
