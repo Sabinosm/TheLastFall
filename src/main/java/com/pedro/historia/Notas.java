@@ -163,7 +163,7 @@ public class Notas {
                    """);
             }
         }
-        else if(queda ==2){
+        else if(queda == 2){
             if(nota == 6){
                 UtilForMe.TempoDeLeitura("""
                         No meio do caminho, você escuta vozes, sussurros baixos, apesar de não haver ninguém por perto.

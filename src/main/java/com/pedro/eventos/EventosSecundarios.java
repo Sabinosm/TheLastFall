@@ -13,7 +13,7 @@ import java.util.*;
 
 public abstract class EventosSecundarios {
     public static Random r = new Random();
-    static List<Integer> notas = Arrays.asList(1,2,3,4,5);
+    static List<Integer> notas = Arrays.asList(6,7,8,9,10);
     static boolean emb = false;
     public EventosSecundarios() {
 

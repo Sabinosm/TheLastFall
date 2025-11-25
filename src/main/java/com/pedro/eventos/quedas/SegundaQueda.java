@@ -33,11 +33,8 @@ public class SegundaQueda {
     //sendo a 3° torre muito dificil ou sei la
     //Diferentemente da primeira queda, que é um loop, essa é linear
 
-    //TODO -> Notas
-    //Todo -> Batalhas
     //Todo -> diálogo de obtensão das chaves e atualizar database
     //TODO -> Torre 4 intro, spawn do boss se a entrada for forçada, pensar no 2° boss
-    //TODO -> descanso + navegação
 
 
     public static void Start(Player p) throws IOException, InterruptedException, SQLException {
@@ -220,6 +217,7 @@ public class SegundaQueda {
         if(torre == 0){
             UtilForMe.TempoDeLeitura("""
                 Escolha em qual direção irá (o ponto central do andar é usado como referencia)
+                
                 [ 1 ] Torre do Norte
                 [ 2 ] Torre do Oeste
                 [ 3 ] Torre do Sul
