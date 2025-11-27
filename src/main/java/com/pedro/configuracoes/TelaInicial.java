@@ -63,7 +63,7 @@ public final class TelaInicial {
 
 
             
-            escolha = String.valueOf(ReadInt());
+            escolha = String.valueOf(ReadInt(null));
 
             switch (escolha) {
                 case "1":
@@ -112,7 +112,7 @@ public final class TelaInicial {
                         System.out.println(VelText());
 
                         
-                        escolha = String.valueOf(ReadInt()).trim();
+                        escolha = String.valueOf(ReadInt(null)).trim();
 
                         switch (escolha){
                             case "1":

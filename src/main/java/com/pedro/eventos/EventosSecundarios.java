@@ -82,7 +82,7 @@ public abstract class EventosSecundarios {
                     (5) Seguir adiante – deixar a o local e prosseguir pela fenda.
                     """);
             
-            escolha = UtilForMe.ReadInt();
+            escolha = UtilForMe.ReadInt(p);
 
             switch (escolha) {
                 case 1:
@@ -128,7 +128,7 @@ public abstract class EventosSecundarios {
                         System.out.println(notaTexto);
                         try {
                             
-                            escolha = UtilForMe.ReadInt();
+                            escolha = UtilForMe.ReadInt(p);
 
                             if (escolha == notasL.size() + 1) {
                                 break; // sair do while
@@ -260,11 +260,13 @@ public abstract class EventosSecundarios {
 
         String infoMonstros = ("""
                         Informações sobre os montros===============
-                        Carniceiros----
+                        
+                        ----Carniceiros----
                         Criaturas disformes que rastejam para fora da fenda, uma das poucas a faze-lo, guiadas apenas pelo instinto de caçar humanos.
                         São considerados os mais fracos entre os horrores do abismo, mas também os mais numerosos — motivo pelo qual espalharam tanto terror.
                         Seu corpo é um amontoado grotesco de carnes cruas, como se pedaços de animais diferentes tivessem sido costurados à força.
                         Possuem sangue, mas não um sangue comum: em suas veias corre pura magia corrompida, responsável por manter suas formas instáveis e sua fome insaciável.
+                        
                         """);
 
 
@@ -276,15 +278,17 @@ public abstract class EventosSecundarios {
 
         } else if (queda == 2) {
             infoMonstros += ("""
-                    Observadores----
+                    ----Observadores----
                     No coração da Primeira Queda ergue-se o Portão para a Segunda. Uma construção viva, formada por ossos, raízes e carne pulsante, que respira lentamente
                     como se aguardasse. Ele não se abre para qualquer um. Para atravessá-lo, é necessário unir as essências dos Carniceiros. Essas criaturas grotescas,
                     verdadeiros monstros do andar, guardam em si fragmentos únicos de poder. Somente reunindo todas as almas dos Carniceiros será possível fazer o portão
                     reagir. Os Colhedores, demônios dedicados a recolher as almas mais fortes, vigiam o processo, levando as presas mais valiosas diretamente ao portão como oferendas.
-                    Arcanistas do vazio----
+                    
+                    ----Arcanistas do vazio----
                     Restos de uma civilização que já não existe, os Arcanistas do Vazio foram outrora sábios e estudiosos. Hoje, seus corpos chamuscados e ressecados caminham apenas
                     pela magia que os consome. Usam capas negras e empunham cajados grotescos, conjurando feitiços sem beleza, feitos apenas de dor e poder. São lembranças distorcidas\s
                     de um povo que caiu há milênios.
+                    
                     """);
 
             monstrosMortos += ("Magos mortos: " + p.magoMortos + "\n");
@@ -303,31 +307,31 @@ public abstract class EventosSecundarios {
             emb=true;
         }
 
-        for (int evento = 1; evento < 6; evento++) {
-            if (evento == 1 && !p.notasLidas.contains(Integer.toString(evento))) {
+        for (int evento = 6; evento < 11; evento++) {
+            if (evento == 6 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
-                Notas.notasEventos(notas.getFirst(),2);
+                Notas.notasEventos(notas.get(0),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
-            } else if (evento == 2 && !p.notasLidas.contains(Integer.toString(evento))) {
+            } else if (evento == 7 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
                 Notas.notasEventos(notas.get(1),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
-            } else if (evento == 3 && !p.notasLidas.contains(Integer.toString(evento))) {
+            } else if (evento == 8 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
                 Notas.notasEventos(notas.get(2),2);
                 UtilForMe.FakeClear(50,true); //verificado
                 break;
             }
-            else if (evento == 4 && !p.notasLidas.contains(Integer.toString(evento))) {
+            else if (evento == 9 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
                 Notas.notasEventos(notas.get(3),2);
                 UtilForMe.FakeClear(50, true); //verificado
                 break;
             }
 
-            else if (evento == 5 && !p.notasLidas.contains(Integer.toString(evento))) {
+            else if (evento == 10 && !p.notasLidas.contains(Integer.toString(evento))) {
                 p.notasLidas.add(Integer.toString(evento));
                 Notas.notasEventos(notas.get(4),2);
                 UtilForMe.FakeClear(50, true); //verificado

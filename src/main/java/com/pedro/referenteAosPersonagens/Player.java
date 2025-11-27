@@ -68,10 +68,14 @@ public class Player extends Mob {
         PlayerConfigurations.SalvarPlayer(this);
     }
 
+    public boolean PlayerMorto(){
+        return this.actLife <= 0;
+    }
+
     public boolean umPoucoDeSorte(Player x){
         Random r = new Random();
         int sorte = r.nextInt(1,11);
-        if(x.passiva.contains("Um pouco de sorte") && sorte <= 4){
+        if(x.passiva.contains("Um pouco de sorte") && sorte <= 3){
             resultadoSorte(1,x);
             return true;
         }
@@ -196,7 +200,8 @@ public class Player extends Mob {
             Passivas.atualizarAtributosSemBatalha(p);
 
             System.out.println("\n=========== PONTOS DE HABILIDADE ===========\n" +
-                    "Pontos restantes: " + p.pontosHabilidade + "\n" +
+                    "Pontos restantes: " + p.pontosHabilidade + "\n"+
+                    "Level: " + p.level +"\n" +
                     "--------------------------------------------\n" +
                     "(1) Força        [+7 Dano]          ➤ Atual: " + p.damage + "\n" +
                     "(2) Vida         [+12 Vida]         ➤ Atual: " + p.life + "\n" +
@@ -212,7 +217,7 @@ public class Player extends Mob {
 
             System.out.print("Escolha a opção: ");
             
-            choose = String.valueOf(ReadInt()).trim();
+            choose = String.valueOf(ReadInt(null)).trim();
 
             if(choose.equals("5")){
                 System.out.println("Seus pontos foram resetados com sucesso\n");
@@ -227,7 +232,7 @@ public class Player extends Mob {
                 System.out.print("Escolha a quantidade de pontos: ");
                 try{
                     
-                    pontosQ = ReadInt();
+                    pontosQ = ReadInt(null);
                 } catch (NumberFormatException e) {
                     choose = "7";
                 }
@@ -279,6 +284,7 @@ public class Player extends Mob {
     }
 
     public static void MorteJogador(Player p, Enemy mortoPor) throws IOException, InterruptedException {
+        String maiorStr;
         if(p.actLife <= 0){
             UtilForMe.FakeClear(50,true); //verificado
             UtilForMe.TempoDeLeitura("""
@@ -290,7 +296,9 @@ public class Player extends Mob {
                     Você sente sua alma se desprender, tentando fugir, tentando alcançar algo além…
                     Mas o Vazio não permite.
                     Ele a arrasta de volta, com garras invisíveis, jogando-a novamente contra o chão da Primeira Queda.
-                    
+          
+                    """);
+            UtilForMe.TempoDeLeitura("""
                     No processo, parte do que você conquistou se desfaz.
                     As almas que havia consumido se dispersam, duas fogem pelas fendas,
                     e a mais forte delas — aquela que o definia — se parte em fragmentos, deixando-o vazio.
@@ -303,6 +311,7 @@ public class Player extends Mob {
                     XP atual -> 0
                     Alma mais forte se foi
                     -2 almas na contagem total de mortos e nas dos monstros específicos
+                    
                     """);
 
 
@@ -314,7 +323,19 @@ public class Player extends Mob {
                         if(p.carnMortos >= p.carnMortos - 2) p.setCarnMortos(p.carnMortos - 2);
                         if(p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
-                        String maiorStr = Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                        boolean existeNulo = p.carnDeCadaLevelMorto.contains(null);
+
+                        try{
+                            if(!existeNulo){
+                                maiorStr= Collections.max(p.carnDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                            }else{
+                                maiorStr = "999";
+                            }
+                        } catch (NumberFormatException e) {
+                            maiorStr = "999";
+                        }
+
+
 
                         if (p.carnDeCadaLevelMorto.contains(maiorStr)) {
                             p.carnDeCadaLevelMorto.remove(maiorStr);
@@ -329,13 +350,23 @@ public class Player extends Mob {
                         if (p.magoMortos >= p.magoMortos - 2) p.setMagoMortos(p.magoMortos - 2);
                         if (p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
-                        String maiorStr = Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                        boolean existeNulo = p.magoDeCadaLevelMorto.contains(null);
+
+                        try{
+                           if(!existeNulo){
+                               maiorStr= Collections.max(p.magoDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                           }else{
+                               maiorStr = "999";
+                           }
+                        } catch (NumberFormatException e) {
+                            maiorStr = "999";
+                        }
 
                         if (p.magoDeCadaLevelMorto.contains(maiorStr)) {
                             p.magoDeCadaLevelMorto.remove(maiorStr);
                             System.out.println("Uma alma de nível " + maiorStr + " fugiu...\n");
                         } else {
-                            System.out.println("Não havia nenhuma alma.\n");
+                            System.out.println("Não havia nenhuma alma correspondente.\n");
                         }
 
                     }
@@ -344,7 +375,17 @@ public class Player extends Mob {
                         if (p.demoniosMortos >= p.demoniosMortos - 2) p.setCarnMortos(p.demoniosMortos - 2);
                         if (p.inimigosMortos >= p.inimigosMortos - 2) p.setInimigosMortos(p.inimigosMortos - 2);
 
-                        String maiorStr = Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                        boolean existeNulo = p.demonDeCadaLevelMorto.contains(null);
+
+                        try{
+                            if(!existeNulo){
+                                maiorStr= Collections.max(p.demonDeCadaLevelMorto, Comparator.comparingInt(Integer::parseInt));
+                            }else{
+                                maiorStr = "999";
+                            }
+                        } catch (NumberFormatException e) {
+                            maiorStr = "999";
+                        }
 
                         if (p.demonDeCadaLevelMorto.contains(maiorStr)) {
                             p.demonDeCadaLevelMorto.remove(maiorStr);

@@ -111,7 +111,7 @@ public class Battle {
 
         System.out.println("Deseja continuar a batalha ou tentar fugir?\n(1) Para continuar \n(2) Para tentar fugir");
         
-        fugirContinuar = String.valueOf(UtilForMe.ReadInt());
+        fugirContinuar = String.valueOf(UtilForMe.ReadInt(null));
 
         if (fugirContinuar.equals("2")) {
             int df = r.nextInt(1, inimigo.level + 1);
@@ -129,8 +129,7 @@ public class Battle {
         }
         else if (fugirContinuar.equals("1")) {
             batalha = true;
-            System.out.println("\nVocê escolheu continuar.");
-            UtilForMe.FakeClear(50,true); //verificado
+            UtilForMe.FakeClear(50,false); //verificado
         }
         else{
             System.out.println("\nInsira um número válido da proxima vez. A batalha irá continuar");

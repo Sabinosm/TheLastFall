@@ -1,13 +1,18 @@
 package com.pedro;
 
+import com.pedro.configuracoes.Checkpoint;
+import com.pedro.eventos.EventosSecundarios;
+import com.pedro.referenteAosPersonagens.Player;
 import org.jline.reader.LineReader;
 import org.jline.reader.LineReaderBuilder;
 import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
-
+import java.util.Arrays;
+import java.util.List;
 
 
 public abstract class UtilForMe {
@@ -57,7 +62,7 @@ public abstract class UtilForMe {
 
 
     // Método para ler inteiro
-    public static int ReadInt() throws IOException {
+    public static int ReadInt(Player player) throws IOException {
         int numero = -1;
         boolean valido = false;
 
@@ -69,13 +74,17 @@ public abstract class UtilForMe {
                 }
 
                 String entrada = reader.readLine();
-                numero = Integer.parseInt(entrada.trim());
+                if(entrada.startsWith("/")) {
+                    Comando(entrada, player);
+                    return 99;
+                }
+                    numero = Integer.parseInt(entrada.trim());
                 valido = true;
 
             } catch (NumberFormatException e) {
                 System.out.println("⚠ Digite apenas números.");
 
-            } catch (IOException e) {
+            } catch (IOException | SQLException | InterruptedException e) {
                 System.out.println("Erro de leitura: " + e.getMessage());
             }
         }
@@ -98,6 +107,7 @@ public abstract class UtilForMe {
                 }
 
                 String entrada = reader.readLine();
+
                 texto = entrada.trim();
                 valido = true;
 
@@ -114,7 +124,51 @@ public abstract class UtilForMe {
         return texto;
     }
 
+    private static void Comando(String cmd, Player player) throws SQLException, IOException, InterruptedException {
 
+        List<String> cmdLines = Arrays.asList(cmd.split(" "));
+        if(cmdLines.get(0).equals("/kill")){
+            System.out.println("Lendo Comando.....");
+            player.setActLife(0);
+            Player.MorteJogador(player,null);
+        }
+        else if(cmdLines.get(0).equals("/upPlayerLevel")){
+            System.out.println("Lendo Comando.....");
+            try{
+                for(int x = 1; x <= Integer.parseInt(cmdLines.get(1)); x++) {
+                    double xpUpar = player.getXpParaProximoLevel() - player.getXpAtual();
+                    player.upLevel(xpUpar);
+                }
+                System.out.println("Upou " + Integer.parseInt(cmdLines.get(1)) + " leveis");
+                UtilForMe.FakeClear(2,true);
+            } catch (NumberFormatException e) {
+                System.out.println("Número de level inválido!");
+                UtilForMe.FakeClear(2,true);
+            }
+        }
+        else if(cmdLines.get(0).equals("/irParaBoss")){
+            System.out.println("Lendo Comando.....");
+            if(player.getCheckPoint().name().contains("PRIMEIRA_QUEDA")){
+                player.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
+            }
+            else if(player.getCheckPoint().name().contains("SEGUNDA_QUEDA")){
+                player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA_BOSS);
+            }
+        }
+        else if(cmdLines.get(0).equals("/irParaDescanso")){
+            System.out.println("Lendo Comando.....");
+            if(player.getCheckPoint().name().contains("PRIMEIRA_QUEDA")){
+                EventosSecundarios.Descanso(player,1,null);
+            }
+            else if(player.getCheckPoint().name().contains("SEGUNDA_QUEDA")){
+                System.out.println("AVISO! Isso mudara seu checkPoint para Segunda-Queda apenas!");
+                EventosSecundarios.Descanso(player,2,0);
+            }
+        }
+        else {
+            System.out.println("ERR");
+        }
+    }
 
 
     public static String Arr(double d) {

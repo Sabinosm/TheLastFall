@@ -222,9 +222,9 @@ public class Passivas {
 
             case "Um pouco de sorte":
 
-                if (x.resultadoSorte(-1, ((Player) x))) {
+                if (x.resultadoSorte(-1, x )) {
                     System.out.println("\n" + x.nome + " Parece que foi seu dia de sorte, seu ataque recebeu um bônus de 200% de dano\n");
-                    x.resultadoSorte(0, ((Player) x));
+                    x.resultadoSorte(0, x);
                 }
                 break;
         }

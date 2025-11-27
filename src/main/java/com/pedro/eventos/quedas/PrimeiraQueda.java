@@ -82,9 +82,7 @@ public class PrimeiraQueda extends Battle {
         }
 
         if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
-
             BossBattle.bossBattlePrimeiraQueda(p);
-
         }
 
     }

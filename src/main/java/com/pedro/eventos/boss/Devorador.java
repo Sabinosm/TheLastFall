@@ -20,7 +20,7 @@ public class Devorador {
 
     public static String Intro() throws IOException, InterruptedException {
         return ("""
-                Ao errar pela terceira vez, a torre não perdoa.
+                Ao errar novamente, a torre não perdoa.
                 Um estalo seco ecoa pelo chão arenoso, não um som, mas um veredito.
                 A defesa final é acionada.
                 
@@ -157,7 +157,7 @@ public class Devorador {
 
             System.out.println(MontagemBatalha());
 
-            String resposta = Integer.toString(ReadInt());
+            String resposta = Integer.toString(ReadInt(null));
 
             if (tempoEsgotado) {
                 return false;
@@ -185,5 +185,7 @@ public class Devorador {
 
         return false;
     }
+
+
 
 }

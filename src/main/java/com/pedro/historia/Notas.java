@@ -39,7 +39,6 @@ public class Notas {
                     "Ele virá… ele prometeu… o Herói, o Salvador, jamais abandona seu povo!
                     Sua espada cortava o próprio ar, sua voz calava os gritos do Vazio.
                     Nós o esperamos, todos os dias....."
-                    
                     Era tudo o que ele falava, até que, seus olhos se voltaram para quem estava a sua frente.
                     
                     """);
@@ -50,7 +49,6 @@ public class Notas {
                     MAIS UM QUE TENTA SER O QUE NÃO É
                     mais um cadaver no meio de tantos.......que acharam que iriam sobreviver ao inferno.
                     Espere e verá, logo você se juntara a mim logo.....logo você ja estará no eterno loop de gritos e lamentos...
-                    
                     -Então ele volta para sua oração e seus lamentos
                     
                     """);
@@ -65,14 +63,12 @@ public class Notas {
                 UtilForMe.TempoDeLeitura("""
                     Você segue pela névoa vermelha, que rasteja pelo chão como se tivesse vida própria.
                     O ar aqui é pesado, tem gosto de ferrugem e cinzas. Cada respiração parece arranhar sua garganta.
-                    
                     Ao se aproximar de uma muralha quebrada, algo chama sua atenção: marcas esculpidas na pedra, símbolos quase apagados pelo tempo. 
                     Não são marcas de guerra, mas sim desenhos — flores, rios, estrelas, pessoas de mãos dadas. Um fragmento de vida congelado no tempo.
                     
                     """);
                 UtilForMe.TempoDeLeitura("""
                     Como um lugar tão lindo pode ter se transformado nisso?
-                    
                     Você imagina as ruas que agora jazem cobertas por poeira e ossos. Crianças correndo, festas à luz da lua,
                     o cheiro de pão saindo de fornos de pedra… tudo isso perdido, devorado pelo Vazio.
                     
@@ -81,7 +77,6 @@ public class Notas {
                     Os ventos frios que sopram entre as casas destruídas carregam sussurros. Talvez sejam apenas ecos da sua mente, mas parecem vozes distantes, 
                     como se as pedras ainda recordassem.
                     Entre os escombros, você encontra uma pedra maior, partida ao meio. Gravado às pressas, com traços irregulares, está um último pedido:
-                    
                     'Perdoe-nos, Criador… nós o decepcionamos.'
                     
                     """);
@@ -93,7 +88,6 @@ public class Notas {
                 UtilForMe.TempoDeLeitura("""
                     O silêncio que se segue não é comum. É como se as próprias ruínas o observassem, como se esperassem uma resposta sua.
                     Mas aqui, ninguém responde. Nem o Criador, nem heróis, nem vivos.
-                    
                     Apenas o vazio e a solidão.
                     
                     """);
@@ -137,12 +131,10 @@ public class Notas {
                     A magia não nasceu do carniceiro… mas de algo maior.
                     
                     Eis o enigma:
-                    
                     - A carne é a chave, mas o portão exige ordem.
                     Alguns oferecem quantidade, outros oferecem variedade.
                     Um banquete de muitos, ou o gosto de cada sangue único.
                     Escolha sua oferenda… e o portão decidirá. -
-                    
                     O que será que ele significa? Agora não importa, ainda existem inimigos por perto.
                     
                     """);
@@ -184,7 +176,6 @@ public class Notas {
                         A mana era viva, respondia aos vivos. Uma dádiva, dada apenas aos que respiram.
                         Os Arcanistas eram parte de nós, mas traziam um dom maior: manipulavam a energia sem esforço, como
                         se ela própria desejasse correr por suas veias. Dizíamos que eles eram “tocados pela primeira luz”.
-                        
                         Mas toda dádiva tem um preço. E, para nós, o preço foi esquecer que tudo que vive… um dia morre.
                         
                         """);
@@ -196,18 +187,15 @@ public class Notas {
                         """);
                     UtilForMe.TempoDeLeitura("""
                         A mana é uma dádiva para os vivos, mas uma maldição para os mortos.
-             
                         Quando a Primeira Queda devastou nossas fronteiras, muitos Arcanistas foram sacrificados
                         em batalha para manter nosso mundo de pé, eles achavam que conseguiriam parar o vazio.
                         Porém seus esforços foram falhos. Seus corpos morreram… mas sua mana não teve para onde ir.
-                        
                         Eles não descansaram. Não podiam.
                         
                         """);
                     UtilForMe.TempoDeLeitura("""
                         A energia pura que antes moldava cidades se tornou vazia, distorcida, buscando desesperadamente um lar que já não existia.
                         A mana dos Arcanistas mortos se converteu naquilo que chamamos de Mana Impura, um eco agressivo daquilo que um dia foi vida.
-                            
                         Foi nesse caos que a Segunda Queda começou a ser escrita, não por inimigos externos, mas pelos fantasmas de nossa própria grandeza.
                         
                         """);
@@ -218,10 +206,8 @@ public class Notas {
                         """);
                 UtilForMe.TempoDeLeitura("""
                         Chamavam-no de Arquilon, o que carrega o excesso sem perecer.
-             
                         Entre todos nós, sua mana era tão pura que dizíamos ser próxima do “estado perfeito”: abundante,
                         luminosa, calma… como se o mundo inteiro fluísse por ele.
-                        
                         Quando o vazio tomou nossos mortos, foi Arquilon quem caminhou entre eles sem ser tocado.
                         Diziam que a mana impura se retraía de sua presença, como fera diante do fogo.
                         
@@ -240,10 +226,8 @@ public class Notas {
                         """);
                 UtilForMe.TempoDeLeitura("""
                         O Devorador não nasceu para ser um monstro.
-                        
                         Ele foi criado pelos Arcanistas já mortos, junto de Arquilon, já corrompidos,
                         uma tentativa desesperada de domar sua própria existência impura.
-                        
                         Alimentaram-no com mana distorcida, acreditando que assim ele absorveria sua dor e seu vazio. 
                         Mas a criatura não aguentou. Cresceu… e cresceu… e perdeu forma, perdeu controle, perdeu propósito.
                         
@@ -724,7 +708,7 @@ public class Notas {
                     
                     """;
         }
-        else {
+        else if(torre == 3){
             t = """
                     - Torre do Norte -
                     Aqui o deserto de mana parece se curvar.
@@ -734,6 +718,21 @@ public class Notas {
                     Uma presença silenciosa pesa sobre o espírito de qualquer um que se aproxima, exigindo respeito, talvez submissão.
                     Não é uma construção.
                     É um aviso.
+                    
+                    """;
+        } else {
+            t = """
+                    - Torre do Sul -
+                    Diferente das outras, ela não parece vazia. A mana ao redor é densa, imóvel, pesada demais para fluir.
+                    O ar vibra em silêncio, pressionando o corpo e a mente a cada passo. Aqui, a energia não corre, ela parece devorar cada centímetro
+                    da sua alma, sua mana vibra, parecendo entrar em ressonância com o que esteja dentro desse lugar.
+                    A entrada é selada por três símbolos vazios na pedra. Três chaves. Entre elas, fios fracos de mana ainda percorrem a superfície da porta.
+                    Um mecanismo antigo. Um tipo de alerta. Um aviso enorme para qualquer que tente entrar sem as chaves, talvez não seja impossível
+                    mas de fato perigoso.
+                    
+                    Há algo do outro lado. Não um monstro comum.
+                    Mas algo vasto, consciente… uma presença de mana tão forte e pura
+                    será que é mesmo um ser desse mundo?
                     
                     """;
         }

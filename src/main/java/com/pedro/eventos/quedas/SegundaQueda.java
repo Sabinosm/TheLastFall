@@ -26,18 +26,15 @@ public class SegundaQueda {
     static List<Integer> chavesTotais = Arrays.asList(1,2,3);
     public static int correctAnswer;
     static int wrongAnswers;
+    static boolean magoMorto = false;
 
-    //Base segunda queda 3 torres 3 inimigos em cada, 3 desafios em cada, Chance de aparecer um boss secundário. Para sair, tem que entrar nas torres e pegar 3 chaves.
-    //Ativação mini boss -> fugiu mais de 2 vezes na mesma torre, errou um desafio ( pode aparecer um mago de level 5 ou o mini boss),
-    //talvez leveis diferentes para cada torre
-    //sendo a 3° torre muito dificil ou sei la
-    //Diferentemente da primeira queda, que é um loop, essa é linear
 
     //Todo -> diálogo de obtensão das chaves e atualizar database
     //TODO -> Torre 4 intro, spawn do boss se a entrada for forçada, pensar no 2° boss
 
 
     public static void Start(Player p) throws IOException, InterruptedException, SQLException {
+        UtilForMe.FakeClear(50,false);
         while (p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_BOSS || p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_TORRE4_D){
 
             if(!p.getCheckPoint().name().contains("SEGUNDA_QUEDA_TORRE")){
@@ -93,9 +90,10 @@ public class SegundaQueda {
     private static boolean Desafio(int torre) throws IOException, InterruptedException {
            RetornoMultiplo desafioResposta = GetDesafio(torre);
            correctAnswer = desafioResposta.inteiro;
-           UtilForMe.FakeClear(50,true);
+           UtilForMe.FakeClear(50,magoMorto);
            UtilForMe.TempoDeLeitura(desafioResposta.string);
-           int answer = ReadInt();
+           magoMorto = false;
+           int answer = ReadInt(null);
            UtilForMe.FakeClear(50,false);
 
            return answer == correctAnswer;
@@ -104,51 +102,7 @@ public class SegundaQueda {
 
     public static void MiniBoss(Player p,int torre) throws IOException, InterruptedException {
         if(wrongAnswers >= 3){
-            if(!BossBattle.SecundaryBossBattleSQ(p)){
-                UtilForMe.FakeClear(50,false);
-                UtilForMe.TempoDeLeitura("""
-                        A palavra sai da sua boca… e o deserto não responde.
-                        Silêncio.
-                        Depois, um rugido que rasga o mundo.
-                        
-                        O Falso Deus inclina a cabeça, como se compreendesse a sua falha antes mesmo de você.
-                        A areia abre caminho. A escuridão engole tudo.
-                        
-                        O grito que segue não é seu —
-                        é o do próprio deserto, devorando mais uma alma para alimentar o vazio.
-                        
-                        Você não acorda.
-                        Ninguém acorda.
-                        
-                        O Falso Deus se alimenta.
-                        """);
-                p.setActLife(0);
-                UtilForMe.FakeClear(50,true);
-                Player.MorteJogador(p,null);
-            }
-            else{
-
-                UtilForMe.FakeClear(50,true);
-                UtilForMe.TempoDeLeitura("""
-                        O colosso de carne e mana curva o corpo, fazendo a própria ordem do mundo
-                        lembrar-lhe de quem o criou, e de quem ele mesmo matou.
-                        Gritando sem voz, ele se retorce, afundando na areia que se abre como um túmulo antigo.
-                        
-                        O vento corta, os gritos do devorador fazem a mana ao redor se tornar instável.
-                        A luz se torce e de pouco em pouco o monstro afunda na areia junto de suas correntes.
-                        A fenda se fecha sobre ele com violência divina.
-                        
-                        Por um instante, tudo silencia… exceto o som da besta batendo contra as paredes do seu novo cárcere, 
-                        cada impacto mais distante que o anterior.
-                        
-                        E então, apenas o vazio.
-                        
-                        Você não o derrotou.
-                        Ninguém jamais o fará.
-                        
-                        Mas hoje — ele voltou a dormir.
-                        """);
-            }
+            DevoradorSpawn(p);
         }
         else{
             Mage m = new Mage(p,torre);
@@ -167,18 +121,43 @@ public class SegundaQueda {
                 "[ 1 ] Continuar\n" +
                 "[ 2 ] Ir para outra torre");
 
-        escolha = ReadInt();
+        escolha = ReadInt(null);
+
+        if(torre == 4 && !p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
+            System.out.println("\nA porta está fechada mas é possível forçar a passagem, é um perigo, " +
+                    "mas não impossível.....provavelmente\n" +
+                    "[ 1 ] Continuar\n" +
+                    "[ 2 ] Ir para outra torre");
 
 
+            escolha = ReadInt(null);
+
+            while (escolha != 2 && escolha != 1){
+                System.out.println("Digite um número válido");
+                escolha = ReadInt(null);
+            }
+
+            if(escolha == 1){
+                DevoradorSpawn(p);
+                return false;
+            }
+        }else if(torre == 4 && p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
+            //Indo para o boss
+        }
         while (escolha != 2 && escolha != 1){
             System.out.println("Digite um número válido");
-            escolha = ReadInt();
+            escolha = ReadInt(null);
         }
 
         if(escolha == 1 && !p.chavesAdquiridas.contains(chavesTotais.indexOf(torre))){
             while (!Desafio(torre)){
                 wrongAnswers++;
                 MiniBoss(p,torre);
+                if(wrongAnswers < 3 && !p.PlayerMorto()){
+                    magoMorto = true;
+                    System.out.println("O arcanista morre, mas a torre continua selada," +
+                            "\ntente novamente o desafio, agora já não há outra opção");
+                }
 
             }
             if(wrongAnswers > 0) wrongAnswers--;
@@ -222,11 +201,10 @@ public class SegundaQueda {
                 [ 2 ] Torre do Oeste
                 [ 3 ] Torre do Sul
                 [ 4 ] Torre do Leste
-                
                 """);
 
             do{
-                onde = switch (ReadInt()){
+                onde = switch (ReadInt(null)){
                     case 1 -> "Norte";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -244,11 +222,10 @@ public class SegundaQueda {
                 [ 1 ] Torre do Norte
                 [ 2 ] Torre do Leste
                 [ 3 ] Torre do Sul
-                
                 """);
 
             do{
-                onde = switch (ReadInt()){
+                onde = switch (ReadInt(null)){
                     case 1 -> "Norte";
                     case 2 -> "Leste";
                     case 3 -> "Sul";
@@ -265,10 +242,9 @@ public class SegundaQueda {
                 [ 1 ] Torre do Norte
                 [ 2 ] Torre do Oeste
                 [ 3 ] Torre do Sul
-                
                 """);
             do{
-                onde = switch (ReadInt()){
+                onde = switch (ReadInt(null)){
                     case 1 -> "Norte";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -284,11 +260,10 @@ public class SegundaQueda {
                 [ 1 ] Torre do Leste
                 [ 2 ] Torre do Oeste
                 [ 3 ] Torre do Sul
-                
                 """);
 
             do{
-                onde = switch (ReadInt()){
+                onde = switch (ReadInt(null)){
                     case 1 -> "Leste";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -304,11 +279,10 @@ public class SegundaQueda {
                 [ 1 ] Torre do Norte
                 [ 2 ] Torre do Oeste
                 [ 3 ] Torre do Leste
-                
                 """);
 
            do{
-               onde = switch (ReadInt()){
+               onde = switch (ReadInt(null)){
                    case 1 -> "Norte";
                    case 2 -> "Oeste";
                    case 3 -> "Leste";
@@ -341,7 +315,51 @@ public class SegundaQueda {
     }
 
     public static void SaidaTorre(int torre,Player player) throws SQLException, IOException, InterruptedException {
-        EventosSecundarios.Descanso(player, 2,torre);
+        if(torre!=4)EventosSecundarios.Descanso(player, 2,torre);
+        else EventosSecundarios.Descanso(player, 2,1);
         Viagem(player,torre);
+    }
+
+    private static void DevoradorSpawn(Player p)throws IOException, InterruptedException {
+        if(!BossBattle.SecundaryBossBattleSQ(p)){
+            UtilForMe.FakeClear(50,false);
+            UtilForMe.TempoDeLeitura("""
+                        A palavra sai da sua boca… e o deserto não responde.
+                        Silêncio.
+                        Depois, um rugido que rasga o mundo.
+                        O Falso Deus inclina a cabeça, como se compreendesse a sua falha antes mesmo de você.
+                        A areia abre caminho. A escuridão engole tudo.
+                        O grito que segue não é seu —
+                        é o do próprio deserto, devorando mais uma alma para alimentar o vazio.
+                        Você não acorda.
+                        Ninguém acorda.
+                        O Falso Deus se alimenta.
+                        """);
+            p.setActLife(0);
+            UtilForMe.FakeClear(50,true);
+            Player.MorteJogador(p,null);
+        }
+        else{
+            UtilForMe.FakeClear(50,true);
+            UtilForMe.TempoDeLeitura("""
+                        O colosso de carne e mana curva o corpo, fazendo a própria ordem do mundo
+                        lembrar-lhe de quem o criou, e de quem ele mesmo matou.
+                        Gritando sem voz, ele se retorce, afundando na areia que se abre como um túmulo antigo.
+                        
+                        O vento corta, os gritos do devorador fazem a mana ao redor se tornar instável.
+                        A luz se torce e de pouco em pouco o monstro afunda na areia junto de suas correntes.
+                        A fenda se fecha sobre ele com violência divina.
+                        
+                        Por um instante, tudo silencia… exceto o som da besta batendo contra as paredes do seu novo cárcere, 
+                        cada impacto mais distante que o anterior.
+                        
+                        E então, apenas o vazio.
+                        
+                        Você não o derrotou.
+                        Ninguém jamais o fará.
+                        
+                        Mas hoje — ele voltou a dormir.
+                        """);
+        }
     }
 }
