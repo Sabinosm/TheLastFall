@@ -156,116 +156,7 @@ public class Notas {
             }
         }
         else if(queda == 2){
-            if(nota == 6){
-                UtilForMe.TempoDeLeitura("""
-                        No meio do caminho, você escuta vozes, sussurros baixos, apesar de não haver ninguém por perto.
-                        Então, um fragmento de alma aparece, parece ter sido um grande arcanista, ou um guerreiro. Mas 
-                        essa estrutura de mana, essa cor, vibrante e também um pouco diferente da que se viam na superfície.
-                        Ela murmurava:
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Antes de sermos pó sob este sol cruel, éramos uma civilização moldada pela mana.
-                        Não a usávamos como arma, mas como extensão da própria vida,
-                        iluminávamos cidades inteiras, guiávamos o crescimento das plantações,
-                        moldávamos rochas como se fossem argila quente. Mas sendo a nossa vida, nosso coração
-                        impuros, assim tornou-se a mana. E assim começou o desprezo do Criador, pela sua criação.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        A mana era viva, respondia aos vivos. Uma dádiva, dada apenas aos que respiram.
-                        Os Arcanistas eram parte de nós, mas traziam um dom maior: manipulavam a energia sem esforço, como
-                        se ela própria desejasse correr por suas veias. Dizíamos que eles eram “tocados pela primeira luz”.
-                        Mas toda dádiva tem um preço. E, para nós, o preço foi esquecer que tudo que vive… um dia morre.
-                        
-                        """);
-            } else if (nota == 7) {
-                    UtilForMe.TempoDeLeitura("""
-                        Você encontra esta nota gravada em uma rocha, as letras desgastadas pelo vento.
-                        A escrita é irregular, talvez o autor tivesse pouco tempo ou pouca sanidade.
-                        
-                        """);
-                    UtilForMe.TempoDeLeitura("""
-                        A mana é uma dádiva para os vivos, mas uma maldição para os mortos.
-                        Quando a Primeira Queda devastou nossas fronteiras, muitos Arcanistas foram sacrificados
-                        em batalha para manter nosso mundo de pé, eles achavam que conseguiriam parar o vazio.
-                        Porém seus esforços foram falhos. Seus corpos morreram… mas sua mana não teve para onde ir.
-                        Eles não descansaram. Não podiam.
-                        
-                        """);
-                    UtilForMe.TempoDeLeitura("""
-                        A energia pura que antes moldava cidades se tornou vazia, distorcida, buscando desesperadamente um lar que já não existia.
-                        A mana dos Arcanistas mortos se converteu naquilo que chamamos de Mana Impura, um eco agressivo daquilo que um dia foi vida.
-                        Foi nesse caos que a Segunda Queda começou a ser escrita, não por inimigos externos, mas pelos fantasmas de nossa própria grandeza.
-                        
-                        """);
-            } else if (nota == 8) {
-                UtilForMe.TempoDeLeitura("""
-                        Você encontra um diário dentro de uma urna quebrada, protegida do vento. O texto parece pessoal, quase íntimo
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Chamavam-no de Arquilon, o que carrega o excesso sem perecer.
-                        Entre todos nós, sua mana era tão pura que dizíamos ser próxima do “estado perfeito”: abundante,
-                        luminosa, calma… como se o mundo inteiro fluísse por ele.
-                        Quando o vazio tomou nossos mortos, foi Arquilon quem caminhou entre eles sem ser tocado.
-                        Diziam que a mana impura se retraía de sua presença, como fera diante do fogo.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Antes do aniquilação, achávamos que ele era o herói a dar um fim nisso tudo, porém a fenda, subitamente
-                        explodiu em chamas, liberando demônios, mais fortes que os monstros de carne que havíamos enfrentado, e fomos todos engulidos,
-                        inclusive Arquilon.
-                        
-                        """);
-            }  else if (nota == 9) {
-                UtilForMe.TempoDeLeitura("""
-                        Você encontra um pergaminho dentro de uma fenda estreita, presa sob ossos antigos.
-                        O pergaminho vibra levemente, com algo reagindo à mana ao redor.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        O Devorador não nasceu para ser um monstro.
-                        Ele foi criado pelos Arcanistas já mortos, junto de Arquilon, já corrompidos,
-                        uma tentativa desesperada de domar sua própria existência impura.
-                        Alimentaram-no com mana distorcida, acreditando que assim ele absorveria sua dor e seu vazio. 
-                        Mas a criatura não aguentou. Cresceu… e cresceu… e perdeu forma, perdeu controle, perdeu propósito.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Apenas Arqulion podia se aproximar sem ser dilacerado. Diziam que,
-                        quando o Devorador tocava sua mana pura, ficava calmo… quase sereno.
-                        Seu criador havia criado runas e palavras que sempre mudavam, uma mágia para conter o
-                        monstro.
-                        
-                        Mas ninguém vive para sempre.
-                        E quando Arqulion pela primeira e única vez, não conseguiu decifrar sua própria magia,
-                        em um ataque de fúria do devorador, o corpo Arquilon foi consumido completamente, pela sua própria criação.
-                        E então o Devorador finalmente conheceu fome, pois de nada adiantava devorar Arquilon, pois sua mana era
-                        incorrosível e até hoje, é possível sentir sua mana pelo deserto, sendo muito forte em alguns lugares.
-                        
-                        """);
-            } else if (nota == 10) {
-                UtilForMe.TempoDeLeitura("""
-                        Encontrada enterrada na areia, dentro de um pequeno cofre deformado pelo calor, uma página rasgada de um caderno.
-                        Há sangue seco nas bordas.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Muitos acreditam que a Segunda Queda foi um ataque. Uma invasão. Um castigo divino.
-                        Mas não. A Segunda Queda começou quando o primeiro Arcanista morto abriu os olhos novamente.
-                        Sua mana, antes perfeita, retornou à terra como uma tempestade de fúria. 
-                        E conforme mais morriam, mais mana impura vazava para o mundo, contagiando tudo que tocava, solo, ar, animais, pessoas.
-                        
-                        """);
-                UtilForMe.TempoDeLeitura("""
-                        Eu escrevo isto porque sinto minha mana enfraquecer. Sinto o chamado.
-                        Se estas palavras te encontrarem…
-                        não confie nos mortos. Eles carregam mana demais para serem silenciosos.
-                        
-                        """);
-            }
-
+            NotasSegundaQueda(nota);
         }
 
     }
@@ -549,7 +440,7 @@ public class Notas {
                         
                         [ 1 ] O criador
                         [ 2 ] O abismo
-                        [ 3 ] O devorador
+                        [ 3 ] Arquilon
                         
                         """;
                 correctAnswer = 3;
@@ -650,9 +541,7 @@ public class Notas {
         }
         else if(torreQualDesafio == 23){
             respostaDesafio = """
-                    Que povo patético, após a derrota, o que restou se não depositarmos nossas esperanças em falsos deuses?
-                    Um que nós mesmos criamos, uma criatura falha, assim como nosso povo, mas também devastadora e cruel, assim como fomos.
-                    Mas a quem posso culpar? Nunca existiu um deus, não um verdadeiro deus, não o que sonhamos, existiam somente demônios.
+                    A chama que brilhou por nós, amarela e pura, depois brilhou contra nós, negra e perversa.
                     
                     """;
 
@@ -770,5 +659,121 @@ public class Notas {
         }
 
         return t;
+    }
+
+    public static void NotaSegredoSegundaQueda() throws IOException, InterruptedException {
+
+    }
+
+    public static void NotasSegundaQueda(int nota) throws IOException, InterruptedException {
+        if(nota == 6){
+            UtilForMe.TempoDeLeitura("""
+                        No meio do caminho, você escuta vozes, sussurros baixos, apesar de não haver ninguém por perto.
+                        Então, um fragmento de alma aparece, parece ter sido um grande arcanista, ou um guerreiro. Mas 
+                        essa estrutura de mana, essa cor, vibrante e também um pouco diferente da que se viam na superfície.
+                        Ela murmurava:
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Antes de sermos pó sob este sol cruel, éramos uma civilização moldada pela mana.
+                        Não a usávamos como arma, mas como extensão da própria vida,
+                        iluminávamos cidades inteiras, guiávamos o crescimento das plantações,
+                        moldávamos rochas como se fossem argila quente. Mas sendo a nossa vida, nosso coração
+                        impuros, assim tornou-se a mana. E assim começou o desprezo do Criador, pela sua criação.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        A mana era viva, respondia aos vivos. Uma dádiva, dada apenas aos que respiram.
+                        Os Arcanistas eram parte de nós, mas traziam um dom maior: manipulavam a energia sem esforço, como
+                        se ela própria desejasse correr por suas veias. Dizíamos que eles eram “tocados pela primeira luz”.
+                        Mas toda dádiva tem um preço. E, para nós, o preço foi esquecer que tudo que vive… um dia morre.
+                        
+                        """);
+        } else if (nota == 7) {
+            UtilForMe.TempoDeLeitura("""
+                        Você encontra esta nota gravada em uma rocha, as letras desgastadas pelo vento.
+                        A escrita é irregular, talvez o autor tivesse pouco tempo ou pouca sanidade.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        A mana é uma dádiva para os vivos, mas uma maldição para os mortos.
+                        Quando a Primeira Queda devastou nossas fronteiras, muitos Arcanistas foram sacrificados
+                        em batalha para manter nosso mundo de pé, eles achavam que conseguiriam parar o vazio.
+                        Porém seus esforços foram falhos. Seus corpos morreram… mas sua mana não teve para onde ir.
+                        Eles não descansaram. Não podiam.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        A energia pura que antes moldava cidades se tornou vazia, distorcida, buscando desesperadamente um lar que já não existia.
+                        A mana dos Arcanistas mortos se converteu naquilo que chamamos de Mana Impura, um eco agressivo daquilo que um dia foi vida.
+                        Foi nesse caos que a Segunda Queda começou a ser escrita, não por inimigos externos, mas pelos fantasmas de nossa própria grandeza.
+                        
+                        """);
+        } else if (nota == 8) {
+            UtilForMe.TempoDeLeitura("""
+                        Você encontra um diário dentro de uma urna quebrada, protegida do vento. O texto parece pessoal, quase íntimo
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Chamavam-no de Arquilon, o que carrega o excesso sem perecer.
+                        Entre todos nós, sua mana era tão pura que dizíamos ser próxima do “estado perfeito”: abundante,
+                        luminosa, calma… como se o mundo inteiro fluísse por ele. Ele era o nosso salvador.
+                        Quando o vazio tomou nossos mortos, foi Arquilon quem caminhou entre eles sem ser tocado.
+                        Diziam que a mana impura se retraía de sua presença, como fera diante do fogo.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Antes do aniquilação, achávamos que ele era o herói a dar um fim nisso tudo, porém a fenda, subitamente
+                        explodiu em chamas, liberando demônios, mais fortes que os monstros de carne que havíamos enfrentado, e fomos todos engulidos,
+                        inclusive Arquilon.
+                        
+                        """);
+        }  else if (nota == 9) {
+            UtilForMe.TempoDeLeitura("""
+                        Você encontra um pergaminho dentro de uma fenda estreita, presa sob ossos antigos.
+                        O pergaminho vibra levemente, com algo reagindo à mana ao redor.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        O Devorador não nasceu para ser um monstro.
+                        Ele foi criado pelos Arcanistas já mortos, junto de Arquilon, já corrompidos,
+                        uma tentativa desesperada de domar sua própria existência impura.
+                        Alimentaram-no com mana distorcida, acreditando que assim ele absorveria sua dor e seu vazio. 
+                        Mas a criatura não aguentou. Cresceu… e cresceu… e perdeu forma, perdeu controle, perdeu propósito.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Apenas Arqulion podia se aproximar sem ser dilacerado. Diziam que,
+                        quando o Devorador tocava sua mana pura, ficava calmo… quase sereno.
+                        Seu criador havia criado runas e palavras que sempre mudavam, uma mágia para conter o
+                        monstro.
+                        
+                        Mas ninguém vive para sempre.
+                        E quando Arqulion pela primeira e única vez, não conseguiu decifrar sua própria magia,
+                        em um ataque de fúria do devorador, o corpo Arquilon foi consumido completamente, pela sua própria criação.
+                        E então o Devorador finalmente conheceu fome, pois de nada adiantava devorar Arquilon, pois sua mana era
+                        incorrosível e até hoje, é possível sentir sua mana pelo deserto, sendo muito forte em alguns lugares.
+                        
+                        """);
+        } else if (nota == 10) {
+            UtilForMe.TempoDeLeitura("""
+                        Encontrada enterrada na areia, dentro de um pequeno cofre deformado pelo calor, uma página rasgada de um caderno.
+                        Há sangue seco nas bordas.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Muitos acreditam que a Segunda Queda foi um ataque. Uma invasão. Um castigo divino.
+                        Mas não. A Segunda Queda começou quando o primeiro Arcanista morto abriu os olhos novamente.
+                        Sua mana, antes perfeita, retornou à terra como uma tempestade de fúria. 
+                        E conforme mais morriam, mais mana impura vazava para o mundo, contagiando tudo que tocava, solo, ar, animais, pessoas.
+                        
+                        """);
+            UtilForMe.TempoDeLeitura("""
+                        Eu escrevo isto porque sinto minha mana enfraquecer. Sinto o chamado.
+                        Se estas palavras te encontrarem…
+                        não confie nos mortos. Eles carregam mana demais para serem silenciosos.
+                        
+                        """);
+        }
     }
 }

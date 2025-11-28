@@ -19,7 +19,7 @@ public abstract class EventosSecundarios {
 
     }
 
-    public static void primeiraQuedaEventos(Player p) throws InterruptedException, IOException, SQLException {
+    public static void PrimeiraQuedaEventos(Player p) throws InterruptedException, IOException, SQLException {
         UtilForMe.FakeClear(50,false); //verificado
 
         for (int evento = 1; evento < 5; evento++) {
@@ -54,7 +54,7 @@ public abstract class EventosSecundarios {
 
         int escolha = -1;
 
-        String txtDescanso = getTextoDescanso(queda);
+        String txtDescanso = GetTextoDescanso(queda);
 
         //checkPoint
         if(queda == 1){
@@ -90,7 +90,7 @@ public abstract class EventosSecundarios {
                     break;
                 case 2:
                     UtilForMe.FakeClear(50,false); //verificado
-                    inimigosMortosTextos(queda, p);
+                    InimigosMortosTextos(queda, p);
                     
                      UtilForMe.FakeClear(1,true); //verificado
                     break;
@@ -159,7 +159,7 @@ public abstract class EventosSecundarios {
 
     }
 
-    private static String getTextoDescanso(int queda) {
+    private static String GetTextoDescanso(int queda) {
         int x = r.nextInt(1, 4);
         String txt;
         if(queda == 1){
@@ -252,7 +252,7 @@ public abstract class EventosSecundarios {
         return txt;
     }
 
-    private static void inimigosMortosTextos(int queda, Player p) throws InterruptedException, IOException {
+    private static void InimigosMortosTextos(int queda, Player p) throws InterruptedException, IOException {
 
         String monstrosMortos = ("Monstros mortos===============\n" +
                 "Total: " + p.inimigosMortos + "\n" +
@@ -339,6 +339,260 @@ public abstract class EventosSecundarios {
             }
         }
 
+    }
+
+    public static boolean TextoObtencaoChaves(Player player, int chave) throws IOException, InterruptedException {
+        if(chave==1){
+            UtilForMe.TempoDeLeitura("""
+                    A torre se silência, parece que todos os inimigos já se foram, porém ainda é possível sentir uma fagulha de mana
+                    vinda do interior da torre. Ao caminhar em direção a ela, é possível ver diversas escrituras e algumas pinturas,
+                    na parede....não pareciam runas, ou algum encantamento...os textos já consumidos pelo tempo, não podiam ser lidos
+                    por completos.
+                    
+                    """);
+            UtilForMe.TempoDeLeitura("""
+                    Mas ao que parece eles eram a repetição de várias frases fragmentadas. Deseja ler?
+                    
+                    """);
+            System.out.println("""
+                     [ 1 ] Ler
+                     [ 2 ] Seguir em frente
+                     
+                     """);
+            int escolha = UtilForMe.ReadInt();
+            while(escolha != 1 && escolha != 2){
+                System.out.println("Digite um número válido");
+                escolha = UtilForMe.ReadInt();
+            }
+            UtilForMe.FakeClear(50,false);
+            if(escolha == 1){
+
+                UtilForMe.TempoDeLeitura("""
+                        Existem 3 frases legíveis:
+                        "O mundo está desabando, as torres ainda são seguras, eu acho, talvez por que foram protegidas pela magia de Arquilon...
+                        por favor grande mestre, nós salve deste inferno..."
+                        
+                        """);
+                UtilForMe.TempoDeLeitura("""
+                        "...estou com medo, não quero morrer, eu juro que tentei....mãe, pai.....mas meu dom de nada serviu perante aqueles monstros,
+                        não fui forte o suficiente....ó céus, tenha piedade, ó criador tenha misericórdia de sua criação...."
+                        
+                        """);
+                UtilForMe.TempoDeLeitura("""
+                        "falso deus, falso mundo, falsa esperança, falsa luta, que todos vão pro inferno.......bom, logo logo se concretizará"
+                        
+                        """);
+                UtilForMe.FakeClear(50,true);
+                UtilForMe.TempoDeLeitura("""
+                    Saindo do corredor é possível ver, a pequena fagulha de mana, vinha de uma cápsula que guardava uma chave. Uma pequena proteção, que pode ser
+                    fácilmente quebrada. Uma criptografia rúnica simples....você realiza o encantamento e descobre a palavra: "Socorro". [ Você obteve a 1° chave ]
+                    """);
+                UtilForMe.FakeClear(50,true);
+                return true;
+            }
+
+            UtilForMe.TempoDeLeitura("""
+                    Saindo do corredor é possível ver, a pequena fagulha de mana, vinha de uma cápsula que guardava uma chave. Uma pequena proteção, que pode ser
+                    fácilmente quebrada. Uma criptografia rúnica simples....você realiza o encantamento e descobre a palavra: "Socorro". [ Você obteve a 1° chave ]
+                    """);
+            UtilForMe.FakeClear(50,true);
+            return false;
+
+        }
+        else if(chave==2){
+
+            UtilForMe.TempoDeLeitura("""
+                    O interior da torre Leste está escuro e silencioso.
+                    O ar é frio.
+                    No chão, há marcas de arrasto, móveis destruídos e mesas viradas.
+                    Este lugar já foi usado para experimentos.
+                    
+                    """);
+
+            UtilForMe.TempoDeLeitura("""
+                    Em uma das paredes, há uma pintura grande, quase intacta.
+                    Retrata uma planície viva, com árvores, rios e um céu claro.
+                    A tinta está velha, mas o traço é firme.
+                    Não parece arte comum. Parece lembrança.
+                    
+                    Deseja observar mais de perto?
+                    
+                    """);
+
+            System.out.println("""
+                     [ 1 ] Observar
+                     [ 2 ] Seguir em frente
+                     
+                     """);
+
+            int escolha2 = UtilForMe.ReadInt();
+            while(escolha2 != 1 && escolha2 != 2){
+                System.out.println("Digite um número válido");
+                escolha2 = UtilForMe.ReadInt();
+            }
+            UtilForMe.FakeClear(50,false);
+
+            if(escolha2 == 1){
+
+                UtilForMe.TempoDeLeitura("""
+                        Ao tocar a parede, a pintura reage.
+                        Pequenos brotos surgem no chão de pedra.
+                        Rápido demais.
+                        Em segundos, secam e viram pó.
+    
+                        """);
+
+                UtilForMe.TempoDeLeitura("""
+                        Em uma mesa próxima, um caderno aberto:
+                        "Tentativa 37. A mana ainda não obedece ao ciclo natural."
+                        """);
+
+                UtilForMe.TempoDeLeitura("""
+                        "A floresta surge… mas morre no mesmo instante.
+                        O tempo aqui não colabora."
+                        """);
+
+                UtilForMe.TempoDeLeitura("""
+                        "Se isso funcionasse, talvez houvesse saída."
+                        """);
+
+                UtilForMe.FakeClear(50,true);
+
+                UtilForMe.TempoDeLeitura("""
+                    No fundo da sala, uma cápsula metálica presa ao chão.
+                    Dentro dela, uma chave envolta por mana instável.
+                    A trava cede fácil.
+                    
+                    Uma palavra surge nas runas: "Ele mente".
+                    
+                    [ Você obteve a 3° chave ]
+                    """);
+                UtilForMe.FakeClear(50,true);
+                return true;
+            }
+
+            UtilForMe.TempoDeLeitura("""
+                    No fundo da sala, uma cápsula metálica presa ao chão.
+                    Dentro dela, uma chave envolta por mana instável.
+                    A trava cede fácil.
+                    
+                    Uma palavra surge nas runas: "Ele mente".
+                    
+                    [ Você obteve a 3° chave ]
+                    """);
+
+            UtilForMe.FakeClear(50,true);
+
+            return false;
+
+        }
+        else{
+            UtilForMe.TempoDeLeitura("""
+                    A torre está intacta demais para um lugar como este.
+                    O chão não afundou, as paredes ainda estão de pé.
+                    Há mana espalhada em pequenos traços pelo corredor, levando até um salão fechado.
+                    
+                    """);
+
+            UtilForMe.TempoDeLeitura("""
+                    No salão, uma parede inteira foi usada como registro.
+                    Não são runas, nem círculos mágicos.
+                    São frases. Muitas frases.
+                    Algumas riscadas com força, outras quase apagadas.
+                    
+                    Entre elas, um único poema permanece inteiro.
+                    
+                    Deseja ler?
+                    
+                    """);
+
+            System.out.println("""
+                     [ 1 ] Ler
+                     [ 2 ] Seguir em frente
+                     
+                     """);
+
+            int escolha = UtilForMe.ReadInt();
+            while(escolha != 1 && escolha != 2){
+                System.out.println("Digite um número válido");
+                escolha = UtilForMe.ReadInt();
+            }
+            UtilForMe.FakeClear(50,false);
+
+            if(escolha == 1){
+
+                UtilForMe.TempoDeLeitura("""
+                        Eles chamavam de soberba.
+                        Eu chamava de clareza.
+                        
+                        Nem todos nasceram para seguir.
+                        Alguns enxergam antes.
+                        Outros só chamam isso de arrogância
+                        quando não conseguem alcançar.
+                        
+                        Eu não subi sobre os ombros de ninguém.
+                        Eu apenas caminhei enquanto outros hesitavam.
+                        
+                        Diziam: “Tema.”
+                        Eu respondia: “Compreenda.”
+                        
+                        """);
+
+                UtilForMe.TempoDeLeitura("""
+                         Diziam: “Espere.”
+                        Eu dizia: “Agora.”
+                        
+                        Não é orgulho quando o mundo confirma.
+                        Não é vaidade quando os resultados se repetem.
+                        
+                        Se a verdade machuca,
+                        a culpa não é da lâmina.
+                        
+                        """);
+
+                UtilForMe.TempoDeLeitura("""
+                        Eu moldava a mana porque ela pedia forma.
+                        Eu rompia limites porque eles eram frágeis.
+                        
+                        “Não é arrogância”, eu dizia em silêncio,
+                        enquanto corrigia os céus com as próprias mãos,
+                        “eu apenas sou o próximo passo.”
+                        
+                        E por muito tempo,
+                        ninguém conseguiu provar o contrário.
+                        
+                        """);
+
+
+                UtilForMe.FakeClear(50,true);
+
+                UtilForMe.TempoDeLeitura("""
+                    Ao sair do salão, a mana leva até um pedestal baixo.
+                    Uma cápsula de vidro antigo protege uma chave.
+                    A proteção é simples.
+                    
+                    Ao quebrar o selo rúnico, uma palavra se revela: "Salve-se".
+                    
+                    [ Você obteve a 2° chave ]
+                    """);
+                UtilForMe.FakeClear(50,true);
+                return true;
+            }
+            UtilForMe.TempoDeLeitura("""
+                    Ao sair do salão, a mana leva até um pedestal baixo.
+                    Uma cápsula de vidro antigo protege uma chave.
+                    A proteção é simples.
+                    
+                    Ao quebrar o selo rúnico, uma palavra se revela: "Salve-se".
+                    
+                    [ Você obteve a 2° chave ]
+                    """);
+            UtilForMe.FakeClear(50,true);
+
+            return false;
+
+
+        }
     }
 
 }

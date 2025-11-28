@@ -30,7 +30,6 @@ public class SegundaQueda {
 
 
     //Todo -> diálogo de obtensão das chaves e atualizar database
-    //TODO -> Torre 4 intro, spawn do boss se a entrada for forçada, pensar no 2° boss
 
 
     public static void Start(Player p) throws IOException, InterruptedException, SQLException {

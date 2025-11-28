@@ -69,7 +69,7 @@ public class PrimeiraQueda extends Battle {
 
                     UtilForMe.FakeClear(1,true);
 
-                    EventosSecundarios.primeiraQuedaEventos(p);
+                    EventosSecundarios.PrimeiraQuedaEventos(p);
                     p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
                 }
 

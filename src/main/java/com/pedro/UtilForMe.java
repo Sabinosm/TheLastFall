@@ -94,6 +94,36 @@ public abstract class UtilForMe {
         return numero;
     }
 
+
+    public static int ReadInt() throws IOException {
+        int numero = -1;
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                // 🔹 limpa resíduos
+                while (terminal.reader().ready()) {
+                    terminal.reader().read();
+                }
+
+                String entrada = reader.readLine();
+                numero = Integer.parseInt(entrada.trim());
+                valido = true;
+
+            } catch (NumberFormatException e) {
+                System.out.println("⚠ Digite apenas números.");
+
+            } catch (IOException e) {
+                System.out.println("Erro de leitura: " + e.getMessage());
+            }
+        }
+        while (terminal.reader().ready()) {
+            terminal.reader().read();
+        }
+        return numero;
+    }
+
+
     //Método para ler string
     public static String ReadStr() throws IOException {
         String texto = "";
