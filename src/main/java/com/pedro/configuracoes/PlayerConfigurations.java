@@ -169,8 +169,8 @@ public class PlayerConfigurations {
             (player_id, carnMortos, magoMortos, demonMortos,
              xpAtual, xpParaProximoLevel,
              notasLidas, carnDeCadaLevelMorto, magoDeCadaLevelMorto, demonDeCadaLevelMorto,
-             checkpoint)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+             checkpoint, chavesAdquiridas, leituraParede)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
     """;
 
         conexao.setAutoCommit(false); // inicia a transação
@@ -257,7 +257,9 @@ public class PlayerConfigurations {
             carnDeCadaLevelMorto = ?,
             magoDeCadaLevelMorto = ?,
             demonDeCadaLevelMorto = ?,
-            checkpoint = ?
+            checkpoint = ?,
+            chavesAdquiridas = ?,
+            leituraParede = ?
         WHERE player_id = ?;
     """;
 
@@ -286,6 +288,7 @@ public class PlayerConfigurations {
             String carnLevelMorto = String.join(",", p.carnDeCadaLevelMorto);
             String magoLevelMorto = String.join(",", p.magoDeCadaLevelMorto);
             String demonLevelMorto= String.join(",", p.demonDeCadaLevelMorto);
+            String chavesPegas = String.join(p.chavesAdquiridas.toString());
 
             psStats.setInt(1,  p.carnMortos);
             psStats.setInt(2,  p.magoMortos);
@@ -298,6 +301,8 @@ public class PlayerConfigurations {
             psStats.setString(9,  demonLevelMorto);
             psStats.setString(10,  p.getCheckPoint().name());
             psStats.setInt(11,  p.getPlayerId());
+            psStats.setString(12,chavesPegas);
+            psStats.setInt(13, p.leituraParede);
             psStats.executeUpdate();
 
             conexao.commit();
@@ -336,10 +341,10 @@ public class PlayerConfigurations {
 
                 System.out.println(
                         "ID: " + id +
-                                " | Nome: " + nome +
-                                " | Level: " + level +
-                                " | XP: " + xpAtual + "/" + xpParaProximoLevel +
-                                " | Checkpoint: " + checkPoint +"\n"
+                                "\n| Nome: " + nome +
+                                "\n| Level: " + level +
+                                "\n| XP: " + xpAtual + "/" + xpParaProximoLevel +
+                                "\n| Checkpoint: " + checkPoint +"\n\n"
                 );
                 idsPossivel.add(Integer.toString(id));
             }
@@ -392,6 +397,7 @@ public class PlayerConfigurations {
                 Set<String> carnLevelMorto = new LinkedHashSet<>(Arrays.asList(rs.getString("carnDeCadaLevelMorto").split(",")));
                 Set<String> magoLevelMorto = new LinkedHashSet<>(Arrays.asList(rs.getString("magoDeCadaLevelMorto").split(",")));
                 Set<String> demonLevelMorto = new LinkedHashSet<>(Arrays.asList(rs.getString("demonDeCadaLevelMorto").split(",")));
+                Set<Integer> chavesAdquiridas = new LinkedHashSet<>(List.of(Integer.parseInt(rs.getString("chavesAdquiridas"))));
                 int inimigosMortos = rs.getInt("carnMortos") + rs.getInt("magoMortos") + rs.getInt("demonMortos");
 
                 int numPassiva = switch (rs.getString("nomePassiva")) {
@@ -424,6 +430,8 @@ public class PlayerConfigurations {
                 y.pMagicArmor = rs.getDouble("armaduraMagica");
                 y.setCheckPoint(Checkpoint.valueOf(rs.getString("checkpoint")));
                 y.atualizarVidaAtual(y);
+                y.setChavesAdquiridas(chavesAdquiridas);
+                y.setLeituraParede(rs.getInt("leituraParede"));
                 Passivas.atualizarAtributosSemBatalha(y);
 
             }
@@ -503,7 +511,9 @@ public class PlayerConfigurations {
                       magoDeCadaLevelMorto  VARCHAR(30),
                       demonDeCadaLevelMorto VARCHAR(30),
                       checkpoint VARCHAR(100),
-                      FOREIGN KEY (player_id) REFERENCES Player(id)
+                      FOREIGN KEY (player_id) REFERENCES Player(id),
+                      chavesAdquiridas VARCHAR(10),
+                      leituraParede INTEGER
                   );
                 """;
 

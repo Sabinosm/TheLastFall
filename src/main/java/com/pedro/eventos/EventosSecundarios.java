@@ -341,8 +341,10 @@ public abstract class EventosSecundarios {
 
     }
 
-    public static boolean TextoObtencaoChaves(Player player, int chave) throws IOException, InterruptedException {
+    public static void ObtencaoChaves(Player player, int chave) throws IOException, InterruptedException {
+
         if(chave==1){
+
             UtilForMe.TempoDeLeitura("""
                     A torre se silência, parece que todos os inimigos já se foram, porém ainda é possível sentir uma fagulha de mana
                     vinda do interior da torre. Ao caminhar em direção a ela, é possível ver diversas escrituras e algumas pinturas,
@@ -366,7 +368,7 @@ public abstract class EventosSecundarios {
             }
             UtilForMe.FakeClear(50,false);
             if(escolha == 1){
-
+                player.leituraParede +=1;
                 UtilForMe.TempoDeLeitura("""
                         Existem 3 frases legíveis:
                         "O mundo está desabando, as torres ainda são seguras, eu acho, talvez por que foram protegidas pela magia de Arquilon...
@@ -388,7 +390,7 @@ public abstract class EventosSecundarios {
                     fácilmente quebrada. Uma criptografia rúnica simples....você realiza o encantamento e descobre a palavra: "Socorro". [ Você obteve a 1° chave ]
                     """);
                 UtilForMe.FakeClear(50,true);
-                return true;
+                return;
             }
 
             UtilForMe.TempoDeLeitura("""
@@ -396,7 +398,7 @@ public abstract class EventosSecundarios {
                     fácilmente quebrada. Uma criptografia rúnica simples....você realiza o encantamento e descobre a palavra: "Socorro". [ Você obteve a 1° chave ]
                     """);
             UtilForMe.FakeClear(50,true);
-            return false;
+            if(player.leituraParede == 3) Notas.notasEventos(11,2);
 
         }
         else if(chave==2){
@@ -433,7 +435,7 @@ public abstract class EventosSecundarios {
             UtilForMe.FakeClear(50,false);
 
             if(escolha2 == 1){
-
+                player.leituraParede +=1;
                 UtilForMe.TempoDeLeitura("""
                         Ao tocar a parede, a pintura reage.
                         Pequenos brotos surgem no chão de pedra.
@@ -468,7 +470,7 @@ public abstract class EventosSecundarios {
                     [ Você obteve a 3° chave ]
                     """);
                 UtilForMe.FakeClear(50,true);
-                return true;
+                return;
             }
 
             UtilForMe.TempoDeLeitura("""
@@ -482,8 +484,6 @@ public abstract class EventosSecundarios {
                     """);
 
             UtilForMe.FakeClear(50,true);
-
-            return false;
 
         }
         else{
@@ -520,7 +520,7 @@ public abstract class EventosSecundarios {
             UtilForMe.FakeClear(50,false);
 
             if(escolha == 1){
-
+                player.leituraParede +=1;
                 UtilForMe.TempoDeLeitura("""
                         Eles chamavam de soberba.
                         Eu chamava de clareza.
@@ -539,7 +539,7 @@ public abstract class EventosSecundarios {
                         """);
 
                 UtilForMe.TempoDeLeitura("""
-                         Diziam: “Espere.”
+                        Diziam: “Espere.”
                         Eu dizia: “Agora.”
                         
                         Não é orgulho quando o mundo confirma.
@@ -576,7 +576,7 @@ public abstract class EventosSecundarios {
                     [ Você obteve a 2° chave ]
                     """);
                 UtilForMe.FakeClear(50,true);
-                return true;
+                return;
             }
             UtilForMe.TempoDeLeitura("""
                     Ao sair do salão, a mana leva até um pedestal baixo.
@@ -588,8 +588,6 @@ public abstract class EventosSecundarios {
                     [ Você obteve a 2° chave ]
                     """);
             UtilForMe.FakeClear(50,true);
-
-            return false;
 
 
         }

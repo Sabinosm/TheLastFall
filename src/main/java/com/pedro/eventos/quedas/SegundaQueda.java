@@ -29,9 +29,6 @@ public class SegundaQueda {
     static boolean magoMorto = false;
 
 
-    //Todo -> diálogo de obtensão das chaves e atualizar database
-
-
     public static void Start(Player p) throws IOException, InterruptedException, SQLException {
         UtilForMe.FakeClear(50,false);
         while (p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_BOSS || p.getCheckPoint() != Checkpoint.SEGUNDA_QUEDA_TORRE4_D){
@@ -78,6 +75,7 @@ public class SegundaQueda {
                     Battle.Batalha(p,new Mage(p,torre),false,2);
                 }
                 System.out.println("\n\nNão há mais inimigos restantes!\n\n");
+                EventosSecundarios.ObtencaoChaves(p,torre);
                 SaidaTorre(torre,p);
             }
         }
@@ -314,6 +312,7 @@ public class SegundaQueda {
     }
 
     public static void SaidaTorre(int torre,Player player) throws SQLException, IOException, InterruptedException {
+
         if(torre!=4)EventosSecundarios.Descanso(player, 2,torre);
         else EventosSecundarios.Descanso(player, 2,1);
         Viagem(player,torre);
@@ -361,4 +360,6 @@ public class SegundaQueda {
                         """);
         }
     }
+
+
 }

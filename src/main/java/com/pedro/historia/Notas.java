@@ -661,11 +661,7 @@ public class Notas {
         return t;
     }
 
-    public static void NotaSegredoSegundaQueda() throws IOException, InterruptedException {
-
-    }
-
-    public static void NotasSegundaQueda(int nota) throws IOException, InterruptedException {
+    private static void NotasSegundaQueda(int nota) throws IOException, InterruptedException {
         if(nota == 6){
             UtilForMe.TempoDeLeitura("""
                         No meio do caminho, você escuta vozes, sussurros baixos, apesar de não haver ninguém por perto.
@@ -764,7 +760,7 @@ public class Notas {
             UtilForMe.TempoDeLeitura("""
                         Muitos acreditam que a Segunda Queda foi um ataque. Uma invasão. Um castigo divino.
                         Mas não. A Segunda Queda começou quando o primeiro Arcanista morto abriu os olhos novamente.
-                        Sua mana, antes perfeita, retornou à terra como uma tempestade de fúria. 
+                        Sua mana, antes perfeita, retornou à terra como uma tempestade de fúria.
                         E conforme mais morriam, mais mana impura vazava para o mundo, contagiando tudo que tocava, solo, ar, animais, pessoas.
                         
                         """);
@@ -774,6 +770,61 @@ public class Notas {
                         não confie nos mortos. Eles carregam mana demais para serem silenciosos.
                         
                         """);
+        } else if(nota == 11){
+            UtilForMe.TempoDeLeitura("""
+                    Ao ler a terceira mensagem, um texto feito inteiramente de mana aparece. Será um mecanismo automático?
+                    "Para qualquer um que saiba o mínimo e queira saber o todo..."
+
+                    """);
+
+            UtilForMe.TempoDeLeitura("""
+                    Eu vi o que os outros fingem não lembrar.
+                    
+                    Quando o Devorador despertou, não houve desespero nos olhos de Arquilon.
+                    Houve decisão.
+                    
+                    Ele nos mandou sair com calma demais para alguém prestes a morrer.
+                    Disse que o problema não era a criatura.
+                    Disse que o problema ainda era ele.
+                    
+                    """);
+
+            UtilForMe.TempoDeLeitura("""
+                    As correntes surgiram da areia quando ele avançou.
+                    Não como defesa.
+                    Como ritual.
+                    
+                    O corpo caiu depois.
+                    Inteiro demais para quem deveria ter sido despedaçado.
+                    Nenhuma luta.
+                    Nenhuma resistência.
+                    
+                    E, ainda assim…
+                    
+                    Sua mana não se dispersou.
+                    Não retornou ao deserto.
+                    Não buscou abrigo em ninguém.
+                    
+                    Ela permaneceu consciente.
+                    
+                    """);
+
+            UtilForMe.TempoDeLeitura("""
+                    Naquele instante eu compreendi o que ninguém teve coragem de dizer:
+                    
+                    Arquilon não foi derrotado.
+                    
+                    Ele se despiu da carne.
+                    
+                    Talvez para nos salvar.
+                    Talvez para controlar o Devorador de uma forma que um corpo não permitiria.
+                    Talvez para algo que ainda não entendemos.
+                    
+                    Mas não foi acidente.
+                    
+                    Ninguém transcende por engano.
+                    
+                    """);
         }
     }
 }

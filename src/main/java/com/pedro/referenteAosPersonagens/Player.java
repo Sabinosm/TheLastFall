@@ -26,11 +26,13 @@ public class Player extends Mob {
     public Set<String> demonDeCadaLevelMorto = new HashSet<>();
     public Set<String> notasLidas = new LinkedHashSet<>();
     public Set<Integer> chavesAdquiridas = new LinkedHashSet<>();
+    public int leituraParede = 0;
     public Integer PlayerId;
     private Checkpoint checkpoint = Checkpoint.NO_CHECK;
     String lore;
     public boolean umPoucoDeSorteAconteceu = false;
     double xpAtual =0;
+
     String[] possiblePassive ={
                 """
                 Corpo divino-
@@ -504,6 +506,14 @@ public class Player extends Mob {
         this.pArmor = 0;
         Passivas.atualizarAtributosSemBatalha(this);
 
+    }
+
+    public void setChavesAdquiridas(Set<Integer> chavesAdquiridas) {
+        this.chavesAdquiridas = chavesAdquiridas;
+    }
+
+    public void setLeituraParede(int leituraParede) {
+        this.leituraParede = leituraParede;
     }
 
 }
