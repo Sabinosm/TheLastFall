@@ -530,7 +530,7 @@ public class PlayerConfigurations {
 
 
         } catch (SQLException e) {
-            System.out.println("Erro: " + e.getMessage());
+            System.out.println("Erro na criação da tabela: " + e.getMessage());
         }
     }
 
