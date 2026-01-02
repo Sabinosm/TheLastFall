@@ -516,8 +516,8 @@ public class PlayerConfigurations {
                       magoDeCadaLevelMorto  VARCHAR(30),
                       demonDeCadaLevelMorto VARCHAR(30),
                       checkpoint VARCHAR(100),
-                      chavesAdquiridas VARCHAR(30),
                       leituraParede INTEGER,
+                      chavesAdquiridas VARCHAR(30),
                       FOREIGN KEY (player_id) REFERENCES Player(id)
                 
                   );
