@@ -34,7 +34,7 @@ public class PlayerConfigurations {
         while (!escolha.equals("5")) {
             System.out.println(CriarNovoPlayerTextos(1));
 
-            escolha = String.valueOf(ReadInt(null)).trim();
+            escolha = String.valueOf(ReadInt()).trim();
 
             switch (escolha) {
                 case "1" -> st.add("Destino");
@@ -53,7 +53,7 @@ public class PlayerConfigurations {
                 UtilForMe.FakeClear(50,false); //verificado
                 System.out.println(CriarNovoPlayerTextos(2));
 
-                escolha = String.valueOf(ReadInt(null)).trim();
+                escolha = String.valueOf(ReadInt()).trim();
 
                 switch (escolha) {
                     case "1" -> z = NovoPlayer(2, "físico", st.getFirst());
@@ -354,7 +354,7 @@ public class PlayerConfigurations {
                 System.out.println("\nDigite o ID do save que deseja carregar (ou 0 para sair):");
 
 
-                escolha = String.valueOf(ReadInt(null)).trim();
+                escolha = String.valueOf(ReadInt()).trim();
 
                 if (escolha.equalsIgnoreCase("0")) break;
 

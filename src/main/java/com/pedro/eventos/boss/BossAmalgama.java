@@ -29,7 +29,7 @@ public class BossAmalgama extends Boss{
             Ao atravessar o último arco da ruína você observa a sala em que está.
             A câmara é vasta, iluminada apenas por fendas de luz cinzenta que filtram do teto rachado.
             No chão, vários corpos jogados, aventureiros, carniceiros, ou apenas pessoas sem magia.
-            Um som profundo — metade respiração, metade lamento — vibra pelas paredes.
+            Um som profundo, metade respiração, metade lamento, vibra pelas paredes.
         
             Das sombras, surgem os Observadores.
             Eles não falam com a boca, mas uma voz sem eco invade sua mente, fria como o Vazio.
@@ -47,9 +47,22 @@ public class BossAmalgama extends Boss{
             """;
         }
         else{
-            intro = "A carne pulsa e a sala treme. Símbolos de luz aparecem no ar, " +
-                    "um monstro enorme feito totalmente de corpos decompostos...alguns deles continuam na sala.\n" +
-                    "Existe um portão atrás da criatura, para onde será que leva?";
+            intro = """
+                    Ao atravessar o último arco da ruína você observa a sala em que está.
+                    A câmara é vasta, iluminada apenas por fendas de luz cinzenta que filtram do teto rachado.
+                    No chão, vários corpos jogados, aventureiros, carniceiros, ou apenas pessoas sem magia.
+                    Um som profundo — metade respiração, metade lamento — vibra pelas paredes.
+                    
+                    A voz silencia, mas o aviso permanece gravado em seus ossos.
+                    À sua frente, a massa colossal de carne pulsa lentamente, respirando como um coração gigante.
+                    O Amálgama desperta.
+                    
+                    O monstro de carne levanta e a sala treme. Símbolos de luz aparecem no ar,
+                    À sua frente, um monstro enorme feito totalmente de corpos decompostos...alguns deles que continuam na sala.
+                    Existe um portão atrás da criatura, para onde será que leva?
+                    """;
+
+
         }
         return intro;
     }
@@ -139,7 +152,7 @@ public class BossAmalgama extends Boss{
             String text = UtilForMe.ReadStr();  // bloqueia
             timer.interrupt(); // usuário digitou antes do tempo acabar
             if(text.equalsIgnoreCase(palavraEscolhida)){
-                System.out.println("✔ Brecha aberta! Você acerta um golpe\n");
+                System.out.println("✔ Palavra correta! Você acerta um golpe\n");
                 if(tempoGasto.get() <= 1500){
                     System.out.println("✔ Um golpe rápido e poderoso! Você acerta um golpe crítico\n");
                     boss.actLife -= danoFinal*1.50;

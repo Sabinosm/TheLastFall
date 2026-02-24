@@ -219,7 +219,7 @@ public class Player extends Mob {
 
             System.out.print("Escolha a opção: ");
             
-            choose = String.valueOf(ReadInt(null)).trim();
+            choose = String.valueOf(ReadInt()).trim();
 
             if(choose.equals("5")){
                 System.out.println("Seus pontos foram resetados com sucesso\n");
@@ -234,7 +234,7 @@ public class Player extends Mob {
                 System.out.print("Escolha a quantidade de pontos: ");
                 try{
                     
-                    pontosQ = ReadInt(null);
+                    pontosQ = ReadInt();
                 } catch (NumberFormatException e) {
                     choose = "7";
                 }

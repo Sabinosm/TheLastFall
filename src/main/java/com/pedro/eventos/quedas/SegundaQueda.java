@@ -90,7 +90,7 @@ public class SegundaQueda {
            UtilForMe.FakeClear(50,magoMorto);
            UtilForMe.TempoDeLeitura(desafioResposta.string);
            magoMorto = false;
-           int answer = ReadInt(null);
+           int answer = ReadInt();
            UtilForMe.FakeClear(50,false);
 
            return answer == correctAnswer;
@@ -118,7 +118,7 @@ public class SegundaQueda {
                 "[ 1 ] Continuar\n" +
                 "[ 2 ] Ir para outra torre");
 
-        escolha = ReadInt(null);
+        escolha = ReadInt();
 
         if(torre == 4 && !p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
             System.out.println("\nA porta está fechada mas é possível forçar a passagem, é um perigo, " +
@@ -127,11 +127,11 @@ public class SegundaQueda {
                     "[ 2 ] Ir para outra torre");
 
 
-            escolha = ReadInt(null);
+            escolha = ReadInt();
 
             while (escolha != 2 && escolha != 1){
                 System.out.println("Digite um número válido");
-                escolha = ReadInt(null);
+                escolha = ReadInt();
             }
 
             if(escolha == 1){
@@ -139,11 +139,11 @@ public class SegundaQueda {
                 return false;
             }
         }else if(torre == 4 && p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
-            //Indo para o boss
+            //todo Indo para o boss
         }
         while (escolha != 2 && escolha != 1){
             System.out.println("Digite um número válido");
-            escolha = ReadInt(null);
+            escolha = ReadInt();
         }
 
         if(escolha == 1 && !p.chavesAdquiridas.contains(chavesTotais.indexOf(torre))){
@@ -201,7 +201,7 @@ public class SegundaQueda {
                 """);
 
             do{
-                onde = switch (ReadInt(null)){
+                onde = switch (ReadInt()){
                     case 1 -> "Norte";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -222,7 +222,7 @@ public class SegundaQueda {
                 """);
 
             do{
-                onde = switch (ReadInt(null)){
+                onde = switch (ReadInt()){
                     case 1 -> "Norte";
                     case 2 -> "Leste";
                     case 3 -> "Sul";
@@ -241,7 +241,7 @@ public class SegundaQueda {
                 [ 3 ] Torre do Sul
                 """);
             do{
-                onde = switch (ReadInt(null)){
+                onde = switch (ReadInt()){
                     case 1 -> "Norte";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -260,7 +260,7 @@ public class SegundaQueda {
                 """);
 
             do{
-                onde = switch (ReadInt(null)){
+                onde = switch (ReadInt()){
                     case 1 -> "Leste";
                     case 2 -> "Oeste";
                     case 3 -> "Sul";
@@ -279,7 +279,7 @@ public class SegundaQueda {
                 """);
 
            do{
-               onde = switch (ReadInt(null)){
+               onde = switch (ReadInt()){
                    case 1 -> "Norte";
                    case 2 -> "Oeste";
                    case 3 -> "Leste";

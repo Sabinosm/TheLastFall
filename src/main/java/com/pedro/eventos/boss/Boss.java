@@ -146,12 +146,13 @@ if(eBoss){
     
         Boss: %s
         Vida Boss: %s
-        
+    
     ──────────────────────────────────────
      %s
-     
+
         Dano recebido: %f
         Vida Player: %s
+        
     ╚════════════════════════════════════╝
     """,
             round,
@@ -164,21 +165,25 @@ if(eBoss){
 else{
     System.out.printf("""
     ╔═════════════ Round %d  ═════════════╗
-    
-        Player: %s
-        Vida Player: %s
-        
-    ──────────────────────────────────────
-    
+     %s
+     
         Dano causado: %f
         Vida Boss: %s
+   
+    ──────────────────────────────────────
+        
+        Player: %s       
+        Vida Player: %s
+  
    ╚══════════════════════════════════════╝
     """,
             round,
-            player.nome,
-            barraJogador+"---"+porcentagemP+"%",
+            boss.name,
             dano,
-            barraBoss+"---"+porcentagemB+"%");
+            barraBoss+"---"+porcentagemB+"%",
+            player.nome,
+            barraJogador+"---"+porcentagemP+"%"
+            );
 }
 
     }

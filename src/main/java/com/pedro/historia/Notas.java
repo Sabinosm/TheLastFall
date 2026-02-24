@@ -11,39 +11,32 @@ public class Notas {
     public static void notasEventos(int nota,int queda) throws InterruptedException, IOException {
         if(queda ==1){
             if (nota == 1) {
-                UtilForMe.TempoDeLeitura("Após um tempo de caminhada, você vê ao longe, uma cadeia de montanhas, decide se aproximar e vê que não são apenas montanhas\n" +
-                        "e sim ruínas, de algo que parecia ser uma vila........\n");
                 UtilForMe.TempoDeLeitura("""
+                    Após um tempo de caminhada, você vê ao longe, uma cadeia de montanhas, decide se aproximar e vê que não são apenas montanhas
+                    e sim ruínas, de algo que parecia ser uma vila........
+               
                     Ao se aproximar das ruínas, você vê alguns vultos, pessoas? Monstros? Aventureiros? Um resgate?
                     Será que, neste mundo, neste lugar, existe realmente algo diferente de monstros? Existe mesmo salvação?
                     Não, não existe fim para esse sofrimento....
                     
-                    """);
-                UtilForMe.TempoDeLeitura("""
                     Os vultos, eram pessoas, talvez aventureiros, ou prisioneiros, até ,mesmo sacrifícios, o que aconteceu neste lugar?
                     Os corpos deles, parecem....queimados...como se tivessem sido tirados de um fogo que nunca se queimava...como se deles
                     tudo tivesse sido tirado...menos a vida...e o que há de bom em viver assim?
                     
-                    """);
-                UtilForMe.TempoDeLeitura("""
                     Ali, caído contra uma pedra, há um corpo encapuzado.
                     Os lábios ressecados ainda se movem, repetindo palavras sem fim, como uma oração esquecida.
                     Você se aproxima… e percebe que não é uma oração, mas um lamento sobre alguém que nunca veio.
                     Você tenta chegar mais perto para conversar, trocar umas palavras entender o que aconteceu neste lugar mas, não parece que
                     conseguirá alguma resposta...
                     
-                    """);
-                UtilForMe.TempoDeLeitura("""
-                    Aventureiro --- 
+                    Aventureiro ---
                     
                     "Ele virá… ele prometeu… o Herói, o Salvador, jamais abandona seu povo!
                     Sua espada cortava o próprio ar, sua voz calava os gritos do Vazio.
                     Nós o esperamos, todos os dias....."
                     Era tudo o que ele falava, até que, seus olhos se voltaram para quem estava a sua frente.
-                    
-                    """);
-                UtilForMe.TempoDeLeitura("""
-                    Aventureiro --- 
+
+                    Aventureiro ---
                     
                     Olha só o que eu vejo, mais um herege, mais um que tenta imitar o herói,
                     MAIS UM QUE TENTA SER O QUE NÃO É
@@ -51,10 +44,8 @@ public class Notas {
                     Espere e verá, logo você se juntara a mim logo.....logo você ja estará no eterno loop de gritos e lamentos...
                     -Então ele volta para sua oração e seus lamentos
                     
-                    """);
-                UtilForMe.TempoDeLeitura("""
                     Ele não fala mais nada. O silêncio que segue é quase mais pesado que suas palavras.
-                     Você sente o peso da solidão e do sofrimento daquele lugar, como se as ruínas observassem cada movimento seu. 
+                     Você sente o peso da solidão e do sofrimento daquele lugar, como se as ruínas observassem cada movimento seu.
                     Lentamente, se afasta, cada passo carregando o medo do desconhecido, consciente de que cada ruído  pode revelar algo horrível escondido nas sombras.
                     
                     """);
@@ -166,31 +157,23 @@ public class Notas {
         if(ordem == 1){
             //Introdução do mundo
             UtilForMe.TempoDeLeitura("""
-                       Morte. Pecado. Ódio. Preconceito. Tortura. Repressão.
-                    A humanidade se afogava em sua própria maldade.
-                    E até o Criador, cansado de sua obra, desviou os olhos da Terra.
-                    """);
-            UtilForMe.TempoDeLeitura("""
-                    Como último julgamento, rasgou-se o mundo:
-                    uma fenda colossal, aberta sobre a linha do equador.
-                    Chamaram-na de "O Vazio".
-                    Não era apenas uma fenda… mas uma entidade viva, que devorava tudo o que possuía humanidade.
-                    Animais e natureza permaneceram intocados — e assim, tornaram-se os novos predadores do homem.
-                    """);
-            UtilForMe.TempoDeLeitura("""
-                    Do Vazio emergiram horrores.
-                    Os Carniceiros, amontoados de carne humana e animal, moldados apenas para destruir.
-                    Atrás deles vieram os Arcanistas do Vazio, restos de uma civilização perdida, guiados por feitiçaria grotesca e primitiva.
-                    E mais fundo ainda, ocultos sob camadas de trevas, rumores falavam dos verdadeiros senhores: os Demônios.
-                    """);
-            UtilForMe.TempoDeLeitura("""
-                    No entanto, antes de abandonar por completo sua criação, o Criador concedeu um último presente:
-                    uma chama adormecida de magia no sangue humano.
-                    Rara. Poderosa. Uma fagulha de esperança.
-                    """);
-            UtilForMe.TempoDeLeitura("""
-                    Mas a esperança não bastou.
-                    E os homens… tornaram-se presas.
+                    Morte, Pecado, Ódio, Preconceito, Tortura, Repressão. A humanidade se afogava
+                    em sua própria maldade. E até o Criador, cansado de sua obra, desviou os olhos da Terra.
+                    
+                    Como último julgamento, rasgou-se o mundo, uma fenda colossal, aberta sobre a
+                    linha do equador. Chamaram-na de "O Vazio". Não era apenas uma fenda… mas uma entidade viva, que devorava
+                    tudo o que possuía humanidade. Animais e natureza permaneceram intocados , e assim, tornaram-se os novos predadores do homem.
+                    
+                    Do Vazio emergiram horrores. Os Carniceiros, amontoados de carne humana e animal,
+                    moldados apenas para destruir. Atrás deles vieram os Arcanistas do Vazio, restos de uma civilização perdida,
+                    guiados por feitiçaria grotesca e primitiva. E mais fundo ainda, ocultos sob camadas de trevas,
+                    rumores falavam dos verdadeiros senhores, os Demônios.
+                    
+                    No entanto, antes de abandonar por completo sua criação, o Criador concedeu um último presente,
+                    uma chama adormecida de magia no sangue humano. Rara. Poderosa. Uma fagulha de esperança.
+                    
+                    Mas a esperança não bastou. E os homens… tornaram-se presas.
+                    
                     """);
 
         }
@@ -201,24 +184,21 @@ public class Notas {
                     A dor o desperta.
                     O ar que entra nos seus pulmões não é ar… é fumaça vermelha, densa, que arde como ferro em brasa.
                     Você tosse, mas cada respiração o prende mais a este lugar.
-                    """);
-            UtilForMe.TempoDeLeitura("""
+                    
                     Ao se erguer, a visão se abre:
                     a Primeira Queda.
                     Um deserto de pedras quebradas e raízes mortas.
-                    Aqui não há vento, não há céu — apenas um teto distante de trevas,
-                    onde lampejos vermelhos piscam como cicatrizes no vazio.
-                    """);
-            UtilForMe.TempoDeLeitura("""
+                    Aqui não há vento, não há céu, apenas um teto distante de trevas,
+                    onde lampejos vermelhos piscam, cicatrizes do vazio.
+                   
                     Gritos ressoam por todo lado.
                     Não são de homens, nem de animais. São ecos de dor que parecem vir das próprias paredes da fenda.
-                    Entre ruínas e colunas despedaçadas, você enxerga corpos vagando…
+                    Entre destroços e colunas despedaçadas, você enxerga corpos vagando…
                     Alguns ainda humanos, arrastando correntes invisíveis de fome e desespero.
                     Outros, já distorcidos em formas de carne viva, costurada como uma paródia grotesca da vida.
                     Esses são os Carniceiros.
                     E eles já sentiram o cheiro da sua chegada.
-                    """);
-            UtilForMe.TempoDeLeitura("""
+                    
                     Você caiu.
                     E assim, o vazio da as boas-vindas ao seu novo filho.
                     """);
@@ -237,14 +217,15 @@ public class Notas {
             texto = """
                     Dizem que o sangue do Salvador corre em suas veias… mas o que significa carregar um nome que não é seu?
                     O Herói enfrentou o impossível, ergueu a espada contra o Vazio e nunca voltou. Restou-lhe apenas a lenda.
-                    E você… você nasceu dentro dela.
+                    E você… você nasceu dentro dela. Cada olhar que recebia era de expectativa.
                     
-                    "Cada olhar que recebia era de expectativa. Cada palavra que ouvia era cobrança. 'Será o próximo Herói.
-                    Mas em seu coração, sempre houve dúvida: e se tudo isso fosse apenas mentira? Se não houvesse mais nenhum destino reservado para você?
+                    Cada palavra que ouvia era cobrança. "Será o próximo Herói." Mas em seu coração, sempre houve dúvida,
+                    e se tudo isso fosse apenas mentira? Se não houvesse mais nenhum destino reservado para você?
                     
                     Quando se aproximou da fenda, os guardas não o impediram. Alguns o reverenciaram, outros o amaldiçoaram.
-                    Todos acreditaram que você iria saltar. E você saltou. Não por coragem, mas por não suportar mais a sombra do mito. 
-                    Agora, o abismo o chama. A lenda pesa, e não há volta.
+                    Todos acreditaram que você iria saltar. E você saltou. Não por coragem, mas por não suportar mais a 
+                    sombra de uma lenda. Agora, o abismo o chama. A lenda pesa, e não há volta.
+                    
                     """;
         }
         else if(p.getLore().equals("Aventureiro")){
@@ -253,12 +234,12 @@ public class Notas {
                     quebradas e noites frias. Mas quando ouviu falar da fenda, da glória dos poucos que ousaram enfrentá-la,
                     seu coração ardeu de esperança. Talvez lá estivesse a chance de mudar tudo.
                     
-                    Reuniu coragem, talvez loucura, e seguiu com os outros. Muitos desistiram ainda na estrada. Você não.
+                    Reuniu coragem, talvez loucura, e seguiu com os outros. Muitos desistiram ainda na entrada. Você não.
                     Você acreditava que podia atravessar, conquistar, sobreviver. Mas a fenda não perdoa sonhos ingênuos.
                     Um passo em falso, um inimigo forte demais, e então… o vazio lhe engoliu.
                     
-                    Agora, aqui, entre gritos e ruínas, você entende: não era aventura. Era uma sentença.
-                    E ninguém volta para contar sua história.
+                    Agora, aqui, entre gritos e choros, você entende: não era aventura. Era uma sentença.
+                    E irá ninguém voltar para contar sua história.
                     """;
         } else if (p.getLore().equals("Sacrifício")) {
             texto = """
@@ -297,10 +278,18 @@ public class Notas {
                 A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
                 A magia não nasceu do carniceiro… mas de algo maior.
                 
+                """);
+        UtilForMe.TempoDeLeitura("""
+                Após matar o inimigo, você percebe algo estranho...
+                A carne dele se desfaz em silêncio, mas no ar permanece um brilho púrpura, frio, como se viesse de outra origem.
+                A magia não nasceu do carniceiro… mas de algo maior.
+                
                 Eis o enigma:
                 
                 - A carne é a chave, mas o portão exige ordem.
                 Alguns oferecem quantidade, outros oferecem variedade.
+                """);
+        UtilForMe.TempoDeLeitura("""
                 Um banquete de muitos, ou o gosto de cada sangue único.
                 Escolha sua oferenda… e o portão decidirá. -
                 
@@ -328,7 +317,7 @@ public class Notas {
                 UtilForMe.TempoDeLeitura("""
         O silêncio domina.
         A areia vibra com murmúrios de almas despejadas aqui pelo Amálgama.
-        Poucos chegaram tão longe — e nenhum permaneceu inteiro.
+        Poucos chegaram tão longe, e nenhum permaneceu inteiro.
         """);
 
                 UtilForMe.TempoDeLeitura("""
@@ -746,7 +735,7 @@ public class Notas {
                         
                         Mas ninguém vive para sempre.
                         E quando Arqulion pela primeira e única vez, não conseguiu decifrar sua própria magia,
-                        em um ataque de fúria do devorador, o corpo Arquilon foi consumido completamente, pela sua própria criação.
+                        em um ataque de fúria do devorador, o corpo Arquilon foi consumido , pela sua própria criação.
                         E então o Devorador finalmente conheceu fome, pois de nada adiantava devorar Arquilon, pois sua mana era
                         incorrosível e até hoje, é possível sentir sua mana pelo deserto, sendo muito forte em alguns lugares.
                         
@@ -781,15 +770,28 @@ public class Notas {
                     Eu vi o que os outros fingem não lembrar.
                     
                     Quando o Devorador despertou, não houve desespero nos olhos de Arquilon.
-                    Houve decisão.
+                    Houve decisão, uma determinação e um sentimento de completude, aceitação.
                     
-                    Ele nos mandou sair com calma demais para alguém prestes a morrer.
+                    Ele nos mandou sair com calma demais para alguém prestes a morrer,parece até que já havia previsto.
+                    Como se o errar dos encantamentos não tivesse sido algo que o abalasse.
+                    Como se não houvesse problema com isso.
+                    
+                    E antes que o devorador o dilacerasse por completo,
+                    ele murmurava.
+                    
                     Disse que o problema não era a criatura.
-                    Disse que o problema ainda era ele.
+                    Disse que o problema ainda era ele, que era fraco demais.
+                    Humano demais.
                     
                     """);
 
             UtilForMe.TempoDeLeitura("""
+                    Disse que a mana pura não dura para sempre.
+                    Que mesmo a mais perfeita acaba manchada pelo tempo.
+                    
+                    E que, quando isso acontecesse…
+                    ele deixaria de ser aquilo que o tornava único.
+                    
                     As correntes surgiram da areia quando ele avançou.
                     Não como defesa.
                     Como ritual.
@@ -805,7 +807,7 @@ public class Notas {
                     Não retornou ao deserto.
                     Não buscou abrigo em ninguém.
                     
-                    Ela permaneceu consciente.
+                    Ela na verdade, brilhava mais do que nunca.
                     
                     """);
 

@@ -111,7 +111,7 @@ public class Battle {
 
         System.out.println("Deseja continuar a batalha ou tentar fugir?\n(1) Para continuar \n(2) Para tentar fugir");
         
-        fugirContinuar = String.valueOf(UtilForMe.ReadInt(null));
+        fugirContinuar = String.valueOf(UtilForMe.ReadInt());
 
         if (fugirContinuar.equals("2")) {
             int df = r.nextInt(1, inimigo.level + 1);

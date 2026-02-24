@@ -82,7 +82,7 @@ public abstract class EventosSecundarios {
                     (5) Seguir adiante – deixar a o local e prosseguir pela fenda.
                     """);
             
-            escolha = UtilForMe.ReadInt(p);
+            escolha = UtilForMe.ReadInt();
 
             switch (escolha) {
                 case 1:
@@ -128,7 +128,7 @@ public abstract class EventosSecundarios {
                         System.out.println(notaTexto);
                         try {
                             
-                            escolha = UtilForMe.ReadInt(p);
+                            escolha = UtilForMe.ReadInt();
 
                             if (escolha == notasL.size() + 1) {
                                 break; // sair do while
@@ -166,7 +166,7 @@ public abstract class EventosSecundarios {
             if (x == 1) {
                 txt = ("""
                     Depois de vagar pela fenda, os gritos e o cheiro de sangue parecem se dissipar por alguns instantes.
-                    Entre ruínas quebradas, você encontra uma fogueira ainda acesa — brasas tímidas resistindo à névoa.
+                    Entre ruínas quebradas, você encontra uma fogueira ainda acesa, brasas tímidas resistindo à névoa.
                     O calor frágil contrasta com o frio sufocante do abismo.
                     Aqui, por um momento, você pode descansar… refletir… ou se preparar para o que virá.
                     
@@ -203,7 +203,7 @@ public abstract class EventosSecundarios {
             } else if (x == 2) {
                 txt = ("""
                     As portas do templo se abrem com um lamento surdo.
-                    Um véu de névoa cobre o chão, e dela ecoam murmúrios — preces, arrependimentos e gritos fundidos em um só coro.
+                    Um véu de névoa cobre o chão, e dela ecoam murmúrios, preces, arrependimentos e gritos fundidos em um só coro.
                     As almas aqui não descansam… apenas esperam.
                     No centro, uma fogueira etérea queima sem consumir nada, emanando um calor que parece mais espiritual do que real.
                     
@@ -212,7 +212,7 @@ public abstract class EventosSecundarios {
             } else {
                 txt = ("""
                     O chão gélido brilha sob a luz azulada que emana do nada.
-                    As paredes rachadas parecem pulsar — como se respirassem junto ao Vazio.
+                    As paredes rachadas parecem pulsar, como se respirassem junto ao Vazio.
                     Entre as sombras, uma fogueira luta contra o frio, suas chamas moldando formas que lembram rostos.
                     Por um momento, você sente paz... ou seria apenas a calmaria antes de algo maior?
                     
@@ -224,7 +224,7 @@ public abstract class EventosSecundarios {
             if (x == 1) {
                 txt = ("""
                     Depois de vagar pela fenda, os gritos e o cheiro de sangue parecem se dissipar por alguns instantes.
-                    Entre ruínas quebradas, você encontra uma fogueira ainda acesa — brasas tímidas resistindo à névoa.
+                    Entre ruínas quebradas, você encontra uma fogueira ainda acesa, brasas tímidas resistindo à névoa.
                     O calor frágil contrasta com o frio sufocante do abismo.
                     Aqui, por um momento, você pode descansar… refletir… ou se preparar para o que virá.
                     

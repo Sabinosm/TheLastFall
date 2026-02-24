@@ -18,7 +18,7 @@ public class Devorador {
     private volatile boolean tempoEsgotado = false;
 
 
-    public static String Intro() throws IOException, InterruptedException {
+    public static String Intro(){
         return ("""
                 Ao errar novamente, a torre não perdoa.
                 Um estalo seco ecoa pelo chão arenoso, não um som, mas um veredito.
@@ -71,7 +71,7 @@ public class Devorador {
     public StringBuilder MontagemBatalha(){
       StringBuilder textoFinal = new StringBuilder(String.format("""
               ╔════════════════════════════╗
-              ║          FALSE GOD         ║
+              ║         Falso Deus         ║
               ║     O DEVORADOR DE MANA    ║
               ║       LV. ???   HP: ∞      ║
               ║   TEMPO RESTANTE: %s       ║
@@ -157,7 +157,7 @@ public class Devorador {
 
             System.out.println(MontagemBatalha());
 
-            String resposta = Integer.toString(ReadInt(null));
+            String resposta = Integer.toString(ReadInt());
 
             if (tempoEsgotado) {
                 return false;

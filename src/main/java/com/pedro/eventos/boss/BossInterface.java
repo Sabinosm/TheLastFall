@@ -14,7 +14,7 @@ public interface BossInterface {
 
     void MorteBoss() throws IOException, InterruptedException;
 
-    void AtacarPlayer(Player player, Boss boss, int round) throws IOException;
+    void AtacarPlayer(Player playerAtacante, Boss bossAlvo, int round) throws IOException;
 
 
 }

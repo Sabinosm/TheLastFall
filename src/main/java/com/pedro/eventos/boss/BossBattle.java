@@ -34,7 +34,7 @@ public abstract class BossBattle extends Boss{
         TempoDeLeitura("""
         O chão estremece.
         A massa de carne se ergue, exalando um fedor quente e metálico.
-        Olhos improvisados se abrem na superfície pulsante — dezenas, encarando você.
+        Olhos improvisados se abrem na superfície pulsante são dezenas, encarando você.
         Um rugido úmido ecoa, e o Amálgama avança.
         """);
 
@@ -46,7 +46,7 @@ public abstract class BossBattle extends Boss{
         }
         player.setCheckPoint(Checkpoint.SEGUNDA_QUEDA);
         FakeClear(50,false);
-        System.out.println("JOGO SALVO AUTOMÁTICAMENTE!");
+        System.out.println("JOGO SALVO AUTOMATICAMENTE!");
         PlayerConfigurations.SalvarPlayer(player);
         FakeClear(50,true);
 
@@ -59,6 +59,11 @@ public abstract class BossBattle extends Boss{
         TempoDeLeitura(Devorador.Intro());
         FakeClear(50,true);
         return d.iniciarBatalha();
+
+    }
+
+    public static void bossBattleSegundaQueda(Player player){
+
 
     }
 }
