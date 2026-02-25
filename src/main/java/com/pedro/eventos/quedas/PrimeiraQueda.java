@@ -19,6 +19,7 @@ import java.util.*;
 public class PrimeiraQueda extends Battle {
 
     static List<String> verificacao = Arrays.asList("1","2","3","4","5");
+    private static Random r;
 
 
     public PrimeiraQueda(){
@@ -26,6 +27,8 @@ public class PrimeiraQueda extends Battle {
     }
 
     public static void Start(Player p) throws InterruptedException, IOException, SQLException {
+
+
         if(p.getCheckPoint() != Checkpoint.PRIMEIRA_QUEDA_BOSS && p.getCheckPoint() != Checkpoint.PRIMEIRA_QUEDA_DESCANSO ){
             p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
         }
@@ -35,10 +38,11 @@ public class PrimeiraQueda extends Battle {
             Notas.notasIntroPrimeiraTorre(2);
         }
 
-        while(p.carnDeCadaLevelMorto.containsAll(verificacao) || p.carnMortos <= 10  ){
-
+        while(p.carnDeCadaLevelMorto.containsAll(verificacao) || p.carnMortos <= 10){
+            System.out.println(p.carnDeCadaLevelMorto.containsAll(verificacao));
             if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO){
                 EventosSecundarios.Descanso(p,1,null); //descanso
+
                 p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA);
             }
             if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA) {
@@ -54,7 +58,7 @@ public class PrimeiraQueda extends Battle {
                         Notas.notaSegredo(p);
                         UtilForMe.FakeClear(50, true); //verificado
                     }
-                    if (p.carnDeCadaLevelMorto.containsAll(verificacao) || (p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao))) {
+                    if ( p.carnDeCadaLevelMorto.containsAll(verificacao) || (p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao))) {
                         QuebraPortao(p);
                         p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
                         PlayerConfigurations.SalvarPlayer(p);
@@ -76,13 +80,16 @@ public class PrimeiraQueda extends Battle {
 
         }
 
-        if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO || p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
+        if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_DESCANSO ||
+                p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS ||
+                p.carnDeCadaLevelMorto.containsAll(verificacao)
+                || (p.carnMortos > 10 && !p.carnDeCadaLevelMorto.containsAll(verificacao))){
             EventosSecundarios.Descanso(p,1,null); //descanso
             p.setCheckPoint(Checkpoint.PRIMEIRA_QUEDA_BOSS);
         }
 
         if(p.getCheckPoint() == Checkpoint.PRIMEIRA_QUEDA_BOSS){
-            BossBattle.bossBattlePrimeiraQueda(p);
+            BossBattle.BossBattlePrimeiraQueda(p);
         }
 
     }

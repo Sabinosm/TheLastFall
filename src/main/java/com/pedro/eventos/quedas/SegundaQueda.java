@@ -120,7 +120,14 @@ public class SegundaQueda {
 
         escolha = ReadInt();
 
-        if(torre == 4 && !p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
+        while (escolha != 2 && escolha != 1){
+            System.out.println("Digite um número válido");
+            escolha = ReadInt();
+        }
+
+        UtilForMe.FakeClear(50,false);
+
+        if(escolha == 1 && torre == 4 && !p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
             System.out.println("\nA porta está fechada mas é possível forçar a passagem, é um perigo, " +
                     "mas não impossível.....provavelmente\n" +
                     "[ 1 ] Continuar\n" +
@@ -138,14 +145,10 @@ public class SegundaQueda {
                 DevoradorSpawn(p);
                 return false;
             }
-        }else if(torre == 4 && p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
-            //todo Indo para o boss
-        }
-        while (escolha != 2 && escolha != 1){
-            System.out.println("Digite um número válido");
-            escolha = ReadInt();
-        }
 
+        }else if(torre == 4 && p.chavesAdquiridas.contains(Arrays.asList(1,2,3))){
+            BossBattle.BossBattleSegundaQueda(p);
+        }
         if(escolha == 1 && !p.chavesAdquiridas.contains(chavesTotais.indexOf(torre))){
             while (!Desafio(torre)){
                 wrongAnswers++;

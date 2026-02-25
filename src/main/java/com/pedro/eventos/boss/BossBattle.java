@@ -1,22 +1,18 @@
 package com.pedro.eventos.boss;
 
-import com.pedro.UtilForMe;
 import com.pedro.configuracoes.Checkpoint;
 import com.pedro.configuracoes.PlayerConfigurations;
-import com.pedro.eventos.EventosSecundarios;
 import com.pedro.referenteAosPersonagens.Player;
-import org.jline.reader.UserInterruptException;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 import static com.pedro.UtilForMe.FakeClear;
 import static com.pedro.UtilForMe.TempoDeLeitura;
 
 public abstract class BossBattle extends Boss{
-    public static void bossBattlePrimeiraQueda(Player player) throws IOException, InterruptedException, SQLException {
+    public static void BossBattlePrimeiraQueda(Player player) throws IOException, InterruptedException, SQLException {
 
         FakeClear(50,true); // verificado
         BossAmalgama boss = new BossAmalgama(player);
@@ -62,8 +58,7 @@ public abstract class BossBattle extends Boss{
 
     }
 
-    public static void bossBattleSegundaQueda(Player player){
-
+    public static void BossBattleSegundaQueda(Player player){
 
     }
 }

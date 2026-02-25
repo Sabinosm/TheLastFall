@@ -300,9 +300,9 @@ public class PlayerConfigurations {
             psStats.setString(8,  magoLevelMorto);
             psStats.setString(9,  demonLevelMorto);
             psStats.setString(10,  p.getCheckPoint().name());
-            psStats.setInt(11,  p.getPlayerId());
             psStats.setString(12,chavesPegas);
             psStats.setInt(13, p.leituraParede);
+            psStats.setInt(11,  p.getPlayerId());
             psStats.executeUpdate();
 
             conexao.commit();
