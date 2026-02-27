@@ -2,33 +2,19 @@ package com.pedro.eventos.boss;
 
 import com.pedro.RetornoMultiplo;
 import com.pedro.UtilForMe;
-import com.pedro.referenteAosPersonagens.Player;
 
 import java.io.IOException;
 import java.util.Random;
 
-public class BossAlquiron extends Boss{
-    @Override
-    public String Introducao(Player player) throws IOException, InterruptedException {
-        return "";
-    }
-
-    @Override
-    public void DefinirAtributosBoss(Player p) {
-
-    }
-
-    @Override
-    public void MorteBoss() throws IOException, InterruptedException {
+public class testes {
+    public static void main(String[] args) throws IOException, InterruptedException{
+                RetornoMultiplo retCacaP = CriarCacaPalavras("bobo");
+        char[][] cacaP = retCacaP.matrizChar;
+        testes x = new testes();
+        if(x.RespostaCorretaCacaPalavras(cacaP, UtilForMe.ReadStr(),"bobo",retCacaP.inteiro)) System.out.println("YAY");
+        else System.out.println("NO");
 
     }
-
-    @Override
-    public void AtacarPlayer(Player playerAtacante, Boss bossAlvo, int round) throws IOException {
-
-    }
-
-
 
     public static RetornoMultiplo CriarCacaPalavras(String palavra){
         // Converte a palavra em um array de caracteres
@@ -210,4 +196,5 @@ public class BossAlquiron extends Boss{
 
         return posicao;
     }
+
 }
