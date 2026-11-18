@@ -149,7 +149,6 @@ public abstract class Mob {
 
     }
 
-
     public void setActLife(double actLife) {
         this.actLife = actLife;
     }

@@ -637,13 +637,21 @@ public class Notas {
                     
                     """;
         }
-        else {
+        else if(torre == 3) {
             t = """
                     - Torre do Norte -
                     O interior pulsa com mana densa, formando padrões que se movem nas paredes como seres vivos.
                     A luz não tem cor definida, muda conforme você respira, julgando sua presença.
                     Cada passo ecoa pesado, e a própria torre parece consciente, orgulhosa do Arcanista que protege.
                     
+                    """;
+        } else{
+            t = """
+                    - Torre do Sul -
+                    Ao abrir a porta da torre, é possível sentir uma leve brisa do interior dela, o corredor dela é longa,
+                    mais que uma torre, parecia ser uma construção maior, mesmo que por fora, não aparentasse. Nas suas paredes,
+                    pequenos textos, alguns cortados, outros somente com letras sem conexão, é uma língua diferente da língua que
+                    conheço. 
                     """;
         }
 
