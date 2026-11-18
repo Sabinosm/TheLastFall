@@ -2,8 +2,8 @@ package com.pedro.referenteAosPersonagens;
 
 import java.util.Random;
 
-public class Passivas {
-    public Passivas() {
+public class Passiva {
+    public Passiva() {
 
     }
 
@@ -166,7 +166,7 @@ public class Passivas {
     }
 
     public static void atualizarAtributosSemBatalha(Player player) {
-        switch (Passivas.qualPassiva(player)) {
+        switch (Passiva.qualPassiva(player)) {
             case "Corpo divino":
                 player.life = player.pLife * 1.30; // 30% de bônus de vida
                 player.damage = player.pDamage * 1.1;  // 10% a mais de dano
@@ -214,7 +214,7 @@ public class Passivas {
     }
 
     public static void atualizarAtributosBatalhaPlayerTexto(Player x,Enemy adversario) {
-        switch (Passivas.qualPassiva(x)) {
+        switch (Passiva.qualPassiva(x)) {
             case "Espelho arcano":
                 System.out.println("\n" + "Por causa da passiva" + x.nome + " causou dano verdadeiro adicional: " + adversario.damage * 0.8);
                 System.out.println("Por causa da passiva" + x.nome + "teve dano bloqueado: " + adversario.damage * 0.15 + "\n");
